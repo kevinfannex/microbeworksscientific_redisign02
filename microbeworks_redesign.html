@@ -1,0 +1,2424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MicrobeWorks Scientific — We Grow Color. Not Pollution.</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* PP Neue Montreal — use local if available, else fall back to Space Grotesk */
+    @font-face {
+      font-family: 'PP Neue Montreal';
+      src: local('PP Neue Montreal Medium'), local('PPNeueMontreal-Medium');
+      font-weight: 400;
+      font-style: normal;
+    }
+  </style>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <style>
+    /* ====================== RESET & BASE ====================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #ffffff;
+      --bg2: #f6f6f4;
+      --bg3: #efefec;
+      --surface: rgba(255, 255, 255, 0.9);
+      --border: rgba(0, 0, 0, 0.08);
+      --border-bright: rgba(0, 255, 136, 0.4);
+      --text: #0a0a0a;
+      --text-muted: rgba(10, 10, 10, 0.55);
+      --text-dim: rgba(10, 10, 10, 0.3);
+      --accent: #00ff88;
+      --accent2: #00cc6a;
+      --accent3: #009950;
+      --glow: rgba(0, 255, 136, 0.18);
+      --glow-green: rgba(0, 255, 136, 0.12);
+      --font-display: 'PP Neue Montreal', 'Space Grotesk', sans-serif;
+      --font-body: 'PP Neue Montreal', 'Space Grotesk', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ====================== CUSTOM CURSOR ====================== */
+    #cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: difference;
+    }
+
+    #cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      transition: width .15s, height .15s;
+    }
+
+    #cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      transition: width .3s, height .3s, border-color .3s;
+    }
+
+    body:has(a:hover) #cursor-ring,
+    body:has(button:hover) #cursor-ring {
+      width: 56px;
+      height: 56px;
+      border-color: var(--accent);
+    }
+
+    /* ====================== NAV ====================== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .4s, backdrop-filter .4s;
+    }
+
+    nav.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      letter-spacing: .15em;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .nav-logo-mark {
+      width: 24px;
+      height: 24px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .6rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--accent);
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .6rem 1.4rem;
+      cursor: pointer;
+      transition: background .3s, box-shadow .3s;
+      font-family: var(--font-body);
+    }
+
+    .nav-cta:hover {
+      background: rgba(0, 255, 136, 0.12);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+    }
+
+    /* ====================== HERO ====================== */
+    #hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 860px;
+      padding: 0 2rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid var(--border-bright);
+      background: rgba(0, 255, 136, 0.07);
+      padding: .4rem 1rem;
+      border-radius: 100px;
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      font-family: var(--font-mono);
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.8);
+      }
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1.0;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -.01em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: .9rem 2.2rem;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: box-shadow .3s, transform .2s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text);
+      padding: .9rem 2.2rem;
+      font-size: .85rem;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background .3s, border-color .3s;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-color: rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--text-dim);
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollDown 2s infinite;
+    }
+
+    @keyframes scrollDown {
+      0% {
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    /* ====================== SECTION SHARED ====================== */
+    section {
+      position: relative;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-label::before {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -.02em;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ====================== WHAT WE DO ====================== */
+    #what {
+      padding: 10rem 3rem;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    }
+
+    .what-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .what-left .section-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .what-left p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    .what-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .what-card {
+      padding: 1.5rem 2rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: border-color .3s, background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .what-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--glow), transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .what-card:hover {
+      border-color: var(--border-bright);
+    }
+
+    .what-card:hover::before {
+      opacity: 1;
+    }
+
+    .what-card-num {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--accent);
+      opacity: .7;
+      min-width: 24px;
+      margin-top: .3rem;
+    }
+
+    .what-card-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border: 1px solid var(--border-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: 1.2rem;
+    }
+
+    .what-card-body h3 {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .4rem;
+      letter-spacing: .02em;
+    }
+
+    .what-card-body p {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    /* Microbe SVG animation */
+    .what-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .what-visual svg {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .microbe-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: drawPath 4s ease forwards;
+    }
+
+    @keyframes drawPath {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .orbit-dot {
+      animation: orbit 6s linear infinite;
+      transform-origin: 240px 240px;
+    }
+
+    @keyframes orbit {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* ====================== HOW IT WORKS ====================== */
+    #how {
+      padding: 10rem 0;
+      background: var(--bg2);
+      overflow: hidden;
+    }
+
+    .how-header {
+      padding: 0 3rem;
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+    }
+
+    .steps-track {
+      display: flex;
+      padding: 0 3rem;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-bottom: 1rem;
+    }
+
+    .steps-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .step-card {
+      flex: 0 0 280px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .4s, border-color .4s;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .step-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .step-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--border-bright);
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: .08;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      line-height: 1;
+    }
+
+    .step-icon-ring {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--border-bright);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .step-icon-ring::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      border: 1px solid var(--accent);
+      opacity: .2;
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes ringPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: .2;
+      }
+
+      50% {
+        transform: scale(1.15);
+        opacity: .05;
+      }
+    }
+
+    .step-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .75rem;
+      letter-spacing: .02em;
+    }
+
+    .step-card p {
+      font-size: .85rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .step-connector {
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1.5rem;
+      height: 1px;
+      background: linear-gradient(to right, var(--accent), transparent);
+      z-index: 1;
+    }
+
+    .step-tag {
+      display: inline-block;
+      margin-top: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      color: var(--accent2);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      padding: .25rem .6rem;
+      border-radius: 100px;
+    }
+
+    .steps-progress {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding: 0 3rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .progress-seg {
+      height: 2px;
+      flex: 1;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    .progress-fill.active {
+      width: 100%;
+    }
+
+    /* ====================== IMPACT ====================== */
+    #impact {
+      padding: 10rem 0;
+      background: var(--bg);
+    }
+
+    .impact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .impact-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 5rem;
+    }
+
+    .impact-side {
+      position: relative;
+      border: 1px solid var(--border);
+      padding: 3rem;
+      overflow: hidden;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .impact-side.dark-side {
+      background: linear-gradient(135deg, #fff0ee, #faf8f8);
+      border-color: rgba(220, 80, 60, 0.2);
+    }
+
+    .impact-side.light-side {
+      background: linear-gradient(135deg, #f0fff8, #f5fff9);
+      border-color: rgba(0, 200, 100, 0.2);
+    }
+
+    .impact-side-bg {
+      position: absolute;
+      inset: 0;
+      opacity: .15;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .dark-side .impact-side-bg {
+      background: radial-gradient(ellipse at 30% 30%, rgba(220, 80, 60, .2), transparent 60%),
+        radial-gradient(ellipse at 70% 70%, rgba(180, 40, 40, .15), transparent 60%);
+    }
+
+    .light-side .impact-side-bg {
+      background: radial-gradient(ellipse at 70% 30%, rgba(0, 255, 136, .2), transparent 60%),
+        radial-gradient(ellipse at 30% 70%, rgba(0, 200, 200, .12), transparent 60%);
+    }
+
+    .pollution-visual,
+    .clean-visual {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .25;
+    }
+
+    .impact-side-label {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .dark-side .impact-side-label {
+      color: #ff6b50;
+    }
+
+    .light-side .impact-side-label {
+      color: var(--accent2);
+    }
+
+    .impact-side-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      line-height: 1.2;
+      color: var(--text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .impact-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform .4s;
+      transform-origin: left;
+    }
+
+    .stat-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: .5rem;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      color: var(--text-muted);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .stat-suffix {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--accent2);
+      margin-top: .25rem;
+    }
+
+    /* ====================== PRODUCTS ====================== */
+    #products {
+      padding: 10rem 3rem;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg3) 100%);
+    }
+
+    .products-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .products-header {
+      margin-bottom: 5rem;
+    }
+
+    .color-explorer {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .color-swatches {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+    }
+
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      cursor: pointer;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .color-swatch::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--swatch-color, transparent);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .color-swatch.active,
+    .color-swatch:hover {
+      border-color: var(--swatch-color, var(--border-bright));
+      box-shadow: 0 0 20px var(--swatch-glow, transparent);
+    }
+
+    .swatch-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--swatch-color);
+      flex-shrink: 0;
+      box-shadow: 0 0 12px var(--swatch-color);
+    }
+
+    .swatch-info {
+      flex: 1;
+    }
+
+    .swatch-name {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .2rem;
+    }
+
+    .swatch-desc {
+      font-size: .75rem;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .swatch-arrow {
+      color: var(--text-dim);
+      font-size: .9rem;
+      transition: color .3s, transform .3s;
+    }
+
+    .color-swatch.active .swatch-arrow,
+    .color-swatch:hover .swatch-arrow {
+      color: var(--text);
+      transform: translateX(4px);
+    }
+
+    .color-preview {
+      position: sticky;
+      top: 6rem;
+    }
+
+    .preview-fabric {
+      position: relative;
+      height: 380px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: var(--bg3);
+    }
+
+    .fabric-canvas {
+      width: 100%;
+      height: 100%;
+      transition: background 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .preview-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(255, 255, 255, .85), transparent);
+    }
+
+    .preview-product-name {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+
+    .preview-metrics {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .preview-metric {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      letter-spacing: .1em;
+      color: var(--accent2);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      padding: .25rem .6rem;
+      border-radius: 100px;
+    }
+
+    .fabric-texture {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0, 0, 0, 0.04) 4px, rgba(0, 0, 0, 0.04) 5px), repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.04) 4px, rgba(0, 0, 0, 0.04) 5px);
+    }
+
+    /* ====================== TECHNOLOGY ====================== */
+    #tech {
+      padding: 10rem 3rem;
+      background: var(--bg2);
+      overflow: hidden;
+    }
+
+    .tech-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .tech-right {
+      position: relative;
+    }
+
+    #dna-canvas {
+      width: 100%;
+      height: 500px;
+      display: block;
+    }
+
+    .tech-specs {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      margin-top: 3rem;
+    }
+
+    .tech-spec {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: .82rem;
+    }
+
+    .tech-spec-label {
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .tech-spec-val {
+      font-family: var(--font-mono);
+      color: var(--accent);
+      font-size: .75rem;
+    }
+
+    .tech-quote {
+      margin-top: 2.5rem;
+      padding: 1.5rem 2rem;
+      border-left: 2px solid var(--accent);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+    }
+
+    .tech-quote p {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: .75rem;
+    }
+
+    .tech-quote cite {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      color: var(--text-muted);
+      letter-spacing: .1em;
+    }
+
+    /* ====================== TEAM ====================== */
+    #team {
+      padding: 10rem 3rem;
+      background: var(--bg);
+    }
+
+    .team-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 5rem;
+    }
+
+    .team-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      backdrop-filter: blur(10px);
+      padding: 2rem 1.5rem;
+      transition: border-color .3s, transform .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .team-card:hover {
+      border-color: var(--border-bright);
+      transform: translateY(-4px);
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transition: transform .4s;
+      transform-origin: left;
+    }
+
+    .team-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .team-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--bg);
+      margin-bottom: 1.25rem;
+    }
+
+    .team-name {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: .25rem;
+    }
+
+    .team-role {
+      font-size: .78rem;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      letter-spacing: .05em;
+      margin-bottom: .75rem;
+    }
+
+    .team-bio {
+      font-size: .8rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .team-cred {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--text-dim);
+      letter-spacing: .08em;
+    }
+
+    /* ====================== CTA ====================== */
+    #cta {
+      padding: 12rem 3rem;
+      background: var(--bg2);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(0, 255, 136, .08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-grid-lines {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+    }
+
+    .cta-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.1;
+      color: var(--text);
+      letter-spacing: -.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .cta-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-big {
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 1.1rem 2.8rem;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: box-shadow .3s, transform .2s;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    }
+
+    .cta-big:hover {
+      box-shadow: 0 0 50px rgba(0, 255, 136, .5);
+      transform: translateY(-3px);
+    }
+
+    .cta-outline {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      color: var(--text);
+      padding: 1.1rem 2.8rem;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background .3s;
+    }
+
+    .cta-outline:hover {
+      background: rgba(0, 0, 0, .04);
+    }
+
+    .cta-partners {
+      margin-top: 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .partner-label {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--text-dim);
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .partner-logos {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .partner-name {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--text-dim);
+      letter-spacing: .15em;
+      font-weight: 700;
+      opacity: .5;
+      transition: opacity .3s;
+    }
+
+    .partner-name:hover {
+      opacity: 1;
+    }
+
+    /* ====================== FOOTER ====================== */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-size: .8rem;
+      color: var(--accent);
+      letter-spacing: .15em;
+    }
+
+    .footer-copy {
+      font-size: .75rem;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      font-size: .75rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* ====================== RESPONSIVE ====================== */
+    @media (max-width: 900px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      #hero {
+        padding-top: 4rem;
+      }
+
+      .what-inner,
+      .tech-inner,
+      .impact-split,
+      .color-explorer {
+        grid-template-columns: 1fr;
+      }
+
+      .what-visual {
+        order: -1;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .impact-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      body {
+        cursor: auto;
+      }
+
+      #cursor {
+        display: none;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .impact-stats {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      .hero-ctas {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* ====================== ENTRANCE ANIMATIONS ====================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s cubic-bezier(0.4, 0, 0.2, 1),
+        transform .8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: .1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: .2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: .3s;
+    }
+
+    .reveal-delay-4 {
+      transition-delay: .4s;
+    }
+
+    /* ====================== NOISE OVERLAY ====================== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .02;
+    }
+    /* ====================== LIGHT THEME EXTRAS ====================== */
+
+    /* Hero: ensure text is readable over the white canvas */
+    .hero-title {
+      text-shadow: none;
+    }
+
+    /* Cards: crisp shadow instead of dark surface */
+    .what-card,
+    .step-card,
+    .stat-card,
+    .team-card,
+    .tech-quote {
+      background: #ffffff;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+
+    .what-card:hover,
+    .step-card:hover,
+    .team-card:hover {
+      box-shadow: 0 4px 32px rgba(0,255,136,0.18);
+    }
+
+    /* Preview section */
+    .preview-fabric {
+      background: var(--bg3);
+    }
+
+    /* Fabric texture on light bg */
+    .fabric-texture {
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.025) 4px, rgba(0,0,0,0.025) 5px),
+        repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.025) 4px, rgba(0,0,0,0.025) 5px);
+    }
+
+    /* Impact side title on light panels */
+    .dark-side .impact-side-title,
+    .light-side .impact-side-title {
+      color: #0a0a0a;
+    }
+
+    /* Scroll line uses accent */
+    .scroll-line {
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    /* Border-bright to subtle green ring on inputs/buttons */
+    .btn-secondary {
+      border-color: rgba(0,0,0,0.15);
+      color: var(--text);
+    }
+
+    /* Noise overlay — very subtle on white */
+    body::before {
+      opacity: .015;
+    }
+
+    /* Preview product name in black on white overlay */
+    .preview-product-name {
+      color: #0a0a0a;
+    }
+
+    /* Footer light background */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Accent green on active swatch border */
+    .color-swatch.active {
+      background: rgba(0,255,136,0.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====================== CURSOR ====================== -->
+  <div id="cursor">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+  </div>
+
+  <!-- ====================== NAV ====================== -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">M</div>
+      MICROBEWORKS
+    </a>
+    <ul class="nav-links">
+      <li><a href="#what">Science</a></li>
+      <li><a href="#how">Process</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+    <button class="nav-cta">Partner With Us</button>
+  </nav>
+
+  <!-- ====================== HERO ====================== -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Synthetic Biology · Series A 2025
+      </div>
+      <h1 class="hero-title">
+        We grow color.
+        <em>Not pollution.</em>
+      </h1>
+      <p class="hero-sub">
+        Sustainable textile dyes engineered from living microorganisms —
+        replacing toxic chemicals with the precision of biology.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">
+          Explore Technology
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">
+          Partner With Us
+        </button>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ====================== WHAT WE DO ====================== -->
+  <section id="what">
+    <div class="what-inner">
+      <div class="what-left">
+        <div class="section-label reveal">What We Do</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Biology is the<br><em>new chemistry.</em>
+        </h2>
+        <p class="reveal reveal-delay-2">
+          The textile industry pours 200 billion liters of toxic dye wastewater
+          into ecosystems every year. We've engineered a living alternative —
+          microbes that produce vivid, stable pigments with near-zero ecological footprint.
+        </p>
+        <div class="what-cards">
+          <div class="what-card reveal reveal-delay-2">
+            <span class="what-card-num">01</span>
+            <div class="what-card-icon">🧬</div>
+            <div class="what-card-body">
+              <h3>Microbe Engineering</h3>
+              <p>We reprogram Bacillus and Pseudomonas strains using precision CRISPR tools to express target
+                chromogenic pathways.</p>
+            </div>
+          </div>
+          <div class="what-card reveal reveal-delay-3">
+            <span class="what-card-num">02</span>
+            <div class="what-card-icon">⚗️</div>
+            <div class="what-card-body">
+              <h3>Pigment Biosynthesis</h3>
+              <p>Fed simple sugars, engineered microbes metabolize and secrete stable, lightfast pigments at industrial
+                scale.</p>
+            </div>
+          </div>
+          <div class="what-card reveal reveal-delay-4">
+            <span class="what-card-num">03</span>
+            <div class="what-card-icon">🌿</div>
+            <div class="what-card-body">
+              <h3>Drop-in Replacement</h3>
+              <p>Our bio-dyes are chemically compatible with existing textile infrastructure. No new machinery. Zero
+                transition cost.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="what-visual">
+        <!-- Animated microbe SVG -->
+        <svg viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Outer rings -->
+          <circle cx="240" cy="240" r="220" stroke="rgba(0,255,136,0.08)" stroke-width="1" />
+          <circle cx="240" cy="240" r="180" stroke="rgba(0,255,136,0.10)" stroke-width="1" />
+          <circle cx="240" cy="240" r="140" stroke="rgba(0,255,136,0.12)" stroke-width="1" />
+
+          <!-- Microbe body -->
+          <ellipse cx="240" cy="240" rx="85" ry="105" stroke="rgba(0,200,80,0.5)" stroke-width="1.5"
+            fill="rgba(0,255,136,0.06)" />
+
+          <!-- Flagella paths -->
+          <path d="M240 345 C280 370 320 360 340 390 C360 420 350 450 330 460" stroke="rgba(0,200,80,0.3)"
+            stroke-width="1" fill="none" class="microbe-path" style="animation-delay:0s" />
+          <path d="M240 345 C200 375 160 365 140 395 C120 425 130 455 150 465" stroke="rgba(0,200,80,0.3)"
+            stroke-width="1" fill="none" class="microbe-path" style="animation-delay:.5s" />
+          <path d="M325 240 C360 220 390 230 410 210 C430 190 425 160 410 150" stroke="rgba(0,200,80,0.25)"
+            stroke-width="1" fill="none" class="microbe-path" style="animation-delay:1s" />
+
+          <!-- DNA helix inside -->
+          <path d="M220 170 Q240 185 260 200 Q240 215 220 230 Q240 245 260 260 Q240 275 220 290 Q240 305 260 320"
+            stroke="rgba(0,255,136,0.4)" stroke-width="1.5" fill="none" />
+          <path d="M260 170 Q240 185 220 200 Q240 215 260 230 Q240 245 220 260 Q240 275 260 290 Q240 305 220 320"
+            stroke="rgba(0,200,80,0.4)" stroke-width="1.5" fill="none" />
+          <!-- Cross links -->
+          <line x1="240" y1="192" x2="240" y2="192" stroke="rgba(255,255,255,0.3)" stroke-width="1" />
+          <line x1="220" y1="200" x2="260" y2="200" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="260" y1="215" x2="220" y2="215" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="220" y1="230" x2="260" y2="230" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="260" y1="245" x2="220" y2="245" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="220" y1="260" x2="260" y2="260" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="260" y1="275" x2="220" y2="275" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="220" y1="290" x2="260" y2="290" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="260" y1="305" x2="220" y2="305" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+
+          <!-- Orbiting particles -->
+          <g class="orbit-dot" style="animation-duration:8s">
+            <circle cx="240" cy="60" r="4" fill="var(--accent)" opacity=".8" />
+          </g>
+          <g class="orbit-dot" style="animation-duration:12s; animation-direction:reverse">
+            <circle cx="420" cy="240" r="3" fill="var(--accent2)" opacity=".6" />
+          </g>
+          <g class="orbit-dot" style="animation-duration:6s">
+            <circle cx="60" cy="240" r="3" fill="rgba(0,200,80,.5)" opacity=".5" />
+          </g>
+
+          <!-- Labels -->
+          <text x="350" y="130" fill="rgba(0,200,80,0.5)" font-size="9" font-family="'Space Mono',monospace"
+            letter-spacing="1">CRISPR-EDITED</text>
+          <text x="350" y="145" fill="rgba(0,200,80,0.3)" font-size="9" font-family="'Space Mono',monospace"
+            letter-spacing="1">GENOME</text>
+
+          <text x="22" y="150" fill="rgba(0,255,136,0.5)" font-size="9" font-family="'Space Mono',monospace"
+            letter-spacing="1">PIGMENT</text>
+          <text x="22" y="165" fill="rgba(0,255,136,0.3)" font-size="9" font-family="'Space Mono',monospace"
+            letter-spacing="1">OUTPUT</text>
+
+          <!-- Glow center -->
+          <circle cx="240" cy="245" r="20" fill="rgba(0,255,136,0.10)" />
+          <circle cx="240" cy="245" r="10" fill="rgba(0,255,136,0.15)" />
+          <circle cx="240" cy="245" r="4" fill="rgba(0,200,80,0.4)" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== HOW IT WORKS ====================== -->
+  <section id="how">
+    <div class="how-header">
+      <div class="section-label reveal">The Process</div>
+      <h2 class="section-title reveal reveal-delay-1">
+        From genome to <em>garment.</em>
+      </h2>
+    </div>
+    <div class="steps-track" id="stepsTrack">
+      <div class="step-card" data-step="1">
+        <span class="step-num">01</span>
+        <div class="step-icon-ring">🧬</div>
+        <h3>Genome Engineering</h3>
+        <p>Using CRISPR-Cas9, we splice chromogenic gene clusters into Bacillus subtilis, switching on dormant
+          pigment-producing pathways with surgical precision.</p>
+        <span class="step-tag">CRISPR-Cas9</span>
+      </div>
+      <div class="step-card" data-step="2">
+        <span class="step-num">02</span>
+        <div class="step-icon-ring">🌾</div>
+        <h3>Nutrient Feed</h3>
+        <p>Engineered strains are cultured in bioreactors with precise glucose-mineral media. No petrochemicals. Just
+          carbohydrates and trace minerals.</p>
+        <span class="step-tag">BIOREACTOR</span>
+      </div>
+      <div class="step-card" data-step="3">
+        <span class="step-num">03</span>
+        <div class="step-icon-ring">🔬</div>
+        <h3>Fermentation</h3>
+        <p>72-hour aerobic fermentation at 32°C. Microbes multiply exponentially while secreting pigment molecules into
+          the broth at 4-8% dry weight yield.</p>
+        <span class="step-tag">72HR CYCLE</span>
+      </div>
+      <div class="step-card" data-step="4">
+        <span class="step-num">04</span>
+        <div class="step-icon-ring">💧</div>
+        <h3>Pigment Extraction</h3>
+        <p>Cell-free broth is centrifuged and membrane-filtered. Pigments are concentrated by nanofiltration — no
+          organic solvents required.</p>
+        <span class="step-tag">ZERO SOLVENT</span>
+      </div>
+      <div class="step-card" data-step="5">
+        <span class="step-num">05</span>
+        <div class="step-icon-ring">🎨</div>
+        <h3>Textile Application</h3>
+        <p>Bio-dye formulations drop into existing exhaust dyeing equipment. Compatible with cotton, silk, wool, and
+          synthetic blends. ISO-grade colorfastness.</p>
+        <span class="step-tag">DROP-IN READY</span>
+      </div>
+    </div>
+    <div class="steps-progress" id="stepsProgress">
+      <div class="progress-seg">
+        <div class="progress-fill" id="p1"></div>
+      </div>
+      <div class="progress-seg">
+        <div class="progress-fill" id="p2"></div>
+      </div>
+      <div class="progress-seg">
+        <div class="progress-fill" id="p3"></div>
+      </div>
+      <div class="progress-seg">
+        <div class="progress-fill" id="p4"></div>
+      </div>
+      <div class="progress-seg">
+        <div class="progress-fill" id="p5"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== IMPACT ====================== -->
+  <section id="impact">
+    <div class="impact-inner">
+      <div class="section-label reveal">Environmental Impact</div>
+      <h2 class="section-title reveal reveal-delay-1">
+        The numbers<br>don't <em>lie.</em>
+      </h2>
+      <div class="impact-split">
+        <div class="impact-side dark-side reveal">
+          <div class="impact-side-bg"></div>
+          <svg class="pollution-visual" viewBox="0 0 300 200" fill="none">
+            <circle cx="60" cy="100" r="40" fill="rgba(200,60,40,.3)" />
+            <circle cx="120" cy="80" r="30" fill="rgba(180,50,30,.2)" />
+            <circle cx="180" cy="110" r="50" fill="rgba(220,70,50,.2)" />
+            <circle cx="240" cy="90" r="35" fill="rgba(160,40,20,.25)" />
+            <path d="M0 150 C50 120 100 160 150 140 C200 120 250 155 300 135 L300 200 L0 200Z"
+              fill="rgba(120,30,20,.3)" />
+          </svg>
+          <div class="impact-side-label">Before — Chemical Dyeing</div>
+          <div class="impact-side-title">72 toxic chemicals.<br>Carcinogenic wastewater.</div>
+        </div>
+        <div class="impact-side light-side reveal reveal-delay-2">
+          <div class="impact-side-bg"></div>
+          <svg class="clean-visual" viewBox="0 0 300 200" fill="none">
+            <circle cx="80" cy="100" r="6" fill="rgba(0,255,136,.6)" />
+            <circle cx="120" cy="80" r="4" fill="rgba(0,200,80,.5)" />
+            <circle cx="160" cy="110" r="8" fill="rgba(0,255,136,.4)" />
+            <circle cx="200" cy="75" r="5" fill="rgba(0,200,80,.6)" />
+            <circle cx="240" cy="100" r="6" fill="rgba(0,255,136,.5)" />
+            <path d="M40 140 C80 120 120 135 160 125 C200 115 240 130 280 120" stroke="rgba(0,255,136,.3)"
+              stroke-width="1" fill="none" />
+            <path d="M0 160 C50 145 100 155 150 148 C200 141 250 150 300 143 L300 200 L0 200Z"
+              fill="rgba(0,180,80,.08)" />
+          </svg>
+          <div class="impact-side-label">After — Bio-Dyeing</div>
+          <div class="impact-side-title">Living microbes.<br>Clean effluent. Vivid color.</div>
+        </div>
+      </div>
+      <div class="impact-stats">
+        <div class="stat-card reveal">
+          <div class="stat-num" data-target="94" data-suffix="%">0%</div>
+          <div class="stat-label">Reduction in wastewater toxicity versus azo dye processing</div>
+          <div class="stat-suffix">WATER QUALITY</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-2">
+          <div class="stat-num" data-target="78" data-suffix="%">0%</div>
+          <div class="stat-label">Lower CO₂ equivalent emissions across full production lifecycle</div>
+          <div class="stat-suffix">CARBON FOOTPRINT</div>
+        </div>
+        <div class="stat-card reveal reveal-delay-3">
+          <div class="stat-num" data-target="100" data-suffix="%">0%</div>
+          <div class="stat-label">Non-toxic, biodegradable output — safe for aquatic ecosystems</div>
+          <div class="stat-suffix">BIO-SAFE OUTPUT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== PRODUCTS ====================== -->
+  <section id="products">
+    <div class="products-inner">
+      <div class="products-header">
+        <div class="section-label reveal">Product Line</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Twelve shades.<br><em>Infinite possibilities.</em>
+        </h2>
+      </div>
+      <div class="color-explorer">
+        <div class="color-swatches" id="colorSwatches">
+          <div class="color-swatch active" data-color="#00ff88" data-glow="rgba(0,255,136,0.3)" data-name="MicroGreen™"
+            data-desc="Indigo biosynthesis via tryptophan pathway"
+            data-metrics="94% less water · pH neutral · ISO 6:7 fastness">
+            <div class="swatch-dot" style="--swatch-color:#00ff88"></div>
+            <div class="swatch-info">
+              <div class="swatch-name">MicroGreen™</div>
+              <div class="swatch-desc">Indigo biosynthesis · Bacillus strain MW-04</div>
+            </div>
+            <span class="swatch-arrow">→</span>
+          </div>
+        </div>
+        <div class="color-preview">
+          <div class="preview-fabric" id="previewFabric">
+            <div class="fabric-texture"></div>
+            <canvas id="fabricCanvas" class="fabric-canvas" width="600" height="380"></canvas>
+            <div class="preview-overlay">
+              <div class="preview-product-name" id="previewName">MicroGreen™</div>
+              <div class="preview-metrics" id="previewMetrics">
+                <span class="preview-metric">94% less water</span>
+                <span class="preview-metric">pH neutral</span>
+                <span class="preview-metric">ISO 6:7 fastness</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem; padding:1.5rem; border:1px solid var(--border); background:var(--surface);">
+            <div
+              style="font-family:var(--font-mono); font-size:.65rem; color:var(--accent); letter-spacing:.15em; margin-bottom:.75rem;">
+              MOLECULAR PROFILE</div>
+            <div id="previewDesc" style="font-size:.82rem; color:var(--text-muted); font-weight:300; line-height:1.7;">
+              Indigo biosynthesis via tryptophan pathway
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== TECHNOLOGY ====================== -->
+  <section id="tech">
+    <div class="tech-inner">
+      <div class="tech-left">
+        <div class="section-label reveal">Deep Technology</div>
+        <h2 class="section-title reveal reveal-delay-1">
+          Precision biology<br>at <em>scale.</em>
+        </h2>
+        <p class="reveal reveal-delay-2"
+          style="color:var(--text-muted); font-size:1rem; line-height:1.8; font-weight:300; margin: 1.5rem 0 2.5rem;">
+          Our proprietary strain library contains 200+ engineered variants across
+          8 chassis organisms. Each strain is optimized for yield, stability,
+          and color gamut. We combine computational protein design with
+          directed evolution to push biosynthetic titers beyond natural limits.
+        </p>
+        <div class="tech-specs reveal reveal-delay-2">
+          <div class="tech-spec">
+            <span class="tech-spec-label">Chassis Organisms</span>
+            <span class="tech-spec-val">8 SPECIES</span>
+          </div>
+          <div class="tech-spec">
+            <span class="tech-spec-label">Strain Library</span>
+            <span class="tech-spec-val">200+ VARIANTS</span>
+          </div>
+          <div class="tech-spec">
+            <span class="tech-spec-label">Pigment Yield</span>
+            <span class="tech-spec-val">4–8% DW</span>
+          </div>
+          <div class="tech-spec">
+            <span class="tech-spec-label">Production Cycle</span>
+            <span class="tech-spec-val">72 HOURS</span>
+          </div>
+          <div class="tech-spec">
+            <span class="tech-spec-label">Color Gamut</span>
+            <span class="tech-spec-val">12 UNIQUE HUES</span>
+          </div>
+          <div class="tech-spec">
+            <span class="tech-spec-label">Patent Portfolio</span>
+            <span class="tech-spec-val">14 GRANTED</span>
+          </div>
+        </div>
+        <div class="tech-quote reveal reveal-delay-3">
+          <p>"We didn't just find a greener dye — we reprogrammed 3.8 billion years of evolution to grow the exact color
+            we want."</p>
+          <cite>— DR. PRIYA MEHTA, CO-FOUNDER & CSO</cite>
+        </div>
+      </div>
+      <div class="tech-right reveal reveal-delay-2">
+        <canvas id="dna-canvas"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== TEAM ====================== -->
+  <section id="team">
+    <div class="team-inner">
+      <div class="section-label reveal">The Team</div>
+      <h2 class="section-title reveal reveal-delay-1">
+        Built by scientists.<br><em>Led by vision.</em>
+      </h2>
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-avatar">AK</div>
+          <div class="team-name">Arjun Krishnan</div>
+          <div class="team-role">CEO & Co-Founder</div>
+          <div class="team-bio">Former VP at Ginkgo Bioworks. Led scale-up of 3 commercial fermentation programs. MBA
+            Harvard, BSc MIT.</div>
+          <div class="team-cred">PREV: GINKGO BIOWORKS · ZYMERGEN</div>
+        </div>
+        <div class="team-card reveal reveal-delay-1">
+          <div class="team-avatar" style="background:linear-gradient(135deg,var(--accent2),#0a8a50)">PM</div>
+          <div class="team-name">Dr. Priya Mehta</div>
+          <div class="team-role">CSO & Co-Founder</div>
+          <div class="team-bio">PhD Synthetic Biology, Imperial College London. 14 patents in metabolic engineering.
+            Former PI at ETH Zürich.</div>
+          <div class="team-cred">PREV: ETH ZÜRICH · IMPERIAL COLLEGE</div>
+        </div>
+        <div class="team-card reveal reveal-delay-2">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#f5a623,#c07010)">TL</div>
+          <div class="team-name">Thomas Laurent</div>
+          <div class="team-role">CTO</div>
+          <div class="team-bio">Built AI-driven strain optimization at Bolt Threads. MSc Bioinformatics, EPFL. Expert in
+            DBTL cycle automation.</div>
+          <div class="team-cred">PREV: BOLT THREADS · SPIBER</div>
+        </div>
+        <div class="team-card reveal reveal-delay-3">
+          <div class="team-avatar" style="background:linear-gradient(135deg,#a855f7,#6d28d9)">SC</div>
+          <div class="team-name">Sophie Chen</div>
+          <div class="team-role">Head of Partnerships</div>
+          <div class="team-bio">10 years textile industry. Former sustainability director at Patagonia. Relationships
+            with 40+ tier-1 fabric mills globally.</div>
+          <div class="team-cred">PREV: PATAGONIA · EILEEN FISHER</div>
+        </div>
+      </div>
+      <div
+        style="margin-top:4rem; padding:2rem 2.5rem; border:1px solid var(--border); background:var(--surface); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:2rem;"
+        class="reveal">
+        <div>
+          <div
+            style="font-family:var(--font-mono); font-size:.65rem; color:var(--accent); letter-spacing:.2em; margin-bottom:.5rem;">
+            BACKED BY</div>
+          <div style="display:flex; gap:2.5rem; flex-wrap:wrap;">
+            <span
+              style="font-family:var(--font-mono); font-size:.8rem; color:var(--text-muted); opacity:.7;">BREAKTHROUGH
+              ENERGY</span>
+            <span style="font-family:var(--font-mono); font-size:.8rem; color:var(--text-muted); opacity:.7;">CONGRUENT
+              VC</span>
+            <span style="font-family:var(--font-mono); font-size:.8rem; color:var(--text-muted); opacity:.7;">Y
+              COMBINATOR</span>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--font-display); font-size:1.8rem; color:var(--accent);">$18M</div>
+          <div style="font-family:var(--font-mono); font-size:.65rem; color:var(--text-muted); letter-spacing:.15em;">
+            SERIES A · 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== CTA ====================== -->
+  <section id="cta">
+    <div class="cta-bg"></div>
+    <div class="cta-grid-lines"></div>
+    <div class="cta-inner">
+      <div class="section-label reveal" style="justify-content:center">Get Involved</div>
+      <h2 class="cta-title reveal reveal-delay-1">
+        The future of color<br>is <em>alive.</em>
+      </h2>
+      <p class="cta-sub reveal reveal-delay-2">
+        Whether you're a textile manufacturer, sustainability-driven brand,
+        or climate investor — we want to hear from you.
+      </p>
+      <div class="cta-buttons reveal reveal-delay-3">
+        <button class="cta-big">Work With Us</button>
+        <button class="cta-outline">Investor Deck →</button>
+      </div>
+      <div class="cta-partners reveal reveal-delay-4">
+        <span class="partner-label">In conversation with</span>
+        <div class="partner-logos">
+          <span class="partner-name">ADIDAS</span>
+          <span class="partner-name">H&M GROUP</span>
+          <span class="partner-name">INDITEX</span>
+          <span class="partner-name">LVMH</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer>
+    <div class="footer-logo">MICROBEWORKS SCIENTIFIC</div>
+    <div class="footer-links">
+      <a href="#">Science</a>
+      <a href="#">Products</a>
+      <a href="#">Careers</a>
+      <a href="#">Press</a>
+    </div>
+    <div class="footer-copy">© 2025 MicrobeWorks Scientific Inc. · All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ====================== CUSTOM CURSOR ======================
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+    });
+
+    function animateCursor() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // ====================== NAV SCROLL ======================
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ====================== HERO PARTICLE SYSTEM (Three.js) ======================
+    (function initHeroCanvas() {
+      const canvas = document.getElementById('hero-canvas');
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 80;
+
+      // Particle geometry
+      const COUNT = 1800;
+      const positions = new Float32Array(COUNT * 3);
+      const colors = new Float32Array(COUNT * 3);
+      const sizes = new Float32Array(COUNT);
+
+      for (let i = 0; i < COUNT; i++) {
+        const i3 = i * 3;
+        const r = 60 + Math.random() * 40;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        positions[i3] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6;
+        positions[i3 + 2] = r * Math.cos(phi);
+        // Color: mix dark green and black for white bg
+        const t = Math.random();
+        colors[i3] = t * 0.0 + (1 - t) * 0.05;
+        colors[i3 + 1] = t * 1.0 + (1 - t) * 0.55;
+        colors[i3 + 2] = t * 0.53 + (1 - t) * 0.1;
+        sizes[i] = 0.3 + Math.random() * 1.2;
+      }
+
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      geo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+      const mat = new THREE.PointsMaterial({
+        size: 0.8, vertexColors: true, transparent: true,
+        opacity: 0.5, sizeAttenuation: true
+      });
+
+      const particles = new THREE.Points(geo, mat);
+      scene.add(particles);
+
+      // Central glow sphere
+      const sphereGeo = new THREE.SphereGeometry(8, 32, 32);
+      const sphereMat = new THREE.MeshBasicMaterial({
+        color: 0x00ff88, transparent: true, opacity: 0.04, wireframe: true
+      });
+      const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+      scene.add(sphere);
+
+      // Inner core
+      const coreGeo = new THREE.SphereGeometry(3, 16, 16);
+      const coreMat = new THREE.MeshBasicMaterial({
+        color: 0x00ff88, transparent: true, opacity: 0.12
+      });
+      const core = new THREE.Mesh(coreGeo, coreMat);
+      scene.add(core);
+
+      // Mouse parallax
+      let mx = 0, my = 0;
+      document.addEventListener('mousemove', e => {
+        mx = (e.clientX / window.innerWidth - 0.5) * 2;
+        my = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      let scrollY = 0;
+      window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const t = clock.getElapsedTime();
+        const scrollFrac = Math.min(scrollY / window.innerHeight, 1);
+
+        particles.rotation.y = t * 0.03 + mx * 0.1;
+        particles.rotation.x = t * 0.015 + my * 0.05;
+        mat.opacity = 0.45 - scrollFrac * 0.35;
+
+        sphere.rotation.y = t * 0.1;
+        sphere.rotation.x = t * 0.07;
+
+        camera.position.z = 80 + scrollFrac * 20;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+
+    // ====================== DNA CANVAS (Tech Section) ======================
+    (function initDNACanvas() {
+      const canvas = document.getElementById('dna-canvas');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.offsetWidth || 560;
+      const H = 500;
+      canvas.width = W;
+      canvas.height = H;
+
+      let frame = 0;
+      function drawDNA() {
+        ctx.clearRect(0, 0, W, H);
+        frame++;
+        const t = frame * 0.018;
+        const cx = W / 2;
+
+        // Draw double helix
+        for (let y = 0; y < H; y += 2) {
+          const fy = y / H;
+          const wave = Math.sin(fy * Math.PI * 5 + t);
+          const x1 = cx + wave * 90;
+          const x2 = cx - wave * 90;
+          const alpha = 0.15 + Math.abs(wave) * 0.4;
+
+          // Strand 1 — deep green
+          ctx.beginPath();
+          ctx.arc(x1, y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0,180,80,${alpha})`;
+          ctx.fill();
+
+          // Strand 2 — primary green
+          ctx.beginPath();
+          ctx.arc(x2, y, 2.5, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(0,255,136,${alpha * 0.9})`;
+          ctx.fill();
+
+          // Rungs (base pairs)
+          if (y % 20 === 0) {
+            const rungAlpha = 0.08 + Math.abs(wave) * 0.2;
+            ctx.beginPath();
+            ctx.moveTo(x1, y);
+            ctx.lineTo(x2, y);
+            ctx.strokeStyle = `rgba(0,0,0,${rungAlpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+
+            // Rung dots
+            const mid = (x1 + x2) / 2;
+            ctx.beginPath();
+            ctx.arc(mid, y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '0,180,80' : '0,120,60'},0.5)`;
+            ctx.fill();
+          }
+        }
+
+        // Glow effect
+        const grad = ctx.createRadialGradient(cx, H / 2, 0, cx, H / 2, 130);
+        grad.addColorStop(0, 'rgba(0,255,136,0.06)');
+        grad.addColorStop(1, 'rgba(0,255,136,0)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        requestAnimationFrame(drawDNA);
+      }
+      drawDNA();
+    })();
+
+    // ====================== FABRIC CANVAS (Products) ======================
+    (function initFabricCanvas() {
+      const canvas = document.getElementById('fabricCanvas');
+      const ctx = canvas.getContext('2d');
+      let currentColor = '#00ff88';
+      let targetColor = '#00ff88';
+      let frame = 0;
+
+      function hexToRgb(hex) {
+        const r = parseInt(hex.slice(1, 3), 16);
+        const g = parseInt(hex.slice(3, 5), 16);
+        const b = parseInt(hex.slice(5, 7), 16);
+        return { r, g, b };
+      }
+      let lerpColor = hexToRgb(currentColor);
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function drawFabric() {
+        frame++;
+        const t = frame * 0.01;
+        const { width: W, height: H } = canvas;
+        ctx.clearRect(0, 0, W, H);
+
+        const target = hexToRgb(targetColor);
+        lerpColor.r = lerp(lerpColor.r, target.r, 0.04);
+        lerpColor.g = lerp(lerpColor.g, target.g, 0.04);
+        lerpColor.b = lerp(lerpColor.b, target.b, 0.04);
+        const { r, g, b } = lerpColor;
+
+        // Fabric weave background
+        const grad = ctx.createLinearGradient(0, 0, W, H);
+        grad.addColorStop(0, `rgba(${r},${g},${b},0.6)`);
+        grad.addColorStop(0.5, `rgba(${r * .7 | 0},${g * .7 | 0},${b * .7 | 0},0.4)`);
+        grad.addColorStop(1, `rgba(${r},${g},${b},0.7)`);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+
+        // Ripple / flow effect
+        for (let i = 0; i < 6; i++) {
+          const ox = W / 2 + Math.sin(t + i * 1.2) * W * 0.3;
+          const oy = H / 2 + Math.cos(t * 0.7 + i * 0.9) * H * 0.25;
+          const rg = ctx.createRadialGradient(ox, oy, 0, ox, oy, 100 + i * 20);
+          rg.addColorStop(0, `rgba(${Math.min(255, r + 60)},${Math.min(255, g + 60)},${Math.min(255, b + 60)},0.2)`);
+          rg.addColorStop(1, 'rgba(0,0,0,0)');
+          ctx.fillStyle = rg;
+          ctx.fillRect(0, 0, W, H);
+        }
+
+        // Warp threads
+        ctx.globalAlpha = 0.07;
+        for (let x = 0; x < W; x += 6) {
+          ctx.beginPath();
+          ctx.moveTo(x + Math.sin(t + x * 0.05) * 2, 0);
+          ctx.lineTo(x + Math.sin(t + x * 0.05 + H * 0.1) * 2, H);
+          ctx.strokeStyle = `rgb(${r},${g},${b})`;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+        // Weft threads
+        for (let y = 0; y < H; y += 6) {
+          ctx.beginPath();
+          ctx.moveTo(0, y + Math.sin(t * 1.3 + y * 0.05) * 2);
+          ctx.lineTo(W, y + Math.sin(t * 1.3 + y * 0.05 + W * 0.1) * 2);
+          ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+
+        requestAnimationFrame(drawFabric);
+      }
+      drawFabric();
+
+      // Expose setter
+      window.setFabricColor = function (color) { targetColor = color; };
+
+      // Swatch interaction
+      document.querySelectorAll('.color-swatch').forEach(sw => {
+        sw.addEventListener('click', () => {
+          document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+          sw.classList.add('active');
+          const color = sw.dataset.color;
+          const name = sw.dataset.name;
+          const desc = sw.dataset.desc;
+          const metrics = sw.dataset.metrics;
+          window.setFabricColor(color);
+          document.getElementById('previewName').textContent = name;
+          document.getElementById('previewDesc').textContent = desc;
+          const metricsEl = document.getElementById('previewMetrics');
+          metricsEl.innerHTML = metrics.split(' · ').map(m => `<span class="preview-metric">${m}</span>`).join('');
+        });
+        sw.style.setProperty('--swatch-color', sw.dataset.color);
+        sw.style.setProperty('--swatch-glow', sw.dataset.glow);
+      });
+    })();
+
+    // ====================== SCROLL REVEAL ======================
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ====================== STEP CARDS ANIMATION ======================
+    const stepObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const cards = document.querySelectorAll('.step-card');
+          cards.forEach((card, i) => {
+            setTimeout(() => {
+              card.classList.add('visible');
+              const fill = document.getElementById('p' + (i + 1));
+              if (fill) setTimeout(() => fill.classList.add('active'), 200);
+            }, i * 180);
+          });
+          stepObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    const stepsSection = document.getElementById('stepsTrack');
+    if (stepsSection) stepObs.observe(stepsSection);
+
+    // ====================== STAT COUNTER ANIMATION ======================
+    function animateCount(el) {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 2000;
+      const start = performance.now();
+      function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(ease * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    const statObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.stat-num[data-target]').forEach(animateCount);
+          statObs.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    const impactSec = document.getElementById('impact');
+    if (impactSec) statObs.observe(impactSec);
+
+    // ====================== GSAP SCROLL ANIMATIONS ======================
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero title parallax
+    gsap.to('.hero-content', {
+      y: -80, opacity: 0.3,
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+    });
+
+    // Impact section slide in
+    gsap.from('.impact-side', {
+      x: (i) => i === 0 ? -60 : 60,
+      opacity: 0, duration: 1,
+      scrollTrigger: { trigger: '.impact-split', start: 'top 80%', toggleActions: 'play none none none' },
+      stagger: 0.2
+    });
+
+    // Tech section
+    gsap.from('#dna-canvas', {
+      x: 80, opacity: 0, duration: 1.2,
+      scrollTrigger: { trigger: '#tech', start: 'top 75%' }
+    });
+
+    // Floating microbe animation for what-visual
+    gsap.to('.what-visual svg', {
+      y: -16, duration: 3, ease: 'sine.inOut',
+      yoyo: true, repeat: -1
+    });
+
+    // CTA section
+    gsap.from('.cta-title', {
+      y: 40, opacity: 0, duration: 1.2,
+      scrollTrigger: { trigger: '#cta', start: 'top 80%' }
+    });
+
+    console.log('%cMICROBEWORKS SCIENTIFIC', 'color:#00ff88; font-family:monospace; font-size:14px; font-weight:bold;');
+    console.log('%cGrowing color from biology. We\'re hiring.', 'color:#009950; font-family:monospace;');
+  </script>
+</body>
+
+</html>
