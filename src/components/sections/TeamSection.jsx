@@ -16,6 +16,15 @@ const supportedBy = [
   { id: 'c-camp', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7373580171788021760/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">C-CAMP</a> – Centre for Cellular and Molecular Platforms</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/c-camp.png' }
 ]
 
+const awards = [
+  { id: 'c-camp-dia', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7424666490437660672/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Cohort member of C-CAMP</a> – Discovery to Innovation Accelerator (DIA), as part of the Wadhwani Foundation backed by Wadhwani Innovation Network – Centre of Excellence programme.</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776537282976' },
+  { id: 'elevate-2025', text: <><a href="https://eitbt.karnataka.gov.in/startup/public/141/elevate-2025-winners/en" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Winners of ELEVATE 2025</a>, Grant in aid scheme by Department of Electronics, Information Technology and Biotechnology, Government of Karnataka</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/elevate_2025.png' },
+  { id: 'mufg-social-alpha', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7412809745864175617/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Cohort member</a> of product development program by Mitsubishi UFJ Financial Group (MUFG) and Social Alpha Accelerator</>, logo: 'https://d3vrux30chabys.cloudfront.net/wp-content/uploads/2025/12/MUFG-Program-Banner-new.jpg' },
+  { id: 'ind-aus', text: <>Winners: <a href="https://www.linkedin.com/feed/update/urn:li:activity:7352145452345016320/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Ind-Aus</a> Launchpad Program conducted by Bangalore Bioinnovation Centre, India and La Trobe University, Australia</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-19_002955-removebg-preview.png?updatedAt=1776540867748' },
+  { id: 'techtonic', text: <><a href="https://www.linkedin.com/posts/mkbhatt_for-us-at-social-alpha-circularity-is-not-ugcPost-7396939423344414721-5amT/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABNWTcgBNCezcdiEKNTS905jwtbAu_sr96Q" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Techtonic</a>–Innovations for Circular Economy, supported by H&M Foundation, powered by Social Alpha</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776540351972' },
+  { id: 'startup-india', text: <><span className="text-accent font-medium">Startup India Seed Fund</span>, Government of India</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/startup%20ind%20sppedfund.jpeg' },
+]
+
 export default function TeamSection() {
   const sectionRef = useScrollReveal()
   const containerRef = useRef(null)
@@ -23,9 +32,9 @@ export default function TeamSection() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Parallax for cards
-      gsap.fromTo(".team-card-parallax", 
+      gsap.fromTo(".team-card-parallax",
         { y: 50 },
-        { 
+        {
           y: -50,
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -45,7 +54,7 @@ export default function TeamSection() {
           scrub: 2
         }
       })
-      
+
       gsap.to(".bg-parallax-2", {
         yPercent: 20,
         xPercent: -5,
@@ -104,7 +113,7 @@ export default function TeamSection() {
             <h3 className="font-mono text-[0.85rem] font-bold text-text-primary tracking-[0.15em] uppercase whitespace-nowrap">SUPPORTED BY</h3>
             <div className="h-[1px] w-full bg-border-default"></div>
           </div>
-          
+
           <div className="flex flex-col gap-10 md:gap-14 pl-0">
             {supportedBy.map((org) => (
               <div key={org.id} className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
@@ -118,6 +127,28 @@ export default function TeamSection() {
             ))}
           </div>
         </div>
+
+        {/* Awards */}
+        <div className="reveal mt-20 md:mt-24 max-w-4xl">
+          <div className="flex items-center gap-4 mb-10">
+            <h3 className="font-mono text-[0.85rem] font-bold text-text-primary tracking-[0.15em] uppercase whitespace-nowrap">AWARDS</h3>
+            <div className="h-[1px] w-full bg-border-default"></div>
+          </div>
+
+          <div className="flex flex-col gap-10 md:gap-14 pl-0">
+            {awards.map((award) => (
+              <div key={award.id} className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
+                <div className="w-[180px] md:w-[220px] shrink-0">
+                  <img src={award.logo} alt={award.id} className="w-full h-auto object-contain opacity-90" />
+                </div>
+                <div className="text-[1rem] md:text-[1.1rem] text-text-primary font-light">
+                  {award.text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   )
