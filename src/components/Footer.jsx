@@ -21,16 +21,16 @@ export default function Footer() {
           Products
         </Link>
         <Link
-          to="/connect"
+          to="/process"
           className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
-          Careers
+          Process
         </Link>
         <Link
-          to="/connect"
+          to="/team"
           className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
-          Press
+          Team
         </Link>
       </div>
 
