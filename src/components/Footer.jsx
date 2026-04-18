@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
   return (
-    <footer className="px-6 lg:px-12 py-8 lg:py-12 border-t border-border-default bg-bg2 flex flex-col md:flex-row justify-between items-center gap-6 flex-wrap">
+    <footer className="relative z-10 px-6 lg:px-12 py-8 lg:py-12 border-t border-border-default bg-bg2 flex flex-col md:flex-row justify-between items-center gap-6 flex-wrap">
       <div className="font-mono text-[0.8rem] text-accent tracking-[0.15em]">
         MICROBEWORKS SCIENTIFIC
       </div>
