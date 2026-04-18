@@ -23,83 +23,120 @@ export default function TechnologySection() {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
-    const W = canvas.offsetWidth || 560
-    const H = 500
-    canvas.width = W
-    canvas.height = H
+    const updateSize = () => {
+        canvas.width = canvas.offsetWidth || Math.min(window.innerWidth, 1000)
+        canvas.height = canvas.offsetHeight || 800
+        return { W: canvas.width, H: canvas.height }
+    }
+    
+    let dim = updateSize()
     let frame = 0
     let animId
 
     function drawDNA() {
-      ctx.clearRect(0, 0, W, H)
+      if (!ctx) return
+      ctx.clearRect(0, 0, dim.W, dim.H)
       frame++
-      const t = frame * 0.018
-      const cx = W / 2
-      for (let y = 0; y < H; y += 2) {
-        const fy = y / H
-        const wave = Math.sin(fy * Math.PI * 5 + t)
-        const x1 = cx + wave * 90
-        const x2 = cx - wave * 90
+      const t = frame * 0.015 // Fluid, relaxed speed
+      const cx = dim.W / 2
+      
+      // Draw DNA backbone
+      for (let y = 0; y < dim.H; y += 3) {
+        const fy = y / dim.H
+        const wave = Math.sin(fy * Math.PI * 3 + t)
+        const radius = 100 + (Math.sin(fy * Math.PI) * 50) // Tapers at ends
+        const x1 = cx + wave * radius
+        const x2 = cx - wave * radius
         const alpha = 0.15 + Math.abs(wave) * 0.4
-        ctx.beginPath(); ctx.arc(x1, y, 2.5, 0, Math.PI * 2)
+        
+        ctx.beginPath(); ctx.arc(x1, y, 2, 0, Math.PI * 2)
         ctx.fillStyle = `rgba(0,180,80,${alpha})`; ctx.fill()
-        ctx.beginPath(); ctx.arc(x2, y, 2.5, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,255,136,${alpha * 0.9})`; ctx.fill()
-        if (y % 20 === 0) {
+        
+        ctx.beginPath(); ctx.arc(x2, y, 2, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(0,255,136,${alpha * 0.8})`; ctx.fill()
+        
+        if (y % 30 === 0) {
           ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y)
-          ctx.strokeStyle = `rgba(0,0,0,${0.08 + Math.abs(wave) * 0.2})`
-          ctx.lineWidth = 0.8; ctx.stroke()
+          ctx.strokeStyle = `rgba(0,0,0,${0.03 + Math.abs(wave) * 0.08})`
+          ctx.lineWidth = 0.5; ctx.stroke()
+          
           const mid = (x1 + x2) / 2
-          ctx.beginPath(); ctx.arc(mid, y, 3, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '0,180,80' : '0,120,60'},0.5)`; ctx.fill()
+          ctx.beginPath(); ctx.arc(mid, y, 2.5, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '0,180,80' : '0,120,60'},0.3)`; ctx.fill()
         }
       }
-      const grad = ctx.createRadialGradient(cx, H / 2, 0, cx, H / 2, 130)
-      grad.addColorStop(0, 'rgba(0,255,136,0.06)')
+      
+      const grad = ctx.createRadialGradient(cx, dim.H / 2, 0, cx, dim.H / 2, dim.H * 0.6)
+      grad.addColorStop(0, 'rgba(0,255,136,0.03)')
       grad.addColorStop(1, 'rgba(0,255,136,0)')
-      ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H)
+      ctx.fillStyle = grad; ctx.fillRect(0, 0, dim.W, dim.H)
+      
       animId = requestAnimationFrame(drawDNA)
     }
+    
     drawDNA()
 
-    gsap.from(canvas, {
-      x: 80, opacity: 0, duration: 1.2,
-      scrollTrigger: { trigger: canvas.parentElement, start: 'top 75%' },
+    const anim = gsap.from(canvas, {
+      y: 60, opacity: 0, duration: 1.5, ease: "power3.out",
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 85%' },
     })
 
-    return () => { cancelAnimationFrame(animId); ScrollTrigger.getAll().forEach((t) => t.kill()) }
-  }, [])
+    const onResize = () => { dim = updateSize() }
+    window.addEventListener('resize', onResize)
+
+    return () => { 
+      cancelAnimationFrame(animId); 
+      if (anim.scrollTrigger) anim.scrollTrigger.kill()
+      window.removeEventListener('resize', onResize)
+    }
+  }, [sectionRef])
 
   return (
-    <section id="tech" ref={sectionRef} className="relative px-4 md:px-8 lg:px-12 py-24 md:py-32 lg:py-40 bg-bg2 overflow-hidden">
-      <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-        <div>
-          <SectionLabel className="reveal">Deep Technology</SectionLabel>
-          <h2 className="reveal reveal-delay-1 font-display text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.1] text-text-primary tracking-tight">
-            Precision biology<br />at <em className="italic text-accent">scale.</em>
-          </h2>
-          <p className="reveal reveal-delay-2 text-text-muted text-base leading-relaxed font-light my-6 md:my-8">
-            Our proprietary strain library contains 200+ engineered variants across 8 chassis organisms. Each strain is optimized for yield, stability, and color gamut.
-          </p>
-          <div className="reveal reveal-delay-2 flex flex-col gap-px mt-8 md:mt-12">
-            {specs.map((s) => (
-              <div key={s.label} className="flex items-center justify-between py-3 border-b border-border-default text-[0.82rem]">
-                <span className="text-text-muted font-light">{s.label}</span>
-                <span className="font-mono text-accent text-[0.75rem]">{s.val}</span>
-              </div>
-            ))}
-          </div>
-          <div className="reveal reveal-delay-3 mt-8 md:mt-10 px-5 py-4 md:px-6 md:py-5 border-l-2 border-accent bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)]">
-            <p className="font-display italic text-[1.05rem] text-text-primary leading-relaxed mb-3">
-              "We didn't just find a greener dye — we reprogrammed 3.8 billion years of evolution to grow the exact color we want."
-            </p>
-            <cite className="font-mono text-[0.7rem] text-text-muted tracking-[0.1em] not-italic">— DR. PRIYA MEHTA, CO-FOUNDER & CSO</cite>
-          </div>
+    <section id="tech" ref={sectionRef} className="relative w-full px-4 md:px-8 lg:px-12 py-24 md:py-32 lg:py-40 bg-bg2 overflow-hidden flex flex-col items-center justify-center">
+      
+      {/* Background Animated DNA Canvas */}
+      <div className="absolute inset-0 flex justify-center items-center opacity-30 pointer-events-none">
+        <canvas ref={canvasRef} className="w-full max-w-[1200px] h-[800px] md:h-[1000px] block" />
+      </div>
+
+      <div className="max-w-[900px] mx-auto flex flex-col items-center text-center z-10 w-full relative">
+        <SectionLabel className="reveal mx-auto mb-6">Deep Technology</SectionLabel>
+        
+        <h2 className="reveal reveal-delay-1 font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] text-text-primary tracking-tight mb-6 mt-2">
+          Precision biology <br className="md:hidden" /><em className="italic text-accent">at scale.</em>
+        </h2>
+        
+        <p className="reveal reveal-delay-2 text-text-muted text-[clamp(1.05rem,1.8vw,1.3rem)] leading-relaxed font-light mb-16 max-w-[640px] mx-auto">
+          Our proprietary strain library contains 200+ engineered variants across 8 chassis organisms. Each strain is optimized for yield, stability, and color gamut.
+        </p>
+
+        {/* Specs Grid */}
+        <div className="reveal reveal-delay-2 w-full grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-24 max-w-[800px] mx-auto">
+          {specs.map((s) => (
+            <div key={s.label} className="group flex flex-col items-center justify-center p-6 bg-white/70 backdrop-blur-sm border border-border-default/50 hover:border-accent/30 rounded-[1.5rem] shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,255,136,0.08)] hover:bg-white cursor-default">
+              <span className="font-mono text-accent text-lg md:text-xl lg:text-2xl mb-2 font-medium tracking-tight group-hover:scale-105 transition-transform duration-300">{s.val}</span>
+              <span className="text-text-muted text-[0.65rem] md:text-xs tracking-[0.2em] uppercase font-semibold">{s.label}</span>
+            </div>
+          ))}
         </div>
-        <div className="relative reveal reveal-delay-2">
-          <canvas ref={canvasRef} className="w-full h-[400px] md:h-[500px] block" />
+
+        {/* Quote */}
+        <div className="reveal reveal-delay-3 px-6 md:px-12 py-10 md:py-12 bg-white/90 backdrop-blur-md border border-border-bright rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.04)] relative mx-auto max-w-[760px] w-full">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-accent/10 rounded-full p-3 border border-accent/20 backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,136,0.15)] flex items-center justify-center">
+             <svg className="w-6 h-6 text-accent drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+          <p className="font-display italic text-[1.25rem] md:text-[1.65rem] text-text-primary leading-[1.4] mb-8 mt-2 max-w-[600px] mx-auto">
+            "We didn't just find a greener dye — we reprogrammed 3.8 billion years of evolution to grow the exact color we want."
+          </p>
+          <cite className="font-mono not-italic block uppercase flex flex-col items-center gap-1.5">
+            <span className="text-text-primary font-bold tracking-widest text-[0.75rem] md:text-[0.8rem]">Dr. Priya Mehta</span>
+            <span className="text-accent text-[0.65rem] md:text-[0.7rem] font-semibold tracking-[0.15em]">Co-Founder & CSO</span>
+          </cite>
         </div>
       </div>
+
     </section>
   )
 }

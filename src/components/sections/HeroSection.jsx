@@ -6,13 +6,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function HeroSection() {
-  const canvasRef = useRef(null)
+  const canvasContainerRef = useRef(null)
   const contentRef = useRef(null)
   const sectionRef = useRef(null)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const container = canvasContainerRef.current
+    if (!container) return
+
+    const canvas = document.createElement('canvas')
+    canvas.style.display = 'block'
+    container.appendChild(canvas)
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
@@ -110,9 +114,10 @@ export default function HeroSection() {
     }
     window.addEventListener('resize', onResize)
 
+    let fadeAnim;
     // Fade out hero content as user scrolls toward Info section
     if (contentRef.current) {
-      gsap.to(contentRef.current, {
+      fadeAnim = gsap.to(contentRef.current, {
         y: -80,
         opacity: 0,
         ease: 'none',
@@ -130,14 +135,20 @@ export default function HeroSection() {
       document.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onResize)
+      renderer.forceContextLoss()
       renderer.dispose()
+      if (container && canvas.parentNode === container) {
+        container.removeChild(canvas)
+      }
       geo.dispose()
       mat.dispose()
       sphereGeo.dispose()
       sphereMat.dispose()
       coreGeo.dispose()
       coreMat.dispose()
-      ScrollTrigger.getAll().forEach((t) => t.kill())
+      if (fadeAnim && fadeAnim.scrollTrigger) {
+        fadeAnim.scrollTrigger.kill()
+      }
     }
   }, [])
 
@@ -148,7 +159,7 @@ export default function HeroSection() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden z-10 sticky top-0">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <div ref={canvasContainerRef} className="absolute inset-0 w-full h-full" />
 
       <div ref={contentRef} className="relative z-[2] text-center max-w-[860px] px-4 md:px-8">
         {/* Badge */}
