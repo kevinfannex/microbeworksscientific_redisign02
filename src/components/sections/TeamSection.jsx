@@ -13,15 +13,15 @@ const team = [
 
 const supportedBy = [
   { id: 'social-alpha', text: <><span className="text-accent font-medium">Social Alpha</span> – Foundation for Innovation and Social Entrepreneurship</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/social_alpha.jpeg' },
-  { id: 'c-camp', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7373580171788021760/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">C-CAMP</a> – Centre for Cellular and Molecular Platforms</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/c-camp.png' }
+  { id: 'c-camp', text: <><span className="text-accent font-medium">C-CAMP</span> – Centre for Cellular and Molecular Platforms</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/c-camp.png' }
 ]
 
 const awards = [
-  { id: 'c-camp-dia', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7424666490437660672/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Cohort member of C-CAMP</a> – Discovery to Innovation Accelerator (DIA), as part of the Wadhwani Foundation backed by Wadhwani Innovation Network – Centre of Excellence programme.</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776541987355' },
-  { id: 'elevate-2025', text: <><a href="https://eitbt.karnataka.gov.in/startup/public/141/elevate-2025-winners/en" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Winners of ELEVATE 2025</a>, Grant in aid scheme by Department of Electronics, Information Technology and Biotechnology, Government of Karnataka</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/elevate_2025.png' },
-  { id: 'mufg-social-alpha', text: <><a href="https://www.linkedin.com/feed/update/urn:li:activity:7412809745864175617/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Cohort member</a> of product development program by Mitsubishi UFJ Financial Group (MUFG) and Social Alpha Accelerator</>, logo: 'https://d3vrux30chabys.cloudfront.net/wp-content/uploads/2025/12/MUFG-Program-Banner-new.jpg' },
-  { id: 'ind-aus', text: <>Winners: <a href="https://www.linkedin.com/feed/update/urn:li:activity:7352145452345016320/" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Ind-Aus</a> Launchpad Program conducted by Bangalore Bioinnovation Centre, India and La Trobe University, Australia</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-19_002955-removebg-preview.png?updatedAt=1776540867748' },
-  { id: 'techtonic', text: <><a href="https://www.linkedin.com/posts/mkbhatt_for-us-at-social-alpha-circularity-is-not-ugcPost-7396939423344414721-5amT/?utm_source=share&utm_medium=member_desktop&rcm=ACoAABNWTcgBNCezcdiEKNTS905jwtbAu_sr96Q" target="_blank" rel="noopener noreferrer" className="text-accent font-medium hover:underline transition-all">Techtonic</a>–Innovations for Circular Economy, supported by H&M Foundation, powered by Social Alpha</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776540351972' },
+  { id: 'c-camp-dia', text: <><span className="text-accent font-medium">Cohort member of C-CAMP</span> – Discovery to Innovation Accelerator (DIA), as part of the Wadhwani Foundation backed by Wadhwani Innovation Network – Centre of Excellence programme.</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776541987355  ' },
+  { id: 'elevate-2025', text: <><span className="text-accent font-medium">Winners of ELEVATE 2025</span>, Grant in aid scheme by Department of Electronics, Information Technology and Biotechnology, Government of Karnataka</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/elevate_2025.png' },
+  { id: 'mufg-social-alpha', text: <><span className="text-accent font-medium">Cohort member</span> of product development program by Mitsubishi UFJ Financial Group (MUFG) and Social Alpha Accelerator</>, logo: 'https://d3vrux30chabys.cloudfront.net/wp-content/uploads/2025/12/MUFG-Program-Banner-new.jpg' },
+  { id: 'ind-aus', text: <>Winners: <span className="text-accent font-medium">Ind-Aus</span> Launchpad Program conducted by Bangalore Bioinnovation Centre, India and La Trobe University, Australia</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-19_002955-removebg-preview.png?updatedAt=1776540867748' },
+  { id: 'techtonic', text: <><span className="text-accent font-medium">Techtonic</span>–Innovations for Circular Economy, supported by H&M Foundation, powered by Social Alpha</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776596079840' },
   { id: 'startup-india', text: <><span className="text-accent font-medium">Startup India Seed Fund</span>, Government of India</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/startup%20ind%20sppedfund.jpeg' },
 ]
 
@@ -69,7 +69,7 @@ export default function TeamSection() {
   }, [sectionRef])
 
   return (
-    <section id="team" ref={sectionRef} className="relative px-4 md:px-8 lg:px-12 py-24 md:py-32 lg:py-40 bg-bg overflow-hidden">
+    <section id="team" ref={sectionRef} className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-12 md:pb-32 lg:pt-16 lg:pb-40 bg-bg overflow-hidden">
       {/* Decorative Parallax Background Elements */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none bg-parallax-1" />
       <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-accent2/5 rounded-full blur-[80px] pointer-events-none bg-parallax-2" />
@@ -102,7 +102,7 @@ export default function TeamSection() {
               </div>
               <div className="text-[0.78rem] text-accent font-mono tracking-[0.05em] mb-3">{m.role}</div>
               <div className="text-[0.8rem] text-text-muted leading-relaxed font-light">{m.bio}</div>
-              <div className="mt-4 pt-4 border-t border-border-default font-mono text-[0.65rem] text-text-dim tracking-[0.08em]">{m.cred}</div>
+              <div className="mt-4 pt-4 border-t border-border-default font-mono text-[0.65rem] text-text-primary tracking-[0.08em]">{m.cred}</div>
             </div>
           ))}
         </div>

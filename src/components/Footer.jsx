@@ -10,31 +10,31 @@ export default function Footer() {
       <div className="flex gap-6 lg:gap-8 flex-wrap justify-center">
         <Link
           to="/science"
-          className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Science
         </Link>
         <Link
           to="/products"
-          className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Products
         </Link>
         <Link
           to="/process"
-          className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Process
         </Link>
         <Link
           to="/team"
-          className="text-[0.75rem] text-text-dim no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Team
         </Link>
       </div>
 
-      <div className="text-[0.75rem] text-text-dim font-mono">
+      <div className="text-[0.75rem] text-text-primary font-mono">
         © 2025 MicrobeWorks Scientific Inc. · All rights reserved.
       </div>
     </footer>
