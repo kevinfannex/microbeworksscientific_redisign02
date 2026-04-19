@@ -119,7 +119,7 @@ export default function ProductsSection() {
           </div>
           
           <img 
-            src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776593968032" 
+            src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
             alt="MicroBlue Logo" 
             className="h-20 md:h-28 w-auto object-contain mb-8 mx-auto rounded-xl"
           />
@@ -173,7 +173,7 @@ export default function ProductsSection() {
               </div>
               <div className="flex justify-center">
                 <img 
-                  src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776593968032" 
+                  src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
                   alt="MicroBlue Logo" 
                   className="h-6 md:h-10 w-auto object-contain rounded-xl"
                 />
