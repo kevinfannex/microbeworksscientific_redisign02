@@ -177,7 +177,7 @@ export default function HowItWorksSection() {
         className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)',
+            'linear-gradient(var(--color-border-default) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-default) 1px, transparent 1px)',
           backgroundSize: '72px 72px',
           maskImage: 'radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%)',
         }}
@@ -254,9 +254,9 @@ export default function HowItWorksSection() {
           >
             {/* Icon node */}
             <div className="relative z-10 flex-shrink-0">
-              <div className="w-14 h-14 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center shadow-[0_0_0_5px_#f6f6f4]">
+              <div className="w-14 h-14 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center" style={{ boxShadow: '0 0 0 5px var(--color-bg2)' }}>
                 <div
-                  className="w-10 h-10 rounded-full bg-white border border-accent/40 flex items-center justify-center shadow-[0_2px_12px_rgba(0,255,136,0.15)]"
+                  className="w-10 h-10 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_2px_12px_rgba(0,255,136,0.15)]"
                   style={{ fontSize: '1.35rem' }}
                 >
                   {step.icon}
@@ -275,7 +275,7 @@ export default function HowItWorksSection() {
               <p className="text-[0.88rem] text-text-muted leading-[1.8] font-light">
                 {step.desc}
               </p>
-              <span className="inline-flex items-center mt-4 font-mono text-[0.62rem] tracking-[0.14em] text-accent2 border border-accent/30 bg-white/60 px-3 py-1 rounded-full">
+              <span className="inline-flex items-center mt-4 font-mono text-[0.62rem] tracking-[0.14em] text-accent2 border border-accent/30 bg-bg/60 px-3 py-1 rounded-full">
                 {step.tag}
               </span>
             </div>
@@ -361,7 +361,7 @@ export default function HowItWorksSection() {
                   {step.desc}
                 </p>
                 <span
-                  className="inline-flex items-center gap-2 mt-6 font-mono text-[0.7rem] tracking-[0.14em] text-accent2 border border-accent/30 bg-white/60 px-4 py-1.5 rounded-full"
+                  className="inline-flex items-center gap-2 mt-6 font-mono text-[0.7rem] tracking-[0.14em] text-accent2 border border-accent/30 bg-bg/60 px-4 py-1.5 rounded-full"
                   style={{ alignSelf: isLeft ? 'flex-end' : 'flex-start' }}
                 >
                   {step.tag}
@@ -378,10 +378,10 @@ export default function HowItWorksSection() {
                   }}
                 />
                 {/* Outer ring */}
-                <div className="w-20 h-20 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center shadow-[0_0_0_7px_#f6f6f4]">
+                <div className="w-20 h-20 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center" style={{ boxShadow: '0 0 0 7px var(--color-bg2)' }}>
                   {/* Icon */}
                   <div
-                    className="w-14 h-14 rounded-full bg-white border border-accent/40 flex items-center justify-center shadow-[0_4px_16px_rgba(0,255,136,0.18)]"
+                    className="w-14 h-14 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_4px_16px_rgba(0,255,136,0.18)]"
                     style={{ fontSize: '1.75rem' }}
                   >
                     {step.icon}

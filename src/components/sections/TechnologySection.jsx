@@ -113,7 +113,7 @@ export default function TechnologySection() {
         {/* Specs Grid */}
         <div className="reveal reveal-delay-2 w-full grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-24 max-w-[800px] mx-auto">
           {specs.map((s) => (
-            <div key={s.label} className="group flex flex-col items-center justify-center p-6 bg-white/70 backdrop-blur-sm border border-border-default/50 hover:border-accent/30 rounded-[1.5rem] shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,255,136,0.08)] hover:bg-white cursor-default">
+            <div key={s.label} className="group flex flex-col items-center justify-center p-6 bg-bg/70 backdrop-blur-sm border border-border-default/50 hover:border-accent/30 rounded-[1.5rem] shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,255,136,0.08)] hover:bg-bg cursor-default">
               <span className="font-mono text-accent text-lg md:text-xl lg:text-2xl mb-2 font-medium tracking-tight group-hover:scale-105 transition-transform duration-300">{s.val}</span>
               <span className="text-text-muted text-[0.65rem] md:text-xs tracking-[0.2em] uppercase font-semibold">{s.label}</span>
             </div>

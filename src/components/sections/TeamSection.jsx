@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionLabel from '../SectionLabel'
 import useScrollReveal from '../../hooks/useScrollReveal'
+import { useTheme } from '../../context/ThemeContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,14 +14,14 @@ const team = [
 
 const supportedBy = [
   { id: 'social-alpha', text: <><span className="text-accent font-medium">Social Alpha</span> – Foundation for Innovation and Social Entrepreneurship</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/social_alpha.jpeg' },
-  { id: 'c-camp', text: <><span className="text-accent font-medium">C-CAMP</span> – Centre for Cellular and Molecular Platforms</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/c-camp.png' }
+  { id: 'c-camp', text: <><span className="text-accent font-medium">C-CAMP</span> – Centre for Cellular and Molecular Platforms</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Untitled%20design.jpg' }
 ]
 
 const awards = [
-  { id: 'c-camp-dia', text: <><span className="text-accent font-medium">Cohort member of C-CAMP</span> – Discovery to Innovation Accelerator (DIA), as part of the Wadhwani Foundation backed by Wadhwani Innovation Network – Centre of Excellence programme.</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776541987355  ' },
+  { id: 'c-camp-dia', text: <><span className="text-accent font-medium">Cohort member of C-CAMP</span> – Discovery to Innovation Accelerator (DIA), as part of the Wadhwani Foundation backed by Wadhwani Innovation Network – Centre of Excellence programme.</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-05-05%20140142.png' },
   { id: 'elevate-2025', text: <><span className="text-accent font-medium">Winners of ELEVATE 2025</span>, Grant in aid scheme by Department of Electronics, Information Technology and Biotechnology, Government of Karnataka</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/elevate_2025.png' },
   { id: 'mufg-social-alpha', text: <><span className="text-accent font-medium">Cohort member</span> of product development program by Mitsubishi UFJ Financial Group (MUFG) and Social Alpha Accelerator</>, logo: 'https://d3vrux30chabys.cloudfront.net/wp-content/uploads/2025/12/MUFG-Program-Banner-new.jpg' },
-  { id: 'ind-aus', text: <>Winners: <span className="text-accent font-medium">Ind-Aus</span> Launchpad Program conducted by Bangalore Bioinnovation Centre, India and La Trobe University, Australia</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-19_002955-removebg-preview.png?updatedAt=1776540867748' },
+  { id: 'ind-aus', text: <>Winners: <span className="text-accent font-medium">Ind-Aus</span> Launchpad Program conducted by Bangalore Bioinnovation Centre, India and La Trobe University, Australia</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-19_002955-removebg-preview.png' },
   { id: 'techtonic', text: <><span className="text-accent font-medium">Techtonic</span>–Innovations for Circular Economy, supported by H&M Foundation, powered by Social Alpha</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/image.png?updatedAt=1776596079840' },
   { id: 'startup-india', text: <><span className="text-accent font-medium">Startup India Seed Fund</span>, Government of India</>, logo: 'https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/startup%20ind%20sppedfund.jpeg' },
 ]
@@ -28,6 +29,7 @@ const awards = [
 export default function TeamSection() {
   const sectionRef = useScrollReveal()
   const containerRef = useRef(null)
+  const { isDark } = useTheme()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -68,6 +70,22 @@ export default function TeamSection() {
     return () => ctx.revert()
   }, [sectionRef])
 
+  // Re-apply scroll reveal visibility after theme toggle re-render
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    // Small delay to let React finish DOM updates
+    requestAnimationFrame(() => {
+      const revealEls = section.querySelectorAll('.reveal')
+      revealEls.forEach(el => {
+        const rect = el.getBoundingClientRect()
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible')
+        }
+      })
+    })
+  }, [isDark])
+
   return (
     <section id="team" ref={sectionRef} className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-12 md:pb-32 lg:pt-16 lg:pb-40 bg-bg overflow-hidden">
       {/* Decorative Parallax Background Elements */}
@@ -82,7 +100,11 @@ export default function TeamSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 mt-12 md:mt-20 max-w-4xl">
           {team.map((m, i) => (
-            <div key={m.initials} className={`reveal reveal-delay-${i} team-card-parallax team-card-bar relative overflow-hidden border border-border-default bg-white/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-4 py-6 md:px-6 md:py-8 transition-all duration-300 hover:border-border-bright hover:-translate-y-1 hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]`}>
+            <div key={m.initials} className={`reveal reveal-delay-${i} team-card-parallax team-card-bar relative overflow-hidden border shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-4 py-6 md:px-6 md:py-8 transition-all duration-300 hover:-translate-y-1 ${
+              isDark
+                ? 'bg-white border-white/20 hover:border-accent/40 hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]'
+                : 'bg-bg/80 border-border-default hover:border-border-bright hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]'
+            }`}>
               {m.image ? (
                 <img src={m.image} alt={m.name} className="w-24 h-24 rounded-full object-cover mb-5 border border-border-default shadow-sm" />
               ) : (
@@ -90,8 +112,8 @@ export default function TeamSection() {
                   {m.initials}
                 </div>
               )}
-              <div className="text-[0.95rem] font-semibold text-text-primary mb-1">
-                <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors inline-flex items-center gap-1.5 group" aria-label={`${m.name} LinkedIn`}>
+              <div className={`text-[0.95rem] font-semibold mb-1 ${isDark ? 'text-[#0a0a0a]' : 'text-text-primary'}`}>
+                <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className={`transition-colors inline-flex items-center gap-1.5 group ${isDark ? 'hover:text-accent3' : 'hover:text-accent'}`} aria-label={`${m.name} LinkedIn`}>
                   {m.name}
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0a66c2] opacity-80 group-hover:opacity-100 transition-opacity">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -100,9 +122,9 @@ export default function TeamSection() {
                   </svg>
                 </a>
               </div>
-              <div className="text-[0.78rem] text-accent font-mono tracking-[0.05em] mb-3">{m.role}</div>
-              <div className="text-[0.8rem] text-text-muted leading-relaxed font-light">{m.bio}</div>
-              <div className="mt-4 pt-4 border-t border-border-default font-mono text-[0.65rem] text-text-primary tracking-[0.08em]">{m.cred}</div>
+              <div className={`text-[0.78rem] font-mono tracking-[0.05em] mb-3 ${isDark ? 'text-accent3' : 'text-accent'}`}>{m.role}</div>
+              <div className={`text-[0.8rem] leading-relaxed font-light ${isDark ? 'text-[#0a0a0a]/70' : 'text-text-muted'}`}>{m.bio}</div>
+              <div className={`mt-4 pt-4 border-t font-mono text-[0.65rem] tracking-[0.08em] ${isDark ? 'border-black/10 text-[#0a0a0a]/80' : 'border-border-default text-text-primary'}`}>{m.cred}</div>
             </div>
           ))}
         </div>

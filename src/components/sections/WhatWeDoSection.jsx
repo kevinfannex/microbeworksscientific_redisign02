@@ -52,7 +52,7 @@ export default function WhatWeDoSection() {
             {cards.map((card, i) => (
               <div
                 key={card.num}
-                className={`reveal reveal-delay-${i + 2} what-card-glow relative overflow-hidden border border-border-default bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-5 py-4 md:px-6 md:py-5 flex items-start gap-4 md:gap-6 transition-all duration-300 hover:border-border-bright hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]`}
+                className={`reveal reveal-delay-${i + 2} what-card-glow relative overflow-hidden border border-border-default bg-bg shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-5 py-4 md:px-6 md:py-5 flex items-start gap-4 md:gap-6 transition-all duration-300 hover:border-border-bright hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]`}
               >
                 <span className="font-mono text-[0.65rem] text-accent opacity-70 min-w-[24px] mt-1">
                   {card.num}

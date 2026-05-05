@@ -121,17 +121,17 @@ export default function SciencePage() {
         </section>
 
         {/* Solution Section */}
-        <section ref={solutionRef} className="bg-white text-black">
+        <section ref={solutionRef} className="bg-bg text-text-primary">
           <div className="grid grid-cols-1 md:grid-cols-2">
             {/* Text */}
             <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-16 md:py-32 order-2 md:order-1">
-              <div className="text-[1rem] md:text-[1.2rem] font-bold tracking-[0.2em] text-black/50 mb-8 font-mono uppercase font-semibold">
+              <div className="text-[1rem] md:text-[1.2rem] font-bold tracking-[0.2em] text-text-dim mb-8 font-mono uppercase font-semibold">
                 • SOLUTION
               </div>
-              <p className="text-[1.075rem] md:text-lg text-black/80 font-light leading-[1.8] mb-6">
+              <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8] mb-6">
                 A sustainable alternative is microbial dyeing, which uses microorganisms like bacteria or fungi to produce natural pigments. These microbes are grown in controlled conditions and used to dye fabrics without toxic chemicals.
               </p>
-              <p className="text-[1.075rem] md:text-lg text-black/80 font-light leading-[1.8]">
+              <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8]">
                 This method significantly reduces water usage, is biodegradable, and safer for humans and the environment. It is also faster than traditional natural dyeing and relies on renewable processes, making it an eco-friendly solution for the future of the textile industry.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function SciencePage() {
                 className="absolute inset-0 w-full h-full object-cover object-[left_top]"
               />
               {/* Soft fade to white on the left edge for blending */}
-              <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent"></div>
+              <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-bg to-transparent"></div>
             </div>
           </div>
         </section>

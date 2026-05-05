@@ -38,6 +38,24 @@
   --animate-draw-path: drawPath 4s ease forwards;
 }
 
+/* Dark Mode Overrides */
+:root.dark {
+  --color-bg: #0a0a0a;
+  --color-bg2: #111111;
+  --color-bg3: #1a1a1a;
+  --color-surface: rgba(20, 20, 20, 0.92);
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-bright: rgba(0, 255, 136, 0.35);
+  --color-text-primary: #eaeaea;
+  --color-text-muted: rgba(234, 234, 234, 0.70);
+  --color-text-dim: rgba(234, 234, 234, 0.3);
+  --color-accent: #00ff88;
+  --color-accent2: #00cc6a;
+  --color-accent3: #009950;
+  --color-glow: rgba(0, 255, 136, 0.22);
+  --color-glow-green: rgba(0, 255, 136, 0.15);
+}
+
 /* Keyframes */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; transform: scale(1); }
@@ -80,6 +98,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text-primary);
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Noise overlay */

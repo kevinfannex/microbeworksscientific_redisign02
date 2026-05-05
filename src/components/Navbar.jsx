@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -43,7 +44,7 @@ export default function Navbar() {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-400 ${scrolled && !menuOpen
-            ? 'bg-white/92 backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.06)]'
+            ? 'bg-surface backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.06)]'
             : ''
           }`}
       >
@@ -77,13 +78,16 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <Link
-          to="/connect"
-          className="hidden lg:inline-block bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
-        >
-          Partner With Us
-        </Link>
+        {/* Theme Toggle & Desktop CTA */}
+        <div className="hidden lg:flex items-center gap-4">
+          <ThemeToggle />
+          <Link
+            to="/connect"
+            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
+          >
+            Partner With Us
+          </Link>
+        </div>
 
         {/* Mobile Hamburger */}
         <button
@@ -100,7 +104,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 top-0 bg-white z-[99] flex flex-col items-center justify-center gap-10 transition-all duration-500 lg:hidden ${menuOpen
+        className={`fixed inset-0 top-0 bg-bg z-[99] flex flex-col items-center justify-center gap-10 transition-all duration-500 lg:hidden ${menuOpen
             ? 'opacity-100 pointer-events-auto'
             : 'opacity-0 pointer-events-none'
           }`}
@@ -125,6 +129,9 @@ export default function Navbar() {
         >
           Partner With Us
         </Link>
+        <div className="mt-2">
+          <ThemeToggle />
+        </div>
       </div>
     </>
   )

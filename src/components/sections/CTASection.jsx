@@ -41,7 +41,7 @@ export default function CTASection() {
           <button className="btn-clip-lg bg-accent text-white border-none px-8 py-4 md:px-10 md:py-5 text-[0.9rem] font-semibold tracking-[0.1em] uppercase cursor-pointer font-body transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,255,136,.5)] hover:-translate-y-1">
             Work With Us
           </button>
-          <button className="bg-transparent border border-border-bright text-text-primary px-8 py-4 md:px-10 md:py-5 text-[0.9rem] tracking-[0.1em] uppercase cursor-pointer font-body transition-colors duration-300 hover:bg-black/4">
+          <button className="bg-transparent border border-border-bright text-text-primary px-8 py-4 md:px-10 md:py-5 text-[0.9rem] tracking-[0.1em] uppercase cursor-pointer font-body transition-colors duration-300 hover:bg-text-primary/4">
             Investor Deck →
           </button>
         </div>

@@ -13,7 +13,7 @@ function StatCard({ target, suffix, label, sublabel, delay = '' }) {
   return (
     <div
       ref={ref}
-      className={`reveal ${delay} stat-card-bar relative overflow-hidden border border-border-default bg-white shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-5 py-6 md:px-6 md:py-8`}
+      className={`reveal ${delay} stat-card-bar relative overflow-hidden border border-border-default bg-bg shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-5 py-6 md:px-6 md:py-8`}
     >
       <div className="font-display text-[2.5rem] md:text-[3rem] text-accent leading-none mb-2">
         {count}{suffix}
