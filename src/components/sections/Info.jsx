@@ -78,11 +78,11 @@ const Info = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative z-20 min-h-screen w-full flex items-center justify-center overflow-hidden bg-transparent"
+            className="relative z-20 min-h-[60vh] md:min-h-screen w-full flex items-center justify-center overflow-hidden bg-transparent py-10 md:py-0"
         >
             <div
                 ref={cardRef}
-                className="bg-black flex items-center justify-center overflow-hidden w-[96%] h-[96vh] mx-auto relative"
+                className="bg-black flex items-center justify-center overflow-hidden w-[96%] h-[50vh] md:h-[96vh] mx-auto relative"
                 style={{ borderRadius: '30px', transform: 'scale(0.75)' }}
             >
                 {/* Background Image Layer */}

@@ -2,7 +2,7 @@ import ScrollReveal from '../ScrollReveal';
 
 const MissionVision = () => {
     return (
-        <div className="flex flex-row justify-between items-center h-auto py-20 md:h-[90dvh] md:py-0 gap-12">
+        <div className="flex flex-row justify-between items-center h-auto py-10 md:h-[90dvh] md:py-0 gap-12">
             <div className="w-full text-center">
                 <ScrollReveal
                     baseOpacity={0.1}
