@@ -209,7 +209,7 @@ export default function ProductsSection() {
         <div className="w-full max-w-[1100px] mx-auto reveal mb-6 md:mb-12">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
             <div>
-              <h3 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-text-primary mb-4">Experience the Innovation</h3>
+              <h3 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-accent mb-4">Experience the Innovation</h3>
               <p className="text-text-muted text-[1rem] max-w-[500px]">Watch how we are redefining the colors of the world through the precision of biology.</p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-border-default mx-12 mb-5" />
@@ -226,8 +226,8 @@ export default function ProductsSection() {
           
           <div className="border border-border-default rounded-[32px] overflow-hidden bg-surface/30 backdrop-blur-md shadow-2xl">
             {/* Header */}
-            <div className="grid grid-cols-[1.8fr_1fr_1fr_1.2fr] md:grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-6 md:py-8 md:px-12 border-b border-border-default bg-bg/50">
-              <div className="text-accent font-mono tracking-widest text-[0.7rem] md:text-[0.9rem] uppercase font-bold">PARAMETER</div>
+            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-4 px-4 md:py-8 md:px-12 border-b border-border-default bg-bg/50">
+              <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] uppercase font-bold">PARAMETER</div>
               <div className="flex justify-center">
                 <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-7 h-7 md:w-12 md:h-12 text-accent opacity-60"><path d="M12 22C12 22 12 17 12 12M12 12C12 12 16 12 19 9C22 6 21 2 21 2C21 2 17 1 14 4C11 7 12 12 12 12ZM12 12C12 12 8 12 5 9C2 6 3 2 3 2C3 2 7 1 10 4C13 7 12 12 12 12Z" /></svg>
               </div>
@@ -235,19 +235,19 @@ export default function ProductsSection() {
                 <img 
                   src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
                   alt="MicroBlue Logo" 
-                  className="h-6 md:h-10 w-auto object-contain rounded-xl grayscale opacity-60"
+                  className="h-6 md:h-10 w-auto object-contain rounded-xl "
                 />
               </div>
-              <div className="text-accent font-mono tracking-widest text-[0.7rem] md:text-[0.9rem] text-right uppercase font-bold">REDUCTION</div>
+              <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] text-right uppercase font-bold">REDUCTION</div>
             </div>
             
             {/* Row 1 */}
-            <div className="grid grid-cols-[1.8fr_1fr_1fr_1.2fr] md:grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-6 px-6 md:py-10 md:px-12 border-b border-border-default hover:bg-accent/5 transition-colors group">
-              <div className="flex items-center gap-3 md:gap-6">
-                <div className="p-3 bg-bg rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-6 h-6 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 border-b border-border-default hover:bg-accent/5 transition-colors group">
+              <div className="flex items-center gap-2 md:gap-6">
+                <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
+                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 </div>
-                <span className="text-text-primary text-[0.8rem] md:text-[1.1rem] font-medium leading-snug">Growth<br/>time (days)</span>
+                <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Growth<br/>time</span>
               </div>
               <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">274</div>
               <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
@@ -257,12 +257,12 @@ export default function ProductsSection() {
             </div>
  
             {/* Row 2 */}
-            <div className="grid grid-cols-[1.8fr_1fr_1fr_1.2fr] md:grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-6 px-6 md:py-10 md:px-12 hover:bg-accent/5 transition-colors group">
-              <div className="flex items-center gap-3 md:gap-6">
-                <div className="p-3 bg-bg rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-6 h-6 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg>
+            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 hover:bg-accent/5 transition-colors group">
+              <div className="flex items-center gap-2 md:gap-6">
+                <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
+                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg>
                 </div>
-                <span className="text-text-primary text-[0.8rem] md:text-[1.1rem] font-medium leading-snug">Water per KG<br/>(litres)</span>
+                <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Water<br/>usage</span>
               </div>
               <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">100,000</div>
               <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
