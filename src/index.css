@@ -37,6 +37,7 @@
   --animate-ring-pulse: ringPulse 3s ease-in-out infinite;
   --animate-draw-path: drawPath 4s ease forwards;
   --animate-marquee: marquee 30s linear infinite;
+  --animate-bounce-subtle: bounceSubtle 2s ease-in-out infinite;
 }
 
 /* Dark Mode Overrides */
@@ -92,6 +93,11 @@
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@keyframes bounceSubtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
 }
 
 /* Base styles */
