@@ -172,32 +172,10 @@ export default function HeroSection() {
         <h1 className="sr-only">Sustainable dyes for textiles</h1>
         
         {/* Visual Title */}
-        <div aria-hidden="true" className="font-display text-[clamp(3rem,8vw,7rem)] leading-[1.0] text-text-primary mb-6 tracking-tight">
-          We grow color.
-          <em className="block italic text-accent not-italic" style={{ fontStyle: 'italic' }}>Not pollution.</em>
+        <div aria-hidden="true" className="font-display leading-[1.1] text-text-primary mb-6 tracking-tight">
+          <span className="block text-[1.7rem] md:text-[clamp(2.5rem,6vw,4.8rem)] whitespace-nowrap md:whitespace-normal mb-1 md:mb-0">Powered by microbes.</span>
+          <em className="block italic text-accent not-italic text-[2.1rem] md:text-[clamp(2.5rem,8vw,5.5rem)] whitespace-nowrap md:whitespace-normal" style={{ fontStyle: 'italic' }}>Built for the planet.</em>
         </div>
-
-        {/* Subtitle */}
-        {/* <p className="text-[clamp(1rem,2vw,1.2rem)] text-text-muted font-light leading-relaxed max-w-[480px] mx-auto mb-10 md:mb-12">
-          Sustainable textile dyes engineered from living microorganisms —
-          replacing toxic chemicals with the precision of biology.
-        </p> */}
-
-        {/* CTAs */}
-        {/* <div className="flex gap-4 justify-center flex-wrap">
-          <button
-            onClick={() => scrollToSection('how')}
-            className="btn-clip bg-accent text-white border-none px-7 py-3.5 text-[0.85rem] font-semibold tracking-[0.08em] uppercase cursor-pointer font-body transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,255,136,0.5)] hover:-translate-y-0.5"
-          >
-            Explore Technology
-          </button>
-          <button
-            onClick={() => scrollToSection('cta')}
-            className="bg-transparent border border-black/15 text-text-primary px-7 py-3.5 text-[0.85rem] font-normal tracking-[0.08em] uppercase cursor-pointer font-body transition-all duration-300 hover:bg-black/4 hover:border-black/25"
-          >
-            Partner With Us
-          </button>
-        </div> */}
       </div>
 
       {/* Scroll Hint */}
