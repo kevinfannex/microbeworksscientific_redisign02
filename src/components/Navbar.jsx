@@ -8,10 +8,11 @@ export default function Navbar() {
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
+    const threshold = location.pathname === '/' ? 200 : 50
+    const handleScroll = () => setScrolled(window.scrollY > threshold)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [location.pathname])
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -40,10 +41,17 @@ export default function Navbar() {
     { to: '/team', label: 'Team' },
   ]
 
+  const isHomePage = location.pathname === '/'
+  const showNavbar = scrolled || !isHomePage || menuOpen
+
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-400 ${scrolled && !menuOpen
+        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-500 ${
+          showNavbar
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-full pointer-events-none'
+        } ${scrolled && !menuOpen
             ? 'bg-surface backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.06)]'
             : ''
           }`}
@@ -82,10 +90,10 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
           <Link
-            to="/connect"
+            to="/contact"
             className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
           >
-            Partner With Us
+            Contact
           </Link>
         </div>
 
@@ -123,11 +131,11 @@ export default function Navbar() {
           </Link>
         ))}
         <Link
-          to="/connect"
+          to="/contact"
           className="mt-4 border border-border-bright text-accent text-sm tracking-[0.1em] uppercase px-6 py-3 transition-all duration-300 hover:bg-accent/12 no-underline"
           onClick={() => setMenuOpen(false)}
         >
-          Partner With Us
+          Contact
         </Link>
         <div className="mt-2">
           <ThemeToggle />

@@ -168,11 +168,14 @@ export default function HeroSection() {
           Synthetic Biology · Series A 2025
         </div> */}
 
-        {/* Title */}
-        <h1 className="font-display text-[clamp(3rem,8vw,7rem)] leading-[1.0] text-text-primary mb-6 tracking-tight">
+        {/* SEO H1 (Visually Hidden) */}
+        <h1 className="sr-only">Sustainable dyes for textiles</h1>
+        
+        {/* Visual Title */}
+        <div aria-hidden="true" className="font-display text-[clamp(3rem,8vw,7rem)] leading-[1.0] text-text-primary mb-6 tracking-tight">
           We grow color.
           <em className="block italic text-accent not-italic" style={{ fontStyle: 'italic' }}>Not pollution.</em>
-        </h1>
+        </div>
 
         {/* Subtitle */}
         {/* <p className="text-[clamp(1rem,2vw,1.2rem)] text-text-muted font-light leading-relaxed max-w-[480px] mx-auto mb-10 md:mb-12">

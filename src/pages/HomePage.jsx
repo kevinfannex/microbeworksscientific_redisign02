@@ -3,6 +3,7 @@ import WhatWeDoSection from '../components/sections/WhatWeDoSection'
 // import HowItWorksSection from '../components/sections/HowItWorksSection'
 import Info from '../components/sections/Info'
 import MissionVision from '../components/sections/MissionVision'
+import SupportAwards from '../components/sections/SupportAwards'
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Info />
       <MissionVision />
       <WhatWeDoSection />
+      <SupportAwards />
       {/* <HowItWorksSection /> */}
     </>
   )

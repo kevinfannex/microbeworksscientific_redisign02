@@ -11,7 +11,7 @@ import SciencePage from './pages/SciencePage'
 import ProcessPage from './pages/ProcessPage'
 import ProductsPage from './pages/ProductsPage'
 import TeamPage from './pages/TeamPage'
-import ConnectPage from './pages/ConnectPage'
+import ContactPage from './pages/ContactPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -61,7 +61,7 @@ export default function App() {
           <Route path="/process" element={<ProcessPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/team" element={<TeamPage />} />
-          <Route path="/connect" element={<ConnectPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
       <Footer />

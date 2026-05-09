@@ -5,11 +5,19 @@ import SectionLabel from '../SectionLabel'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { useTheme } from '../../context/ThemeContext'
 
+// Import Team Images
+import SuchithaImg from '../../assets/Suchitha_2.png'
+import SakshiImg from '../../assets/Sakshi.jpeg'
+import AnjanaImg from '../../assets/Anjana.png'
+import SwethaImg from '../../assets/Swetha.jpeg'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const team = [
-  { initials: 'SR', name: 'Ms. Suchitha Raghunathan', role: 'CEO and co-founder', bio: 'MSc Life Sciences', cred: '7+ years at NCBS-TIFR', gradient: 'from-accent to-accent3', linkedin: 'https://www.linkedin.com/in/suchitha-raghunathan/', image: 'https://media.licdn.com/dms/image/v2/D5603AQG0RYXJis-QRw/profile-displayphoto-scale_400_400/B56ZuiY2l2GwAg-/0/1767955983586?e=1778112000&v=beta&t=NwRdjcHJ8YQnqdkQ3lpMcn8YeruBRdHCab6NgVU45tY' },
-  { initials: 'AB', name: 'Dr. Anjana Badrinarayanan', role: 'Scientific advisor and co-founder', bio: 'Associate Professor, NCBS-TIFR', cred: 'Post-doc MIT | PhD University of Oxford', gradient: 'from-accent2 to-[#0a8a50]', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264/', image: 'https://media.licdn.com/dms/image/v2/D5603AQHSO_tQ0RjqRQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1629460897868?e=1778112000&v=beta&t=4W1iOGpo1F5hJ1are4buN0mndQHbUUhdNJKQIYbiyCk' },
+  { name: 'Suchitha Raghunathan', role: 'Chief Executive Officer', linkedin: 'http://www.linkedin.com/in/suchitha-raghunathan', image: SuchithaImg },
+  { name: 'Sakshi Gore', role: 'Chief Commercial Officer', linkedin: 'https://www.linkedin.com/in/sakshi-gore-6903b399', image: SakshiImg },
+  { name: 'Anjana Badrinarayanan', role: 'Scientific Advisor', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264', image: AnjanaImg },
+  { name: 'Swetha Sampathgiri', role: 'Scale-up Advisor', linkedin: 'https://www.linkedin.com/in/swethasg', image: SwethaImg },
 ]
 
 const supportedBy = [
@@ -98,39 +106,48 @@ export default function TeamSection() {
           Built by scientists.<br /><em className="italic text-accent">Led by vision.</em>
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 mt-12 md:mt-20 max-w-4xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16 md:mt-24">
           {team.map((m, i) => (
-            <div key={m.initials} className={`reveal reveal-delay-${i} team-card-parallax team-card-bar relative overflow-hidden border shadow-[0_2px_16px_rgba(0,0,0,0.06)] backdrop-blur-[10px] px-4 py-6 md:px-6 md:py-8 transition-all duration-300 hover:-translate-y-1 ${
-              isDark
-                ? 'bg-white border-white/20 hover:border-accent/40 hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]'
-                : 'bg-bg/80 border-border-default hover:border-border-bright hover:shadow-[0_4px_32px_rgba(0,255,136,0.18)]'
-            }`}>
-              {m.image ? (
-                <img src={m.image} alt={m.name} className="w-24 h-24 rounded-full object-cover mb-5 border border-border-default shadow-sm" />
-              ) : (
-                <div className={`w-13 h-13 rounded-full bg-gradient-to-br ${m.gradient} flex items-center justify-center font-mono text-[0.85rem] font-bold text-white mb-5`}>
-                  {m.initials}
-                </div>
-              )}
-              <div className={`text-[0.95rem] font-semibold mb-1 ${isDark ? 'text-[#0a0a0a]' : 'text-text-primary'}`}>
-                <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className={`transition-colors inline-flex items-center gap-1.5 group ${isDark ? 'hover:text-accent3' : 'hover:text-accent'}`} aria-label={`${m.name} LinkedIn`}>
+            <div key={m.name} className={`reveal reveal-delay-${i} team-card-parallax flex flex-col items-center text-center group`}>
+              {/* Image Circle Placeholder */}
+              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden mb-6 border-4 border-accent/20 transition-transform duration-500 group-hover:scale-105 bg-accent/5 flex items-center justify-center">
+                {m.image ? (
+                  <img src={m.image} alt={m.name} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-accent/40 font-mono text-sm uppercase tracking-widest">Image</span>
+                )}
+              </div>
+
+              {/* Name & LinkedIn Icon */}
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <h3 className="text-xl md:text-2xl font-bold text-text-primary hover:text-accent transition-colors duration-300 cursor-pointer">
                   {m.name}
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#0a66c2] opacity-80 group-hover:opacity-100 transition-opacity">
+                </h3>
+                <a
+                  href={m.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#0a66c2] hover:text-accent transition-colors duration-300 mb-0.5"
+                  aria-label={`${m.name} LinkedIn`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                     <rect width="4" height="12" x="2" y="9" />
                     <circle cx="4" cy="4" r="2" />
                   </svg>
                 </a>
               </div>
-              <div className={`text-[0.78rem] font-mono tracking-[0.05em] mb-3 ${isDark ? 'text-accent3' : 'text-accent'}`}>{m.role}</div>
-              <div className={`text-[0.8rem] leading-relaxed font-light ${isDark ? 'text-[#0a0a0a]/70' : 'text-text-muted'}`}>{m.bio}</div>
-              <div className={`mt-4 pt-4 border-t font-mono text-[0.65rem] tracking-[0.08em] ${isDark ? 'border-black/10 text-[#0a0a0a]/80' : 'border-border-default text-text-primary'}`}>{m.cred}</div>
+
+              {/* Role */}
+              <div className="text-sm md:text-base text-text-primary/80 font-medium">
+                {m.role}
+              </div>
             </div>
           ))}
         </div>
 
         {/* Supported By */}
-        <div className="reveal mt-20 md:mt-24 max-w-4xl">
+        {/* <div className="mt-20 md:mt-24 max-w-4xl">
           <div className="flex items-center gap-4 mb-10">
             <h3 className="font-mono text-[0.85rem] font-bold text-text-primary tracking-[0.15em] uppercase whitespace-nowrap">SUPPORTED BY</h3>
             <div className="h-[1px] w-full bg-border-default"></div>
@@ -148,10 +165,10 @@ export default function TeamSection() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Awards */}
-        <div className="reveal mt-20 md:mt-24 max-w-4xl">
+        {/* <div className="mt-20 md:mt-24 max-w-4xl">
           <div className="flex items-center gap-4 mb-10">
             <h3 className="font-mono text-[0.85rem] font-bold text-text-primary tracking-[0.15em] uppercase whitespace-nowrap">AWARDS</h3>
             <div className="h-[1px] w-full bg-border-default"></div>
@@ -169,7 +186,7 @@ export default function TeamSection() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
       </div>
     </section>

@@ -36,6 +36,7 @@
   --animate-orbit: orbit 6s linear infinite;
   --animate-ring-pulse: ringPulse 3s ease-in-out infinite;
   --animate-draw-path: drawPath 4s ease forwards;
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 /* Dark Mode Overrides */
@@ -86,6 +87,11 @@
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Base styles */
