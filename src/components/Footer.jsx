@@ -8,30 +8,30 @@ export default function Footer() {
       </div>
 
       <div className="flex gap-6 lg:gap-8 flex-wrap justify-center">
-        <Link
-          to="/science"
+        <a
+          href="/#science"
           className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Science
-        </Link>
-        <Link
-          to="/products"
+        </a>
+        <a
+          href="/#products"
           className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Products
-        </Link>
-        <Link
-          to="/process"
+        </a>
+        <a
+          href="/#experience"
           className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
-          Process
-        </Link>
-        <Link
-          to="/team"
+          Experience
+        </a>
+        <a
+          href="/#team"
           className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Team
-        </Link>
+        </a>
       </div>
 
       <div className="text-[0.75rem] text-text-primary font-mono">

@@ -140,140 +140,141 @@ export default function ProductsSection() {
     }
   }, [])
 
-  return (
-    <section
-      id="products"
-      ref={sectionRef}
-      className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-16 md:pb-12 bg-bg text-text-primary min-h-screen overflow-hidden"
-    >
-      {/* Dynamic Background Elements */}
-      <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-1/4 -left-20 w-[300px] h-[300px] bg-accent2/5 blur-[100px] rounded-full pointer-events-none" />
-
-      <div className="max-w-[1200px] mx-auto flex flex-col items-center">
-        
-        {/* Header */}
-        <div className="text-center mb-20 reveal">
-          <div className="text-[0.9rem] md:text-[1.1rem] tracking-[0.2em] text-accent mb-6 font-mono uppercase font-semibold">
-            INTRODUCING
-          </div>
-          
-          <img 
-            src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
-            alt="MicroBlue Logo" 
-            className="h-20 md:h-28 w-auto object-contain mb-8 mx-auto rounded-xl shadow-[0_0_40px_rgba(0,255,136,0.15)]"
-          />
-          
-          <p className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed max-w-[800px] mx-auto text-center">
-            MicroBlue is our flagship innovation: a biodegradable, IP-protected microbial blue dye that serves as a seamless drop-in replacement for conventional textile dyeing systems.
-          </p>
-        </div>
-
-        {/* Hero Product Card */}
-        <div className="powder-container w-full bg-bg2/50 backdrop-blur-sm rounded-[40px] md:rounded-[60px] p-8 md:p-24 mb-24 flex justify-center items-center shadow-inner border border-border-default overflow-hidden">
-            <img 
-              src="https://microbeworksscientific.com/static/media/image_1.f862905b7edbb95b1537.png" 
-              alt="MicroBlue powder" 
-              className="powder-img w-64 h-64 md:w-[480px] md:h-[480px] object-cover rounded-full shadow-[0_30px_70px_rgba(0,0,0,0.6)] border-8 border-bg2"
-            />
-        </div>
-
-        {/* Bento Features Grid */}
-        <div className="w-full mb-32">
-          <div className="text-center mb-16">
-            <h3 className="text-2xl md:text-3xl font-display font-medium tracking-tight mb-4">Product Superiority</h3>
-            <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto auto-rows-auto">
-            {features.map((f, i) => (
-              <BentoCard key={f.title} feature={f} index={i} />
-            ))}
-          </div>
-        </div>
-
-        {/* Fabric Image Section (Cinematic Reveal) */}
-        <div className="fabric-container w-full rounded-[40px] md:rounded-[60px] overflow-hidden mb-32 h-[400px] md:h-[600px] relative border border-border-default shadow-2xl">
-          <img 
-            src="https://microbeworksscientific.com/static/media/image_3.67cf055e17595920fc5d.png"
-            alt="Fabrics dyed with MicroBlue"
-            className="fabric-img w-full h-full object-cover scale-[1.3] origin-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8 md:p-16">
-            <div className="text-white font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-2 opacity-80">Final Product</div>
-            <h3 className="text-white text-2xl md:text-4xl font-display font-medium">Vivid, Microbial Color on Textiles</h3>
-          </div>
-        </div>
-
-        {/* Video Experience Section */}
-        <div className="w-full max-w-[1100px] mx-auto reveal mb-6 md:mb-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-            <div>
-              <h3 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-accent mb-4">Experience the Innovation</h3>
-              <p className="text-text-muted text-[1rem] max-w-[500px]">Watch how we are redefining the colors of the world through the precision of biology.</p>
-            </div>
-            <div className="hidden md:block h-px flex-1 bg-border-default mx-12 mb-5" />
-          </div>
-          <MicrobVideoSection videoSrc="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/pitch_video.mp4?updatedAt=1778316180059" />
-        </div>
-
-        {/* Impact Table Section */}
-        <div className="w-full max-w-[1000px] mx-auto mb-12">
-          <div className="text-center mb-12">
-            <h3 className="text-xl md:text-2xl font-bold tracking-[0.2em] uppercase font-mono text-accent">POTENTIAL IMPACT</h3>
-            <p className="text-text-dim text-sm mt-2 font-mono uppercase tracking-[0.1em]">MicroBlue vs Conventional Dyes</p>
-          </div>
-          
-          <div className="border border-border-default rounded-[32px] overflow-hidden bg-surface/30 backdrop-blur-md shadow-2xl">
-            {/* Header */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-4 px-4 md:py-8 md:px-12 border-b border-border-default bg-bg/50">
-              <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] uppercase font-bold">PARAMETER</div>
-              <div className="flex justify-center">
-                <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-7 h-7 md:w-12 md:h-12 text-accent opacity-60"><path d="M12 22C12 22 12 17 12 12M12 12C12 12 16 12 19 9C22 6 21 2 21 2C21 2 17 1 14 4C11 7 12 12 12 12ZM12 12C12 12 8 12 5 9C2 6 3 2 3 2C3 2 7 1 10 4C13 7 12 12 12 12Z" /></svg>
-              </div>
-              <div className="flex justify-center">
-                <img 
-                  src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
-                  alt="MicroBlue Logo" 
-                  className="h-6 md:h-10 w-auto object-contain rounded-xl "
-                />
-              </div>
-              <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] text-right uppercase font-bold">REDUCTION</div>
-            </div>
-            
-            {/* Row 1 */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 border-b border-border-default hover:bg-accent/5 transition-colors group">
-              <div className="flex items-center gap-2 md:gap-6">
-                <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                </div>
-                <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Growth<br/>time</span>
-              </div>
-              <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">274</div>
-              <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
-              <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
-                98.2% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
-              </div>
-            </div>
- 
-            {/* Row 2 */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 hover:bg-accent/5 transition-colors group">
-              <div className="flex items-center gap-2 md:gap-6">
-                <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-                  <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg>
-                </div>
-                <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Water<br/>usage</span>
-              </div>
-              <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">100,000</div>
-              <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
-              <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
-                99.95% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-  )
+  // return (
+  //   <section
+  //     id="products"
+  //     ref={sectionRef}
+  //     className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-16 md:pb-12 bg-bg text-text-primary min-h-screen overflow-hidden"
+  //   >
+  //     {/* Dynamic Background Elements */}
+  //     <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
+  //     <div className="absolute bottom-1/4 -left-20 w-[300px] h-[300px] bg-accent2/5 blur-[100px] rounded-full pointer-events-none" />
+  //
+  //     <div className="max-w-[1200px] mx-auto flex flex-col items-center">
+  //       
+  //       {/* Header */}
+  //       <div className="text-center mb-20 reveal">
+  //         <div className="text-[0.9rem] md:text-[1.1rem] tracking-[0.2em] text-accent mb-6 font-mono uppercase font-semibold">
+  //           INTRODUCING
+  //         </div>
+  //         
+  //         <img 
+  //           src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
+  //           alt="MicroBlue Logo" 
+  //           className="h-20 md:h-28 w-auto object-contain mb-8 mx-auto rounded-xl shadow-[0_0_40px_rgba(0,255,136,0.15)]"
+  //         />
+  //         
+  //         <p className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed max-w-[800px] mx-auto text-center">
+  //           MicroBlue is our flagship innovation: a biodegradable, IP-protected microbial blue dye that serves as a seamless drop-in replacement for conventional textile dyeing systems.
+  //         </p>
+  //       </div>
+  //
+  //       {/* Hero Product Card */}
+  //       <div className="powder-container w-full bg-bg2/50 backdrop-blur-sm rounded-[40px] md:rounded-[60px] p-8 md:p-24 mb-24 flex justify-center items-center shadow-inner border border-border-default overflow-hidden">
+  //           <img 
+  //             src="https://microbeworksscientific.com/static/media/image_1.f862905b7edbb95b1537.png" 
+  //             alt="MicroBlue powder" 
+  //             className="powder-img w-64 h-64 md:w-[480px] md:h-[480px] object-cover rounded-full shadow-[0_30px_70px_rgba(0,0,0,0.6)] border-8 border-bg2"
+  //           />
+  //       </div>
+  //
+  //       {/* Bento Features Grid */}
+  //       <div className="w-full mb-32">
+  //         <div className="text-center mb-16">
+  //           <h3 className="text-2xl md:text-3xl font-display font-medium tracking-tight mb-4">Product Superiority</h3>
+  //           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
+  //         </div>
+  //         
+  //         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto auto-rows-auto">
+  //           {features.map((f, i) => (
+  //             <BentoCard key={f.title} feature={f} index={i} />
+  //           ))}
+  //         </div>
+  //       </div>
+  //
+  //       {/* Fabric Image Section (Cinematic Reveal) */}
+  //       <div className="fabric-container w-full rounded-[40px] md:rounded-[60px] overflow-hidden mb-32 h-[400px] md:h-[600px] relative border border-border-default shadow-2xl">
+  //         <img 
+  //           src="https://microbeworksscientific.com/static/media/image_3.67cf055e17595920fc5d.png"
+  //           alt="Fabrics dyed with MicroBlue"
+  //           className="fabric-img w-full h-full object-cover scale-[1.3] origin-center"
+  //         />
+  //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8 md:p-16">
+  //           <div className="text-white font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-2 opacity-80">Final Product</div>
+  //           <h3 className="text-white text-2xl md:text-4xl font-display font-medium">Vivid, Microbial Color on Textiles</h3>
+  //         </div>
+  //       </div>
+  //
+  //       {/* Video Experience Section */}
+  //       <div className="w-full max-w-[1100px] mx-auto reveal mb-6 md:mb-12">
+  //         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+  //           <div>
+  //             <h3 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-accent mb-4">Experience the Innovation</h3>
+  //             <p className="text-text-muted text-[1rem] max-w-[500px]">Watch how we are redefining the colors of the world through the precision of biology.</p>
+  //           </div>
+  //           <div className="hidden md:block h-px flex-1 bg-border-default mx-12 mb-5" />
+  //         </div>
+  //         <MicrobVideoSection videoSrc="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/pitch_video.mp4?updatedAt=1778316180059" />
+  //       </div>
+  //
+  //       {/* Impact Table Section */}
+  //       <div className="w-full max-w-[1000px] mx-auto mb-12">
+  //         <div className="text-center mb-12">
+  //           <h3 className="text-xl md:text-2xl font-bold tracking-[0.2em] uppercase font-mono text-accent">POTENTIAL IMPACT</h3>
+  //           <p className="text-text-dim text-sm mt-2 font-mono uppercase tracking-[0.1em]">MicroBlue vs Conventional Dyes</p>
+  //         </div>
+  //         
+  //         <div className="border border-border-default rounded-[32px] overflow-hidden bg-surface/30 backdrop-blur-md shadow-2xl">
+  //           {/* Header */}
+  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-4 px-4 md:py-8 md:px-12 border-b border-border-default bg-bg/50">
+  //             <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] uppercase font-bold">PARAMETER</div>
+  //             <div className="flex justify-center">
+  //               <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-7 h-7 md:w-12 md:h-12 text-accent opacity-60"><path d="M12 22C12 22 12 17 12 12M12 12C12 12 16 12 19 9C22 6 21 2 21 2C21 2 17 1 14 4C11 7 12 12 12 12ZM12 12C12 12 8 12 5 9C2 6 3 2 3 2C3 2 7 1 10 4C13 7 12 12 12 12Z" /></svg>
+  //             </div>
+  //             <div className="flex justify-center">
+  //               <img 
+  //                 src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
+  //                 alt="MicroBlue Logo" 
+  //                 className="h-6 md:h-10 w-auto object-contain rounded-xl "
+  //               />
+  //             </div>
+  //             <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] text-right uppercase font-bold">REDUCTION</div>
+  //           </div>
+  //           
+  //           {/* Row 1 */}
+  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 border-b border-border-default hover:bg-accent/5 transition-colors group">
+  //             <div className="flex items-center gap-2 md:gap-6">
+  //               <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
+  //                 <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+  //               </div>
+  //               <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Growth<br/>time</span>
+  //             </div>
+  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">274</div>
+  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
+  //             <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
+  //               98.2% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+  //             </div>
+  //           </div>
+  //
+  //           {/* Row 2 */}
+  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 hover:bg-accent/5 transition-colors group">
+  //             <div className="flex items-center gap-2 md:gap-6">
+  //               <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
+  //                 <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg>
+  //               </div>
+  //               <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Water<br/>usage</span>
+  //             </div>
+  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">100,000</div>
+  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
+  //             <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
+  //               99.95% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       </div>
+  //
+  //     </div>
+  //   </section>
+  // )
+  return null;
 }

@@ -41,15 +41,15 @@ export default function ContactPage() {
                 </p>
                 
                 <div className="space-y-4 pt-8 border-t border-border-default">
-                  <a 
+                  {/* <a 
                     href="mailto:info@mws.bio" 
                     className="block text-[0.9rem] md:text-[1rem] font-mono text-accent hover:text-accent2 transition-colors font-semibold"
                   >
                     info@mws.bio
-                  </a>
-                  <p className="text-[0.75rem] md:text-[0.85rem] font-mono text-text-muted leading-relaxed max-w-[300px]">
+                  </a> */}
+                  {/* <p className="text-[0.75rem] md:text-[0.85rem] font-mono text-text-muted leading-relaxed max-w-[300px]">
                     For any sales enquiries, write to us at <a href="mailto:info@mws.bio" className="text-text-primary hover:text-accent font-bold underline decoration-accent/30 underline-offset-4">info@mws.bio</a>
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>

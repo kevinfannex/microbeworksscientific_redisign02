@@ -35,26 +35,38 @@ export default function Navbar() {
   }, [menuOpen])
 
   const navLinks = [
-    { to: '/science', label: 'Science' },
-    { to: '/process', label: 'Process' },
-    { to: '/products', label: 'Products' },
-    { to: '/team', label: 'Team' },
+    { to: 'science', label: 'Science' },
+    { to: 'products', label: 'Products' },
+    { to: 'experience', label: 'Experience' },
+    { to: 'team', label: 'Team' },
   ]
 
-  const isHomePage = location.pathname === '/'
-  const showNavbar = scrolled || !isHomePage || menuOpen
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    if (location.pathname !== '/') {
+      window.location.href = `/#${targetId}`
+      return
+    }
+    const element = document.getElementById(targetId)
+    if (element) {
+      const offset = 80 // Navbar height offset
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+    setMenuOpen(false)
+  }
+
+  const showNavbar = true
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-500 ${
-          showNavbar
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 -translate-y-full pointer-events-none'
-        } ${scrolled && !menuOpen
-            ? 'bg-surface backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.06)]'
-            : ''
-          }`}
+        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-500 bg-surface/80 backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.03)]`}
       >
         {/* Logo */}
         <Link
@@ -73,15 +85,16 @@ export default function Navbar() {
         <ul className="hidden lg:flex gap-10 list-none">
           {navLinks.map((link) => (
             <li key={link.to}>
-              <Link
-                to={link.to}
-                className={`text-[0.8rem] tracking-[0.1em] uppercase no-underline transition-colors duration-300 ${location.pathname === link.to
+              <a
+                href={`#${link.to}`}
+                onClick={(e) => handleNavClick(e, link.to)}
+                className={`text-[0.8rem] tracking-[0.1em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
                     ? 'text-accent'
                     : 'text-text-muted hover:text-accent'
                   }`}
               >
                 {link.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
@@ -118,17 +131,17 @@ export default function Navbar() {
           }`}
       >
         {navLinks.map((link) => (
-          <Link
+          <a
             key={link.to}
-            to={link.to}
-            className={`text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.pathname === link.to
+            href={`#${link.to}`}
+            onClick={(e) => handleNavClick(e, link.to)}
+            className={`text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
                 ? 'text-accent'
                 : 'text-text-primary hover:text-accent'
               }`}
-            onClick={() => setMenuOpen(false)}
           >
             {link.label}
-          </Link>
+          </a>
         ))}
         <Link
           to="/contact"

@@ -7,8 +7,6 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
 import HomePage from './pages/HomePage'
-import SciencePage from './pages/SciencePage'
-import ProcessPage from './pages/ProcessPage'
 import ProductsPage from './pages/ProductsPage'
 import TeamPage from './pages/TeamPage'
 import ContactPage from './pages/ContactPage'
@@ -57,8 +55,6 @@ export default function App() {
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/science" element={<SciencePage />} />
-          <Route path="/process" element={<ProcessPage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/team" element={<TeamPage />} />
           <Route path="/contact" element={<ContactPage />} />

@@ -108,7 +108,7 @@ export const MicrobVideoSection = ({ videoSrc }) => {
   };
 
   return (
-    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-black aspect-video mb-24">
+    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-black aspect-video">
       <AnimatePresence>
         {showVideoPopOver && (
           <VideoPopOver videoSrc={videoSrc} setShowVideoPopOver={setShowVideoPopOver} />
