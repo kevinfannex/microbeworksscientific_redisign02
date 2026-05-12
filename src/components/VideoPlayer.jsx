@@ -115,33 +115,18 @@ export const MicrobVideoSection = ({ videoSrc }) => {
         )}
       </AnimatePresence>
       <div
-        onMouseMove={handlePointerMove}
-        onMouseLeave={() => {
-          opacity.set(0);
-        }}
         onClick={() => setShowVideoPopOver(true)}
-        className="w-full h-full cursor-none relative"
+        className="w-full h-full cursor-pointer relative"
       >
-        <motion.div
-          style={{ x, y, opacity }}
-          className="absolute z-20 flex select-none items-center justify-center gap-2 p-4 text-sm text-white mix-blend-exclusion pointer-events-none bg-white/10 backdrop-blur-md rounded-full border border-white/20"
-        >
-          <Play className="size-4 fill-white" /> Play Experience
-        </motion.div>
-        
         <video
           autoPlay
           muted
           playsInline
           loop
-          className="h-full w-full object-cover opacity-60 hover:opacity-80 transition-opacity duration-700"
+          className="h-full w-full object-cover opacity-70 hover:opacity-90 transition-opacity duration-700"
         >
           <source src={videoSrc} />
         </video>
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white pointer-events-none">
-          <span className="text-xs uppercase tracking-[0.3em] opacity-60 mb-4 font-mono">Click to play video</span>
-        </div>
       </div>
     </div>
   );
