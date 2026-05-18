@@ -6,14 +6,54 @@ import { useTheme } from '../context/ThemeContext'
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
   const location = useLocation()
   const { isDark } = useTheme()
+
+  const navLinks = [
+    { to: 'science', label: 'About' },
+    { to: 'products', label: 'Products' },
+    { to: 'team', label: 'Team' },
+  ]
 
   useEffect(() => {
     const threshold = location.pathname === '/' ? 200 : 50
     const handleScroll = () => setScrolled(window.scrollY > threshold)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [location.pathname])
+
+  // Scroll spy to highlight active nav link
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection('')
+      return
+    }
+
+    const handleScrollSpy = () => {
+      const scrollPosition = window.scrollY + 200 // Offset for navbar
+
+      for (const link of navLinks) {
+        const element = document.getElementById(link.to)
+        if (element) {
+          const top = element.offsetTop
+          const height = element.offsetHeight
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(link.to)
+            return
+          }
+        }
+      }
+      
+      if (window.scrollY < 200) {
+        setActiveSection('')
+      }
+    }
+
+    window.addEventListener('scroll', handleScrollSpy)
+    handleScrollSpy()
+
+    return () => window.removeEventListener('scroll', handleScrollSpy)
   }, [location.pathname])
 
   // Close mobile menu on route change
@@ -36,12 +76,6 @@ export default function Navbar() {
     }
   }, [menuOpen])
 
-  const navLinks = [
-    { to: 'science', label: 'About' },
-    { to: 'products', label: 'Products' },
-    { to: 'team', label: 'Team' },
-  ]
-
   const handleNavClick = (e, targetId) => {
     e.preventDefault()
     if (location.pathname !== '/') {
@@ -58,6 +92,7 @@ export default function Navbar() {
         top: offsetPosition,
         behavior: 'smooth'
       })
+      setActiveSection(targetId)
     }
     setMenuOpen(false)
   }
@@ -89,10 +124,11 @@ export default function Navbar() {
               <a
                 href={`#${link.to}`}
                 onClick={(e) => handleNavClick(e, link.to)}
-                className={`font-display font-bold text-[0.8rem] tracking-[0.12em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
-                  ? 'text-accent'
-                  : 'text-text-muted hover:text-accent'
-                  }`}
+                className={`font-display font-bold text-[0.8rem] tracking-[0.12em] uppercase no-underline transition-all duration-300 hover:scale-105 inline-block ${
+                  activeSection === link.to
+                    ? 'text-accent2 shadow-[0_2px_0_rgba(196,250,52,0.6)]'
+                    : 'text-text-muted hover:text-accent2'
+                }`}
               >
                 {link.label}
               </a>
@@ -105,7 +141,7 @@ export default function Navbar() {
           <ThemeToggle />
           <Link
             to="/contact"
-            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.12em] uppercase px-5 py-2.5 font-display font-bold transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(92,193,255,0.2)]"
+            className="bg-transparent border border-accent2/40 text-accent2 text-[0.8rem] tracking-[0.12em] uppercase px-5 py-2.5 font-display font-bold transition-all duration-300 hover:bg-accent2/10 hover:border-accent2 hover:shadow-[0_0_20px_rgba(196,250,52,0.25)]"
           >
             Contact
           </Link>
@@ -136,17 +172,18 @@ export default function Navbar() {
             key={link.to}
             href={`#${link.to}`}
             onClick={(e) => handleNavClick(e, link.to)}
-            className={`font-display font-bold text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
-              ? 'text-accent'
-              : 'text-text-primary hover:text-accent'
-              }`}
+            className={`font-display font-bold text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-all duration-300 hover:scale-105 ${
+              activeSection === link.to
+                ? 'text-accent2'
+                : 'text-text-primary hover:text-accent2'
+            }`}
           >
             {link.label}
           </a>
         ))}
         <Link
           to="/contact"
-          className="mt-4 border border-border-bright text-accent text-sm tracking-[0.12em] uppercase px-6 py-3 font-display font-bold transition-all duration-300 hover:bg-accent/12 no-underline"
+          className="mt-4 border border-accent2/40 text-accent2 text-sm tracking-[0.12em] uppercase px-6 py-3 font-display font-bold transition-all duration-300 hover:bg-accent2/10 hover:border-accent2 no-underline"
           onClick={() => setMenuOpen(false)}
         >
           Contact
