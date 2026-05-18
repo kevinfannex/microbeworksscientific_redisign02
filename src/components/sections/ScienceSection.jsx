@@ -100,7 +100,7 @@ export default function ScienceSection() {
               <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8] mb-6">
                 While natural colors exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
-              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-[#f1bc0d]">
+              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold">
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function ScienceSection() {
               <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8]">
                 Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
-              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-[#f1bc0d] mt-6'>
+              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6'>
                 We envision a world in which the colors we wear are in harmony with the planet and people.
               </p>
             </div>

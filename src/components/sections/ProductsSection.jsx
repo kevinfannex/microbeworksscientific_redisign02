@@ -76,7 +76,7 @@ export default function ProductsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-[2.2rem] md:text-[3.2rem] font-display font-medium tracking-tight mb-6 leading-tight text-accent2"
+              className="text-[2.2rem] md:text-[3.2rem] font-display font-medium tracking-tight mb-6 leading-tight text-accent"
             >
               MicroBlue
             </motion.h2>

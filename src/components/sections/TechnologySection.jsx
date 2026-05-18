@@ -49,25 +49,27 @@ export default function TechnologySection() {
         const x2 = cx - wave * radius
         const alpha = 0.15 + Math.abs(wave) * 0.4
 
-        ctx.beginPath(); ctx.arc(x1, y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(92,160,200,${alpha})`; ctx.fill()
+        ctx.beginPath(); ctx.arc(x1, y, 2.5, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(92,193,255,${alpha})`; ctx.fill()
 
-        ctx.beginPath(); ctx.arc(x2, y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(92,193,255,${alpha * 0.8})`; ctx.fill()
+        ctx.beginPath(); ctx.arc(x2, y, 2.5, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(196,250,52,${alpha * 0.9})`; ctx.fill()
 
         if (y % 30 === 0) {
           ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y)
-          ctx.strokeStyle = `rgba(0,0,0,${0.03 + Math.abs(wave) * 0.08})`
+          ctx.strokeStyle = `rgba(92,193,255,${0.03 + Math.abs(wave) * 0.08})`
           ctx.lineWidth = 0.5; ctx.stroke()
 
           const mid = (x1 + x2) / 2
-          ctx.beginPath(); ctx.arc(mid, y, 2.5, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '92,193,255' : '129,164,34'},0.3)`; ctx.fill()
+          ctx.beginPath(); ctx.arc(mid, y, 3, 0, Math.PI * 2)
+          const baseColors = ['92,193,255', '196,250,52', '129,164,34', '241,188,13']
+          const chosenColor = baseColors[Math.floor((y + frame) % baseColors.length)]
+          ctx.fillStyle = `rgba(${chosenColor},0.55)`; ctx.fill()
         }
       }
 
       const grad = ctx.createRadialGradient(cx, dim.H / 2, 0, cx, dim.H / 2, dim.H * 0.6)
-      grad.addColorStop(0, 'rgba(92,193,255,0.03)')
+      grad.addColorStop(0, 'rgba(92,193,255,0.04)')
       grad.addColorStop(1, 'rgba(92,193,255,0)')
       ctx.fillStyle = grad; ctx.fillRect(0, 0, dim.W, dim.H)
 

@@ -17,7 +17,7 @@ export default function Footer() {
             window.location.href = '/'
           }
         }}
-        className="font-display font-bold text-[0.8rem] text-accent2 tracking-[0.15em] no-underline hover:opacity-85 transition-opacity"
+        className="font-display font-bold text-[0.8rem] text-accent tracking-[0.15em] no-underline hover:text-accent2 transition-colors duration-300"
       >
         MicrobeWorks Scientific
       </a>
