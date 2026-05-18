@@ -75,13 +75,13 @@ export default function ContactPage() {
             <div className="space-y-4">
               <a
                 href="mailto:info@mws.bio"
-                className="text-[1.8rem] sm:text-[2.2rem] md:text-[3.2rem] font-display font-medium text-accent2 hover:text-accent block break-all leading-none transition-colors"
+                className="text-[1.8rem] sm:text-[2.2rem] md:text-[3.2rem] font-display font-medium text-accent2 block break-all leading-none"
               >
                 info@mws.bio
               </a>
               <a
                 href="tel:+918971126869"
-                className="text-[1.8rem] sm:text-[2.2rem] md:text-[3.2rem] font-display font-medium text-text-primary block leading-none hover:text-accent transition-colors"
+                className="text-[1.8rem] sm:text-[2.2rem] md:text-[3.2rem] font-display font-medium text-text-primary block leading-none"
               >
                 8971126869
               </a>

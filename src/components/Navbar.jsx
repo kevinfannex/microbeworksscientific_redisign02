@@ -39,7 +39,6 @@ export default function Navbar() {
   const navLinks = [
     { to: 'science', label: 'About' },
     { to: 'products', label: 'Products' },
-    { to: 'experience', label: 'Experience' },
     { to: 'team', label: 'Team' },
   ]
 
@@ -90,7 +89,7 @@ export default function Navbar() {
               <a
                 href={`#${link.to}`}
                 onClick={(e) => handleNavClick(e, link.to)}
-                className={`text-[0.8rem] tracking-[0.1em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
+                className={`font-display font-bold text-[0.8rem] tracking-[0.12em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
                   ? 'text-accent'
                   : 'text-text-muted hover:text-accent'
                   }`}
@@ -106,7 +105,7 @@ export default function Navbar() {
           <ThemeToggle />
           <Link
             to="/contact"
-            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(92,193,255,0.2)]"
+            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.12em] uppercase px-5 py-2.5 font-display font-bold transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(92,193,255,0.2)]"
           >
             Contact
           </Link>
@@ -137,7 +136,7 @@ export default function Navbar() {
             key={link.to}
             href={`#${link.to}`}
             onClick={(e) => handleNavClick(e, link.to)}
-            className={`text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
+            className={`font-display font-bold text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
               ? 'text-accent'
               : 'text-text-primary hover:text-accent'
               }`}
@@ -147,7 +146,7 @@ export default function Navbar() {
         ))}
         <Link
           to="/contact"
-          className="mt-4 border border-border-bright text-accent text-sm tracking-[0.1em] uppercase px-6 py-3 transition-all duration-300 hover:bg-accent/12 no-underline"
+          className="mt-4 border border-border-bright text-accent text-sm tracking-[0.12em] uppercase px-6 py-3 font-display font-bold transition-all duration-300 hover:bg-accent/12 no-underline"
           onClick={() => setMenuOpen(false)}
         >
           Contact

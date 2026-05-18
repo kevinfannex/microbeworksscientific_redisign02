@@ -10,25 +10,20 @@ export default function Footer() {
       <div className="flex gap-6 lg:gap-8 flex-wrap justify-center">
         <a
           href="/#science"
-          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="font-display font-bold text-[0.75rem] text-text-primary no-underline tracking-[0.1em] uppercase transition-colors duration-300 hover:text-accent"
         >
-          Science
+        About
         </a>
         <a
           href="/#products"
-          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="font-display font-bold text-[0.75rem] text-text-primary no-underline tracking-[0.1em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Products
         </a>
-        <a
-          href="/#experience"
-          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
-        >
-          Experience
-        </a>
+
         <a
           href="/#team"
-          className="text-[0.75rem] text-text-primary no-underline tracking-[0.08em] uppercase transition-colors duration-300 hover:text-accent"
+          className="font-display font-bold text-[0.75rem] text-text-primary no-underline tracking-[0.1em] uppercase transition-colors duration-300 hover:text-accent"
         >
           Team
         </a>
