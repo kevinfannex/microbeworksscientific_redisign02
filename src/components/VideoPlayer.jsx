@@ -89,7 +89,7 @@ export const VideoPlayerContent = ({
   <video className={cn("mb-0 mt-0", className)} {...props} />
 );
 
-export const MicrobVideoSection = ({ videoSrc }) => {
+export const MicrobVideoSection = ({ videoSrc, thumbnailSrc }) => {
   const [showVideoPopOver, setShowVideoPopOver] = useState(false);
 
   const SPRING = {
@@ -108,25 +108,24 @@ export const MicrobVideoSection = ({ videoSrc }) => {
   };
 
   return (
-    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-black aspect-video">
+    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-bg dark:bg-black aspect-video group">
       <AnimatePresence>
         {showVideoPopOver && (
-          <VideoPopOver videoSrc={videoSrc} setShowVideoPopOver={setShowVideoPopOver} />
+          <VideoPopOver videoSrc={videoSrc} thumbnailSrc={thumbnailSrc} setShowVideoPopOver={setShowVideoPopOver} />
         )}
       </AnimatePresence>
       <div
         onClick={() => setShowVideoPopOver(true)}
-        className="w-full h-full cursor-pointer relative"
+        className="w-full h-full cursor-pointer relative flex items-center justify-center"
       >
-        <video
-          autoPlay
-          muted
-          playsInline
-          loop
-          className="h-full w-full object-cover opacity-70 hover:opacity-90 transition-opacity duration-700"
-        >
-          <source src={videoSrc} />
-        </video>
+        <img 
+          src={thumbnailSrc} 
+          alt="Video thumbnail" 
+          className="absolute inset-0 w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-700" 
+        />
+        <div className="relative z-10 w-20 h-20 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-accent/80 transition-all duration-300">
+          <Play className="w-8 h-8 text-white ml-1" />
+        </div>
       </div>
     </div>
   );
@@ -134,6 +133,7 @@ export const MicrobVideoSection = ({ videoSrc }) => {
 
 const VideoPopOver = ({
   videoSrc,
+  thumbnailSrc,
   setShowVideoPopOver,
 }) => {
   return (
@@ -162,6 +162,7 @@ const VideoPopOver = ({
           <VideoPlayerContent
             src={videoSrc}
             autoPlay
+            poster={thumbnailSrc}
             slot="media"
             className="w-full h-full object-cover"
           />

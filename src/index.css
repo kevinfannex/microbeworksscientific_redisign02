@@ -1,34 +1,27 @@
 @import "tailwindcss";
 
-/* PP Neue Montreal — use local if available, else fall back to Space Grotesk */
-@font-face {
-  font-family: 'PP Neue Montreal';
-  src: local('PP Neue Montreal Medium'), local('PPNeueMontreal-Medium');
-  font-weight: 400;
-  font-style: normal;
-}
-
 @theme {
   /* Colors */
   --color-bg: #ffffff;
-  --color-bg2: #f6f6f4;
-  --color-bg3: #efefec;
+  --color-bg2: #fef7ff;
+  --color-bg3: #f3f7f8;
   --color-surface: rgba(255, 255, 255, 0.9);
   --color-border-default: rgba(0, 0, 0, 0.08);
-  --color-border-bright: rgba(0, 255, 136, 0.4);
+  --color-border-bright: rgba(92, 193, 255, 0.4);
   --color-text-primary: #0a0a0a;
   --color-text-muted: rgba(10, 10, 10, 0.55);
   --color-text-dim: rgba(10, 10, 10, 0.3);
-  --color-accent: #00ff88;
-  --color-accent2: #00cc6a;
-  --color-accent3: #009950;
-  --color-glow: rgba(0, 255, 136, 0.18);
-  --color-glow-green: rgba(0, 255, 136, 0.12);
+  --color-accent: #5cc1ff;
+  --color-accent2: #c4fa34;
+  --color-accent3: #81a422;
+  --color-gold: #f1bc0d;
+  --color-glow: rgba(92, 193, 255, 0.18);
+  --color-glow-green: rgba(196, 250, 52, 0.12);
 
   /* Fonts */
-  --font-display: 'PP Neue Montreal', 'Space Grotesk', sans-serif;
-  --font-body: 'PP Neue Montreal', 'Space Grotesk', sans-serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-display: 'Bricolage Grotesque', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Inter', monospace;
 
   /* Animations */
   --animate-pulse-dot: pulse-dot 2s infinite;
@@ -47,15 +40,16 @@
   --color-bg3: #1a1a1a;
   --color-surface: rgba(20, 20, 20, 0.92);
   --color-border-default: rgba(255, 255, 255, 0.08);
-  --color-border-bright: rgba(0, 255, 136, 0.35);
+  --color-border-bright: rgba(92, 193, 255, 0.35);
   --color-text-primary: #eaeaea;
   --color-text-muted: rgba(234, 234, 234, 0.70);
   --color-text-dim: rgba(234, 234, 234, 0.3);
-  --color-accent: #00ff88;
-  --color-accent2: #00cc6a;
-  --color-accent3: #009950;
-  --color-glow: rgba(0, 255, 136, 0.22);
-  --color-glow-green: rgba(0, 255, 136, 0.15);
+  --color-accent: #5cc1ff;
+  --color-accent2: #c4fa34;
+  --color-accent3: #81a422;
+  --color-gold: #f1bc0d;
+  --color-glow: rgba(92, 193, 255, 0.22);
+  --color-glow-green: rgba(196, 250, 52, 0.15);
 }
 
 /* Keyframes */

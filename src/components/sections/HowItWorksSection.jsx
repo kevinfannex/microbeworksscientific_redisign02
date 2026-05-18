@@ -216,10 +216,10 @@ export default function HowItWorksSection() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(to bottom, #00ff88, #00cc6a)',
+              background: 'linear-gradient(to bottom, #5cc1ff, #c4fa34)',
               transformOrigin: 'top center',
               scaleY: 0,
-              boxShadow: '0 0 6px 1px rgba(0,255,136,0.45)',
+              boxShadow: '0 0 6px 1px rgba(92,193,255,0.45)',
             }}
           />
 
@@ -235,7 +235,7 @@ export default function HowItWorksSection() {
               height: '8px',
               borderRadius: '50%',
               background: '#ffffff',
-              boxShadow: '0 0 12px 4px rgba(0,255,136,0.8), 0 0 24px 8px rgba(0,255,136,0.4)',
+              boxShadow: '0 0 12px 4px rgba(92,193,255,0.8), 0 0 24px 8px rgba(92,193,255,0.4)',
               pointerEvents: 'none',
               zIndex: 20,
             }}
@@ -256,7 +256,7 @@ export default function HowItWorksSection() {
             <div className="relative z-10 flex-shrink-0">
               <div className="w-14 h-14 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center" style={{ boxShadow: '0 0 0 5px var(--color-bg2)' }}>
                 <div
-                  className="w-10 h-10 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_2px_12px_rgba(0,255,136,0.15)]"
+                  className="w-10 h-10 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_2px_12px_rgba(92,193,255,0.15)]"
                   style={{ fontSize: '1.35rem' }}
                 >
                   {step.icon}
@@ -284,7 +284,7 @@ export default function HowItWorksSection() {
 
         {/* End cap */}
         <div
-          className="absolute bottom-0 w-2.5 h-2.5 rounded-full bg-accent/60 shadow-[0_0_10px_rgba(0,255,136,0.6)]"
+          className="absolute bottom-0 w-2.5 h-2.5 rounded-full bg-accent/60 shadow-[0_0_10px_rgba(92,193,255,0.6)]"
           style={{ left: '28px', transform: 'translate(-50%, 50%)' }}
         />
       </div>
@@ -305,10 +305,10 @@ export default function HowItWorksSection() {
             style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(to bottom, #00ff88, #00cc6a)',
+              background: 'linear-gradient(to bottom, #5cc1ff, #c4fa34)',
               transformOrigin: 'top center',
               scaleY: 0,
-              boxShadow: '0 0 6px 1px rgba(0,255,136,0.45)',
+              boxShadow: '0 0 6px 1px rgba(92,193,255,0.45)',
             }}
           />
 
@@ -324,7 +324,7 @@ export default function HowItWorksSection() {
               height: '10px',
               borderRadius: '50%',
               background: '#ffffff',
-              boxShadow: '0 0 15px 5px rgba(0,255,136,0.9), 0 0 30px 10px rgba(0,255,136,0.4)',
+              boxShadow: '0 0 15px 5px rgba(92,193,255,0.9), 0 0 30px 10px rgba(92,193,255,0.4)',
               pointerEvents: 'none',
               zIndex: 20,
             }}
@@ -374,14 +374,14 @@ export default function HowItWorksSection() {
                 <div
                   className="absolute w-24 h-24 rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, rgba(0,255,136,0.14) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(92,193,255,0.14) 0%, transparent 70%)',
                   }}
                 />
                 {/* Outer ring */}
                 <div className="w-20 h-20 rounded-full border border-accent/35 bg-bg2 flex items-center justify-center" style={{ boxShadow: '0 0 0 7px var(--color-bg2)' }}>
                   {/* Icon */}
                   <div
-                    className="w-14 h-14 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_4px_16px_rgba(0,255,136,0.18)]"
+                    className="w-14 h-14 rounded-full bg-bg border border-accent/40 flex items-center justify-center shadow-[0_4px_16px_rgba(92,193,255,0.18)]"
                     style={{ fontSize: '1.75rem' }}
                   >
                     {step.icon}
@@ -397,7 +397,7 @@ export default function HowItWorksSection() {
 
         {/* End cap */}
         <div 
-          className="absolute left-1/2 bottom-0 w-3 h-3 rounded-full bg-accent/60 shadow-[0_0_10px_rgba(0,255,136,0.6)]"
+          className="absolute left-1/2 bottom-0 w-3 h-3 rounded-full bg-accent/60 shadow-[0_0_10px_rgba(92,193,255,0.6)]"
           style={{ transform: 'translate(-50%, 50%)' }}
         />
       </div>

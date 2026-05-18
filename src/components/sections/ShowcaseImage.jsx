@@ -114,7 +114,7 @@ export default function ShowcaseImage() {
   ]
 
   return (
-    <section id="products" ref={containerRef} className="h-screen w-full bg-bg flex items-center justify-center overflow-hidden relative transition-colors duration-500">
+    <section id="products" ref={containerRef} className="h-[85vh] md:h-[80vh] w-full bg-bg flex items-center justify-center overflow-hidden relative transition-colors duration-500">
       <div className="max-w-[1400px] w-full h-full p-4 md:p-16 flex items-center justify-center relative">        {/* Floating Labels and In-line Tooltips */}
         {labels.map((label, index) => (
           <div

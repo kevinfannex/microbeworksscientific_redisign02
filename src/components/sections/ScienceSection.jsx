@@ -55,7 +55,7 @@ export default function ScienceSection() {
   return (
     <div ref={containerRef} id="science" className="relative bg-black">
       {/* Intro Header */}
-      <div className="science-intro-header py-12 md:py-20 px-6 text-center bg-black">
+      <div className="science-intro-header pt-12 md:pt-20 pb-4 md:pb-8 px-6 text-center bg-black">
         <ScrollFloat
           animationDuration={1.5}
           ease='back.inOut(2)'
@@ -68,15 +68,14 @@ export default function ScienceSection() {
         >
           {[
             { text: "From " },
-            { text: "Microbes ", className: "text-accent" },
+            { text: "Microbes ", className: "text-accent2" },
             { text: "to " },
             { br: true, className: "md:hidden" },
-            { text: "Materials", className: "text-accent" }
+            { text: "Materials", className: "text-accent2" }
           ]}
         </ScrollFloat>
         <p className="text-base md:text-lg text-white/60 font-light max-w-[600px] mx-auto">
-          Engineering living systems to create sustainable color—replacing toxic dyes with biology.
-        </p>
+        Harnessing microbial cell factories to produce safe, sustainable colors       </p>
       </div>
 
       {/* Science Content Wrapper */}
@@ -91,21 +90,24 @@ export default function ScienceSection() {
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
                 containerClassName="mb-8 text-left"
-                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-white/60 font-mono uppercase"
+                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent3 font-mono uppercase"
               >
-                • PROBLEM
+                CURRENT STATE
               </ScrollFloat>
               <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8] mb-6">
-                The textile industry’s reliance on synthetic dyes causes major environmental and health issues. Traditional dyeing uses large amounts of water, contributing to scarcity, and releases toxic chemicals into water bodies, harming ecosystems.
+                Textile dyeing is the 2nd largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
               </p>
-              <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8]">
-                Workers and nearby communities are exposed to hazardous substances, leading to health problems. Additionally, dye production depends on petrochemicals and energy-intensive processes.
+              <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8] mb-6">
+                While natural colors exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
+              </p>
+              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-[#f1bc0d]">
+                There is a steep cost to our vibrant colours.
               </p>
             </div>
             <div className="img-block relative order-1 md:order-2 h-[50vh] md:h-screen min-h-[400px]">
               <img
-                src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Gemini_Generated_Image_isxu51isxu51isxu.png?updatedAt=1776515757661"
-                alt="Industrial pollution"
+                src="/Current State.png"
+                alt="Current State of Industrial pollution"
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent"></div>
@@ -116,31 +118,34 @@ export default function ScienceSection() {
         {/* Solution Section */}
         <section ref={solutionRef} className="bg-bg text-text-primary overflow-hidden min-h-screen flex items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 w-full">
-            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-0 order-2 md:order-1">
+            <div className="img-block relative order-1 md:order-1 h-[50vh] md:h-screen min-h-[400px]">
+              <img
+                src="/Our Vision.png"
+                alt="Microbial solution"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              <div className="hidden md:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-bg to-transparent"></div>
+            </div>
+            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-0 order-2 md:order-2">
               <ScrollFloat
                 animationDuration={0.5}
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
                 containerClassName="mb-8 text-left"
-                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent font-mono uppercase font-semibold"
+                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent3 font-mono uppercase font-semibold"
               >
-                • SOLUTION
+                 Our Vision
               </ScrollFloat>
               <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8] mb-6">
-                A sustainable alternative is microbial dyeing, which uses microorganisms like bacteria or fungi to produce natural pigments. These microbes are grown in controlled conditions and used to dye fabrics without toxic chemicals.
+                We grow microbes in controlled conditions to produce colors that are biodegradable and non-toxic. They are consistent, replicable and use fewer resources for production and dyeing.
               </p>
               <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8]">
-                This method significantly reduces water usage, is biodegradable, and safer for humans and the environment. It relies on renewable processes, making it an eco-friendly solution for the future.
+                Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
-            </div>
-            <div className="img-block relative order-1 md:order-2 h-[50vh] md:h-screen min-h-[400px]">
-              <img
-                src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-18%20182038.png"
-                alt="Microbial solution"
-                className="absolute inset-0 w-full h-full object-cover object-[left_top]"
-              />
-              <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-bg to-transparent"></div>
+              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-[#f1bc0d] mt-6'>
+                We envision a world in which the colors we wear are in harmony with the planet and people.
+              </p>
             </div>
           </div>
         </section>

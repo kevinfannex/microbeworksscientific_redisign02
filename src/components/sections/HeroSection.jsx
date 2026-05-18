@@ -19,6 +19,7 @@ export default function HeroSection() {
     container.appendChild(canvas)
 
     const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true })
+    renderer.setClearColor(0x000000, 0)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -41,9 +42,9 @@ export default function HeroSection() {
       positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6
       positions[i3 + 2] = r * Math.cos(phi)
       const t = Math.random()
-      colors[i3] = t * 0.0 + (1 - t) * 0.05
-      colors[i3 + 1] = t * 1.0 + (1 - t) * 0.55
-      colors[i3 + 2] = t * 0.53 + (1 - t) * 0.1
+      colors[i3] = t * 0.77 + (1 - t) * 0.5
+      colors[i3 + 1] = t * 0.98 + (1 - t) * 0.7
+      colors[i3 + 2] = t * 0.20 + (1 - t) * 0.1
       sizes[i] = 0.3 + Math.random() * 1.2
     }
 
@@ -63,7 +64,7 @@ export default function HeroSection() {
     // Central glow sphere
     const sphereGeo = new THREE.SphereGeometry(8, 32, 32)
     const sphereMat = new THREE.MeshBasicMaterial({
-      color: 0x00ff88, transparent: true, opacity: 0.04, wireframe: true,
+      color: 0xc4fa34, transparent: true, opacity: 0.04, wireframe: true,
     })
     const sphere = new THREE.Mesh(sphereGeo, sphereMat)
     scene.add(sphere)
@@ -71,7 +72,7 @@ export default function HeroSection() {
     // Inner core
     const coreGeo = new THREE.SphereGeometry(3, 16, 16)
     const coreMat = new THREE.MeshBasicMaterial({
-      color: 0x00ff88, transparent: true, opacity: 0.12,
+      color: 0xc4fa34, transparent: true, opacity: 0.12,
     })
     const core = new THREE.Mesh(coreGeo, coreMat)
     scene.add(core)
@@ -158,7 +159,7 @@ export default function HeroSection() {
   }
 
   return (
-    <section ref={sectionRef} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden z-10 sticky top-0">
+    <section ref={sectionRef} id="hero" className="relative h-screen flex items-center justify-center overflow-hidden z-10 sticky top-0 dark:bg-black" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div ref={canvasContainerRef} className="absolute inset-0 w-full h-full" />
 
       <div ref={contentRef} className="relative z-[2] text-center max-w-[860px] px-4 md:px-8">
@@ -170,18 +171,18 @@ export default function HeroSection() {
 
         {/* SEO H1 (Visually Hidden) */}
         <h1 className="sr-only">Sustainable dyes for textiles</h1>
-        
+
         {/* Visual Title */}
         <div aria-hidden="true" className="font-display leading-[1.1] text-text-primary mb-6 tracking-tight">
           <span className="block text-[1.7rem] md:text-[clamp(2.5rem,6vw,4.8rem)] whitespace-nowrap md:whitespace-normal mb-1 md:mb-0">Powered by microbes.</span>
-          <em className="block italic text-accent not-italic text-[2.1rem] md:text-[clamp(2.5rem,8vw,5.5rem)] whitespace-nowrap md:whitespace-normal" style={{ fontStyle: 'italic' }}>Built for the planet.</em>
+          <em className="block italic text-accent2 not-italic text-[2.1rem] md:text-[clamp(2.5rem,8vw,5.5rem)] whitespace-nowrap md:whitespace-normal" style={{ fontStyle: 'italic' }}>Built for the planet.</em>
         </div>
       </div>
 
       {/* Scroll Hint */}
       <div className="absolute bottom-8 md:bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-text-dim text-[0.72rem] tracking-[0.15em] uppercase font-mono">
         <span>Scroll</span>
-        <div className="w-px h-10 bg-gradient-to-b from-accent to-transparent animate-scroll-down" />
+        <div className="w-px h-10 bg-gradient-to-b from-accent2 to-transparent animate-scroll-down" />
       </div>
     </section>
   )

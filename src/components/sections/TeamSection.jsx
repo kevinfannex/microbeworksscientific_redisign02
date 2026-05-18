@@ -14,10 +14,10 @@ import SwethaImg from '../../assets/Swetha.jpeg'
 gsap.registerPlugin(ScrollTrigger)
 
 const team = [
-  { name: 'Suchitha Raghunathan', role: 'Chief Executive Officer', linkedin: 'http://www.linkedin.com/in/suchitha-raghunathan', image: SuchithaImg },
+  { name: 'Suchitha Raghunathan', role: 'Co-Founder & Chief Executive Officer', linkedin: 'http://www.linkedin.com/in/suchitha-raghunathan', image: SuchithaImg },
   { name: 'Sakshi Gore', role: 'Chief Commercial Officer', linkedin: 'https://www.linkedin.com/in/sakshi-gore-6903b399', image: SakshiImg },
-  { name: 'Anjana Badrinarayanan', role: 'Scientific Advisor', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264', image: AnjanaImg },
-  { name: 'Swetha Sampathgiri', role: 'Scale-up Advisor', linkedin: 'https://www.linkedin.com/in/swethasg', image: SwethaImg },
+  { name: 'Anjana Badrinarayanan', role: 'Co-Founder & Scientific Advisor', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264', image: AnjanaImg },
+  { name: 'Swetha Sampathgiri', role: 'Scale-up Advisor', linkedin: 'https://www.linkedin.com/in/swethasg', image: SwethaImg, style: { objectPosition: 'top' } },
 ]
 
 const supportedBy = [
@@ -102,17 +102,14 @@ export default function TeamSection() {
 
       <div className="max-w-[1200px] mx-auto relative z-10" ref={containerRef}>
         <SectionLabel className="reveal">The Team</SectionLabel>
-        <h2 className="reveal reveal-delay-1 font-display text-[clamp(2.2rem,4.5vw,3.8rem)] leading-[1.1] text-text-primary tracking-tight">
-          Built by scientists.<br /><em className="italic text-accent">Led by vision.</em>
-        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-16 md:mt-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10 md:mt-16">
           {team.map((m, i) => (
             <div key={m.name} className={`reveal reveal-delay-${i} team-card-parallax flex flex-col items-center text-center group`}>
               {/* Image Circle Placeholder */}
               <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden mb-6 border-4 border-accent/20 transition-transform duration-500 group-hover:scale-105 bg-accent/5 flex items-center justify-center">
                 {m.image ? (
-                  <img src={m.image} alt={m.name} className="w-full h-full object-cover" />
+                  <img src={m.image} alt={m.name} className="w-full h-full object-cover" style={m.style} />
                 ) : (
                   <span className="text-accent/40 font-mono text-sm uppercase tracking-widest">Image</span>
                 )}

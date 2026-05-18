@@ -86,17 +86,17 @@ export default function ImpactSection() {
 
           {/* Light Side - Bio-Dyeing */}
           <div className="impact-side-panel relative border border-[rgba(0,200,100,0.2)] px-6 py-8 md:px-8 md:py-12 overflow-hidden min-h-[300px] md:min-h-[400px] flex flex-col justify-end bg-gradient-to-br from-[#f0fff8] to-[#f5fff9]">
-            <div className="absolute inset-0 opacity-15 bg-[radial-gradient(ellipse_at_70%_30%,rgba(0,255,136,.2),transparent_60%),radial-gradient(ellipse_at_30%_70%,rgba(0,200,200,.12),transparent_60%)]" />
+            <div className="absolute inset-0 opacity-15 bg-[radial-gradient(ellipse_at_70%_30%,rgba(92,193,255,.2),transparent_60%),radial-gradient(ellipse_at_30%_70%,rgba(196,250,52,.12),transparent_60%)]" />
             <svg className="absolute inset-0 w-full h-full opacity-25" viewBox="0 0 300 200" fill="none">
-              <circle cx="80" cy="100" r="6" fill="rgba(0,255,136,.6)" />
-              <circle cx="120" cy="80" r="4" fill="rgba(0,200,80,.5)" />
-              <circle cx="160" cy="110" r="8" fill="rgba(0,255,136,.4)" />
-              <circle cx="200" cy="75" r="5" fill="rgba(0,200,80,.6)" />
-              <circle cx="240" cy="100" r="6" fill="rgba(0,255,136,.5)" />
-              <path d="M40 140 C80 120 120 135 160 125 C200 115 240 130 280 120" stroke="rgba(0,255,136,.3)"
+              <circle cx="80" cy="100" r="6" fill="rgba(92,193,255,.6)" />
+              <circle cx="120" cy="80" r="4" fill="rgba(129,164,34,.5)" />
+              <circle cx="160" cy="110" r="8" fill="rgba(92,193,255,.4)" />
+              <circle cx="200" cy="75" r="5" fill="rgba(129,164,34,.6)" />
+              <circle cx="240" cy="100" r="6" fill="rgba(92,193,255,.5)" />
+              <path d="M40 140 C80 120 120 135 160 125 C200 115 240 130 280 120" stroke="rgba(92,193,255,.3)"
                 strokeWidth="1" fill="none" />
               <path d="M0 160 C50 145 100 155 150 148 C200 141 250 150 300 143 L300 200 L0 200Z"
-                fill="rgba(0,180,80,.08)" />
+                fill="rgba(129,164,34,.08)" />
             </svg>
             <div className="relative z-[1] font-mono text-[0.7rem] tracking-[0.2em] uppercase text-accent2 mb-4">
               After — Bio-Dyeing

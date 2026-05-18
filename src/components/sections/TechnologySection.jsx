@@ -50,10 +50,10 @@ export default function TechnologySection() {
         const alpha = 0.15 + Math.abs(wave) * 0.4
 
         ctx.beginPath(); ctx.arc(x1, y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,180,80,${alpha})`; ctx.fill()
+        ctx.fillStyle = `rgba(92,160,200,${alpha})`; ctx.fill()
 
         ctx.beginPath(); ctx.arc(x2, y, 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0,255,136,${alpha * 0.8})`; ctx.fill()
+        ctx.fillStyle = `rgba(92,193,255,${alpha * 0.8})`; ctx.fill()
 
         if (y % 30 === 0) {
           ctx.beginPath(); ctx.moveTo(x1, y); ctx.lineTo(x2, y)
@@ -62,13 +62,13 @@ export default function TechnologySection() {
 
           const mid = (x1 + x2) / 2
           ctx.beginPath(); ctx.arc(mid, y, 2.5, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '0,180,80' : '0,120,60'},0.3)`; ctx.fill()
+          ctx.fillStyle = `rgba(${Math.random() > 0.5 ? '92,193,255' : '129,164,34'},0.3)`; ctx.fill()
         }
       }
 
       const grad = ctx.createRadialGradient(cx, dim.H / 2, 0, cx, dim.H / 2, dim.H * 0.6)
-      grad.addColorStop(0, 'rgba(0,255,136,0.03)')
-      grad.addColorStop(1, 'rgba(0,255,136,0)')
+      grad.addColorStop(0, 'rgba(92,193,255,0.03)')
+      grad.addColorStop(1, 'rgba(92,193,255,0)')
       ctx.fillStyle = grad; ctx.fillRect(0, 0, dim.W, dim.H)
 
       animId = requestAnimationFrame(drawDNA)
@@ -113,7 +113,7 @@ export default function TechnologySection() {
         {/* Specs Grid */}
         <div className="reveal reveal-delay-2 w-full grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-24 max-w-[800px] mx-auto">
           {specs.map((s) => (
-            <div key={s.label} className="group flex flex-col items-center justify-center p-6 bg-bg/70 backdrop-blur-sm border border-border-default/50 hover:border-accent/30 rounded-[1.5rem] shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,255,136,0.08)] hover:bg-bg cursor-default">
+            <div key={s.label} className="group flex flex-col items-center justify-center p-6 bg-bg/70 backdrop-blur-sm border border-border-default/50 hover:border-accent/30 rounded-[1.5rem] shadow-[0_4px_24px_rgba(0,0,0,0.02)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(92,193,255,0.08)] hover:bg-bg cursor-default">
               <span className="font-mono text-accent text-lg md:text-xl lg:text-2xl mb-2 font-medium tracking-tight group-hover:scale-105 transition-transform duration-300">{s.val}</span>
               <span className="text-text-muted text-[0.65rem] md:text-xs tracking-[0.2em] uppercase font-semibold">{s.label}</span>
             </div>
@@ -122,7 +122,7 @@ export default function TechnologySection() {
 
         {/* Quote */}
         {/* <div className="reveal reveal-delay-3 px-6 md:px-12 py-10 md:py-12 bg-white/90 backdrop-blur-md border border-border-bright rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.04)] relative mx-auto max-w-[760px] w-full">
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-accent/10 rounded-full p-3 border border-accent/20 backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,136,0.15)] flex items-center justify-center">
+          <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-accent/10 rounded-full p-3 border border-accent/20 backdrop-blur-sm shadow-[0_0_20px_rgba(92,193,255,0.15)] flex items-center justify-center">
              <svg className="w-6 h-6 text-accent drop-shadow-md" fill="currentColor" viewBox="0 0 24 24">
               <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
             </svg>

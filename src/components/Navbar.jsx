@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import ThemeToggle from './ThemeToggle'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
+  const { isDark } = useTheme()
 
   useEffect(() => {
     const threshold = location.pathname === '/' ? 200 : 50
@@ -35,7 +37,7 @@ export default function Navbar() {
   }, [menuOpen])
 
   const navLinks = [
-    { to: 'science', label: 'Science' },
+    { to: 'science', label: 'About' },
     { to: 'products', label: 'Products' },
     { to: 'experience', label: 'Experience' },
     { to: 'team', label: 'Team' },
@@ -71,14 +73,14 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           to="/"
-          className="relative z-[100] font-mono text-[0.85rem] tracking-[0.15em] text-accent no-underline flex items-center gap-2.5"
+          onClick={(e) => handleNavClick(e, 'hero')}
+          className="relative z-[100] no-underline flex items-center"
         >
-          <img 
-            src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot_2026-04-18_232705-removebg-preview.png" 
-            alt="Microbeworks" 
+          <img
+            src={isDark ? '/Logo_Nameonly_White_Text_Transparent.png' : '/Logo_Nameonly_Black_Text_Transparent.png'}
+            alt="Microbeworks"
             className="h-8 md:h-10 w-auto object-contain"
           />
-          <span className="hidden sm:inline">MICROBEWORKS</span>
         </Link>
 
         {/* Desktop Nav Links */}
@@ -89,8 +91,8 @@ export default function Navbar() {
                 href={`#${link.to}`}
                 onClick={(e) => handleNavClick(e, link.to)}
                 className={`text-[0.8rem] tracking-[0.1em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
-                    ? 'text-accent'
-                    : 'text-text-muted hover:text-accent'
+                  ? 'text-accent'
+                  : 'text-text-muted hover:text-accent'
                   }`}
               >
                 {link.label}
@@ -104,7 +106,7 @@ export default function Navbar() {
           <ThemeToggle />
           <Link
             to="/contact"
-            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(0,255,136,0.2)]"
+            className="bg-transparent border border-border-bright text-accent text-[0.8rem] tracking-[0.1em] uppercase px-5 py-2.5 font-body transition-all duration-300 hover:bg-accent/12 hover:shadow-[0_0_20px_rgba(92,193,255,0.2)]"
           >
             Contact
           </Link>
@@ -126,8 +128,8 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       <div
         className={`fixed inset-0 top-0 bg-bg z-[99] flex flex-col items-center justify-center gap-10 transition-all duration-500 lg:hidden ${menuOpen
-            ? 'opacity-100 pointer-events-auto'
-            : 'opacity-0 pointer-events-none'
+          ? 'opacity-100 pointer-events-auto'
+          : 'opacity-0 pointer-events-none'
           }`}
       >
         {navLinks.map((link) => (
@@ -136,8 +138,8 @@ export default function Navbar() {
             href={`#${link.to}`}
             onClick={(e) => handleNavClick(e, link.to)}
             className={`text-2xl md:text-3xl tracking-[0.15em] uppercase no-underline transition-colors duration-300 ${location.hash === `#${link.to}`
-                ? 'text-accent'
-                : 'text-text-primary hover:text-accent'
+              ? 'text-accent'
+              : 'text-text-primary hover:text-accent'
               }`}
           >
             {link.label}

@@ -1,5 +1,6 @@
 import HeroSection from '../components/sections/HeroSection'
 import ScienceSection from '../components/sections/ScienceSection'
+import ProductsSection from '../components/sections/ProductsSection'
 import WhatWeDoSection from '../components/sections/WhatWeDoSection'
 import Info from '../components/sections/Info'
 import ShowcaseImage from '../components/sections/ShowcaseImage'
@@ -13,6 +14,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <ScienceSection />
+      <ProductsSection />
       <Info />
       <ShowcaseImage />
       <ShowcaseVideo />

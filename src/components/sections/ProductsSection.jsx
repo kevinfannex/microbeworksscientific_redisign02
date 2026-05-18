@@ -1,280 +1,188 @@
-import { useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import useScrollReveal from '../../hooks/useScrollReveal'
-import { MicrobVideoSection } from '../VideoPlayer'
-import { cn } from '../../lib/utils'
 
-gsap.registerPlugin(ScrollTrigger)
-
-const features = [
+const bulletPoints = [
   {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-      </svg>
-    ),
-    title: 'IP PROTECTED',
-    desc: 'Novel powder formulation, shelf stable for 1 year.',
-    className: 'md:col-span-2 md:row-span-1 bg-accent/5 border-accent/20'
+    title: 'Biodegradable and non-toxic',
+    desc: 'Decomposes naturally without leaving harmful petrochemical residues or chemical trace.',
   },
   {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v8" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3" />
-      </svg>
-    ),
-    title: 'DROP-IN',
-    desc: 'Compatible with existing dyeing infrastructure.'
+    title: 'Fast on yarns, fabrics and garments',
+    desc: 'Demonstrates excellent color-fastness, durability, and resistance to washing and light.',
   },
   {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    title: 'BIODEGRADABLE',
-    desc: '90% in domestic sewage conditions in 28 days.'
+    title: 'Drop-in solution for industry',
+    desc: 'Requires zero changes to existing textile manufacturing or dyeing infrastructure.',
   },
   {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
-      </svg>
-    ),
-    title: 'SCALABLE',
-    desc: 'Proven in bio-manufacturing.'
+    title: 'Makes several shades on fabrics',
+    desc: 'Versatile formulation capable of producing a wide spectrum of blue hues and gradients.',
   },
   {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-      </svg>
-    ),
-    title: 'ECOLOGICAL SAFETY',
-    desc: 'ZDHC MRSL level 1 certified. GOTS 7.1 compliant.',
-    className: 'md:row-span-2 bg-accent/5 border-accent/20'
-  },
-  {
-    icon: (
-      <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-10 h-10 text-accent">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75" />
-      </svg>
-    ),
-    title: 'WORKS ON FABRIC',
-    desc: 'Fastness ~4/5.'
+    title: 'Scalable through fermentation',
+    desc: 'Harnesses high-yield precision bio-manufacturing to meet global industrial demands.',
   }
 ]
 
-const BentoCard = ({ feature, index }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: index * 0.1 }}
-    whileHover={{ y: -5, scale: 1.02 }}
-    className={cn(
-      "group relative p-8 rounded-[32px] bg-surface/40 border border-border-default backdrop-blur-sm transition-all duration-500 overflow-hidden",
-      feature.className
-    )}
-  >
-    {/* Decorative gradient overlay */}
-    <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-    
-    <div className="relative z-10 flex flex-col h-full justify-between">
-      <div className="mb-6 bg-bg/50 w-fit p-3 rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-        {feature.icon}
-      </div>
-      <div>
-        <h4 className="text-accent font-mono font-bold tracking-[0.15em] text-[0.8rem] md:text-[0.9rem] mb-3 uppercase">
-          {feature.title}
-        </h4>
-        <p className="text-text-primary/70 font-light text-[0.95rem] md:text-[1.05rem] leading-[1.5]">
-          {feature.desc}
-        </p>
-      </div>
-    </div>
-  </motion.div>
-)
+const slideshowImages = [
+  '/Image 1.png',
+  '/Image 2.jpeg',
+  '/Image 3.png',
+  '/Image 4.jpg'
+]
 
 export default function ProductsSection() {
   const sectionRef = useScrollReveal()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
 
+  // Automatic slideshow cycle
   useEffect(() => {
-    // Parallax for Powder Image
-    gsap.fromTo('.powder-img', 
-      { y: 50, rotation: -10 },
-      {
-        y: -50,
-        rotation: 10,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.powder-container',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      }
-    )
+    if (isHovered) return // Pause auto-cycle when user is actively interacting/hovering
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % slideshowImages.length)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [isHovered])
 
-    // Parallax for Fabric Image
-    gsap.fromTo('.fabric-img',
-      { yPercent: -15 },
-      {
-        yPercent: 15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.fabric-container',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        }
-      }
-    )
+  return (
+    <section
+      id="products"
+      ref={sectionRef}
+      className="relative px-6 md:px-12 lg:px-24 py-24 md:py-32 bg-bg text-text-primary overflow-hidden border-b border-border-default/30"
+    >
+      {/* Premium background effects */}
+      <div className="absolute top-1/3 -left-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute bottom-1/3 -right-20 w-[400px] h-[400px] bg-accent2/5 blur-[120px] rounded-full pointer-events-none z-0" />
 
-    return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill())
-    }
-  }, [])
+      <div className="max-w-[1200px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+          
+          {/* Left Column: Title & Interactive Bullet Points */}
+          <div className="lg:col-span-7 flex flex-col items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent font-mono uppercase mb-4"
+            >
+              Flagship Innovation
+            </motion.div>
 
-  // return (
-  //   <section
-  //     id="products"
-  //     ref={sectionRef}
-  //     className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-16 md:pb-12 bg-bg text-text-primary min-h-screen overflow-hidden"
-  //   >
-  //     {/* Dynamic Background Elements */}
-  //     <div className="absolute top-1/4 -right-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
-  //     <div className="absolute bottom-1/4 -left-20 w-[300px] h-[300px] bg-accent2/5 blur-[100px] rounded-full pointer-events-none" />
-  //
-  //     <div className="max-w-[1200px] mx-auto flex flex-col items-center">
-  //       
-  //       {/* Header */}
-  //       <div className="text-center mb-20 reveal">
-  //         <div className="text-[0.9rem] md:text-[1.1rem] tracking-[0.2em] text-accent mb-6 font-mono uppercase font-semibold">
-  //           INTRODUCING
-  //         </div>
-  //         
-  //         <img 
-  //           src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
-  //           alt="MicroBlue Logo" 
-  //           className="h-20 md:h-28 w-auto object-contain mb-8 mx-auto rounded-xl shadow-[0_0_40px_rgba(0,255,136,0.15)]"
-  //         />
-  //         
-  //         <p className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed max-w-[800px] mx-auto text-center">
-  //           MicroBlue is our flagship innovation: a biodegradable, IP-protected microbial blue dye that serves as a seamless drop-in replacement for conventional textile dyeing systems.
-  //         </p>
-  //       </div>
-  //
-  //       {/* Hero Product Card */}
-  //       <div className="powder-container w-full bg-bg2/50 backdrop-blur-sm rounded-[40px] md:rounded-[60px] p-8 md:p-24 mb-24 flex justify-center items-center shadow-inner border border-border-default overflow-hidden">
-  //           <img 
-  //             src="https://microbeworksscientific.com/static/media/image_1.f862905b7edbb95b1537.png" 
-  //             alt="MicroBlue powder" 
-  //             className="powder-img w-64 h-64 md:w-[480px] md:h-[480px] object-cover rounded-full shadow-[0_30px_70px_rgba(0,0,0,0.6)] border-8 border-bg2"
-  //           />
-  //       </div>
-  //
-  //       {/* Bento Features Grid */}
-  //       <div className="w-full mb-32">
-  //         <div className="text-center mb-16">
-  //           <h3 className="text-2xl md:text-3xl font-display font-medium tracking-tight mb-4">Product Superiority</h3>
-  //           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
-  //         </div>
-  //         
-  //         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1100px] mx-auto auto-rows-auto">
-  //           {features.map((f, i) => (
-  //             <BentoCard key={f.title} feature={f} index={i} />
-  //           ))}
-  //         </div>
-  //       </div>
-  //
-  //       {/* Fabric Image Section (Cinematic Reveal) */}
-  //       <div className="fabric-container w-full rounded-[40px] md:rounded-[60px] overflow-hidden mb-32 h-[400px] md:h-[600px] relative border border-border-default shadow-2xl">
-  //         <img 
-  //           src="https://microbeworksscientific.com/static/media/image_3.67cf055e17595920fc5d.png"
-  //           alt="Fabrics dyed with MicroBlue"
-  //           className="fabric-img w-full h-full object-cover scale-[1.3] origin-center"
-  //         />
-  //         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8 md:p-16">
-  //           <div className="text-white font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-2 opacity-80">Final Product</div>
-  //           <h3 className="text-white text-2xl md:text-4xl font-display font-medium">Vivid, Microbial Color on Textiles</h3>
-  //         </div>
-  //       </div>
-  //
-  //       {/* Video Experience Section */}
-  //       <div className="w-full max-w-[1100px] mx-auto reveal mb-6 md:mb-12">
-  //         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-  //           <div>
-  //             <h3 className="text-3xl md:text-4xl font-display font-medium tracking-tight text-accent mb-4">Experience the Innovation</h3>
-  //             <p className="text-text-muted text-[1rem] max-w-[500px]">Watch how we are redefining the colors of the world through the precision of biology.</p>
-  //           </div>
-  //           <div className="hidden md:block h-px flex-1 bg-border-default mx-12 mb-5" />
-  //         </div>
-  //         <MicrobVideoSection videoSrc="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/pitch_video.mp4?updatedAt=1778316180059" />
-  //       </div>
-  //
-  //       {/* Impact Table Section */}
-  //       <div className="w-full max-w-[1000px] mx-auto mb-12">
-  //         <div className="text-center mb-12">
-  //           <h3 className="text-xl md:text-2xl font-bold tracking-[0.2em] uppercase font-mono text-accent">POTENTIAL IMPACT</h3>
-  //           <p className="text-text-dim text-sm mt-2 font-mono uppercase tracking-[0.1em]">MicroBlue vs Conventional Dyes</p>
-  //         </div>
-  //         
-  //         <div className="border border-border-default rounded-[32px] overflow-hidden bg-surface/30 backdrop-blur-md shadow-2xl">
-  //           {/* Header */}
-  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-4 px-4 md:py-8 md:px-12 border-b border-border-default bg-bg/50">
-  //             <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] uppercase font-bold">PARAMETER</div>
-  //             <div className="flex justify-center">
-  //               <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-7 h-7 md:w-12 md:h-12 text-accent opacity-60"><path d="M12 22C12 22 12 17 12 12M12 12C12 12 16 12 19 9C22 6 21 2 21 2C21 2 17 1 14 4C11 7 12 12 12 12ZM12 12C12 12 8 12 5 9C2 6 3 2 3 2C3 2 7 1 10 4C13 7 12 12 12 12Z" /></svg>
-  //             </div>
-  //             <div className="flex justify-center">
-  //               <img 
-  //                 src="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/Screenshot%202026-04-19%20164655.png?updatedAt=1776597705652" 
-  //                 alt="MicroBlue Logo" 
-  //                 className="h-6 md:h-10 w-auto object-contain rounded-xl "
-  //               />
-  //             </div>
-  //             <div className="text-accent font-mono tracking-widest text-[0.65rem] md:text-[0.9rem] text-right uppercase font-bold">REDUCTION</div>
-  //           </div>
-  //           
-  //           {/* Row 1 */}
-  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 border-b border-border-default hover:bg-accent/5 transition-colors group">
-  //             <div className="flex items-center gap-2 md:gap-6">
-  //               <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-  //                 <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-  //               </div>
-  //               <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Growth<br/>time</span>
-  //             </div>
-  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">274</div>
-  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
-  //             <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
-  //               98.2% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
-  //             </div>
-  //           </div>
-  //
-  //           {/* Row 2 */}
-  //           <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] items-center py-5 px-4 md:py-10 md:px-12 hover:bg-accent/5 transition-colors group">
-  //             <div className="flex items-center gap-2 md:gap-6">
-  //               <div className="p-2 md:p-3 bg-bg rounded-xl md:rounded-2xl border border-border-default group-hover:border-accent/30 transition-colors">
-  //                 <svg fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" className="w-5 h-5 md:w-10 md:h-10 text-accent shrink-0"><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg>
-  //               </div>
-  //               <span className="text-text-primary text-[0.7rem] md:text-[1.1rem] font-medium leading-tight">Water<br/>usage</span>
-  //             </div>
-  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-text-primary">100,000</div>
-  //             <div className="text-center font-display font-medium text-lg md:text-4xl text-accent">5</div>
-  //             <div className="text-right font-display font-bold text-base md:text-4xl flex items-center justify-end gap-1 text-accent2">
-  //               99.95% <svg fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24" className="w-3 h-3 md:w-6 md:h-6 text-accent2 animate-bounce-subtle"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" /></svg>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //
-  //     </div>
-  //   </section>
-  // )
-  return null;
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-[2.2rem] md:text-[3.2rem] font-display font-medium tracking-tight mb-6 leading-tight text-accent2"
+            >
+              MicroBlue
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed mb-10 max-w-[600px]"
+            >
+              For this we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is:
+            </motion.p>
+
+            {/* Bullet Points Stack */}
+            <div className="space-y-4 w-full">
+              {bulletPoints.map((bp, index) => {
+                return (
+                  <motion.div
+                    key={bp.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    onMouseEnter={() => {
+                      setIsHovered(true)
+                      setActiveIndex(index % slideshowImages.length)
+                    }}
+                    onMouseLeave={() => {
+                      setIsHovered(false)
+                    }}
+                    className="group relative flex items-start gap-4 p-5 rounded-2xl border border-border-default/40 bg-surface/30 backdrop-blur-sm cursor-pointer transition-all duration-300 hover:border-accent/40 hover:bg-surface/60 shadow-sm hover:shadow-md"
+                  >
+                    {/* Glowing highlight indicator */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    {/* Interactive Bullet Point Icon */}
+                    <div className="mt-1 flex-shrink-0">
+                      <div className="relative w-6 h-6 flex items-center justify-center">
+                        {/* Static dot */}
+                        <span className="w-2.5 h-2.5 rounded-full bg-border-bright group-hover:bg-accent transition-colors duration-300" />
+                        {/* Hover pulse circle */}
+                        <span className="absolute inset-0 rounded-full border border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex-1">
+                      <h4 className="text-[1.05rem] md:text-[1.2rem] font-display font-medium text-text-primary group-hover:text-accent transition-colors duration-300">
+                        {bp.title}
+                      </h4>
+                      <p className="text-[0.9rem] md:text-[0.95rem] text-text-muted font-light leading-relaxed mt-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-500 ease-in-out">
+                        {bp.desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Right Column: Premium Auto-Cycling Slideshow */}
+          <div className="lg:col-span-5 flex justify-center items-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full aspect-square max-w-[420px] lg:max-w-none rounded-[36px] md:rounded-[48px] overflow-hidden border border-border-default/80 shadow-2xl p-3 bg-surface/20 backdrop-blur-md"
+            >
+              {/* Outer soft ambient glow */}
+              <div className="absolute -inset-1 bg-gradient-to-tr from-accent/20 to-accent2/20 blur-xl opacity-40 rounded-[36px] md:rounded-[48px]" />
+
+              <div className="relative w-full h-full rounded-[28px] md:rounded-[38px] overflow-hidden bg-black/40">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeIndex}
+                    src={slideshowImages[activeIndex]}
+                    alt={`MicroBlue showcase ${activeIndex + 1}`}
+                    initial={{ opacity: 0, scale: 1.05, x: 20 }}
+                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, x: -20 }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    className="w-full h-full object-cover"
+                  />
+                </AnimatePresence>
+              </div>
+
+              {/* Progress indicators/dots */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                {slideshowImages.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      activeIndex === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
+                    }`}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
 }
