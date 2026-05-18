@@ -27,21 +27,11 @@ export default function HeroSection() {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.z = 80
 
-    // Particle geometries (92% squares, 8% microbes)
-    const COUNT = 1800
-    const MICROBE_COUNT = Math.floor(COUNT * 0.08)
-    const SQUARE_COUNT = COUNT - MICROBE_COUNT
-
-    const sqPositions = new Float32Array(SQUARE_COUNT * 3)
-    const sqColors = new Float32Array(SQUARE_COUNT * 3)
-    const sqSizes = new Float32Array(SQUARE_COUNT)
-
-    const mbPositions = new Float32Array(MICROBE_COUNT * 3)
-    const mbColors = new Float32Array(MICROBE_COUNT * 3)
-    const mbSizes = new Float32Array(MICROBE_COUNT)
-
-    let sqIndex = 0
-    let mbIndex = 0
+    // Particle geometries (100% microbes)
+    const COUNT = 700
+    const mbPositions = new Float32Array(COUNT * 3)
+    const mbColors = new Float32Array(COUNT * 3)
+    const mbSizes = new Float32Array(COUNT)
 
     for (let i = 0; i < COUNT; i++) {
       const r = 60 + Math.random() * 40
@@ -57,53 +47,29 @@ export default function HeroSection() {
       const g_val = t * 0.98 + (1 - t) * 0.76
       const b_val = t * 0.20 + (1 - t) * 1.00
 
-      const size = 0.3 + Math.random() * 1.2
-      const isMicrobe = (mbIndex < MICROBE_COUNT && (sqIndex >= SQUARE_COUNT || Math.random() < 0.08))
+      const size = 0.5 + Math.random() * 1.5
 
-      if (isMicrobe) {
-        const i3 = mbIndex * 3
-        mbPositions[i3] = x
-        mbPositions[i3 + 1] = y
-        mbPositions[i3 + 2] = z
-        mbColors[i3] = r_val
-        mbColors[i3 + 1] = g_val
-        mbColors[i3 + 2] = b_val
-        mbSizes[mbIndex] = size * 2.8 // Slightly scaled up for texture details
-        mbIndex++
-      } else {
-        const i3 = sqIndex * 3
-        sqPositions[i3] = x
-        sqPositions[i3 + 1] = y
-        sqPositions[i3 + 2] = z
-        sqColors[i3] = r_val
-        sqColors[i3 + 1] = g_val
-        sqColors[i3 + 2] = b_val
-        sqSizes[sqIndex] = size
-        sqIndex++
-      }
+      const i3 = i * 3
+      mbPositions[i3] = x
+      mbPositions[i3 + 1] = y
+      mbPositions[i3 + 2] = z
+      mbColors[i3] = r_val
+      mbColors[i3 + 1] = g_val
+      mbColors[i3 + 2] = b_val
+      mbSizes[i] = size
     }
-
-    const sqGeo = new THREE.BufferGeometry()
-    sqGeo.setAttribute('position', new THREE.BufferAttribute(sqPositions, 3))
-    sqGeo.setAttribute('color', new THREE.BufferAttribute(sqColors, 3))
-    sqGeo.setAttribute('size', new THREE.BufferAttribute(sqSizes, 1))
 
     const mbGeo = new THREE.BufferGeometry()
     mbGeo.setAttribute('position', new THREE.BufferAttribute(mbPositions, 3))
     mbGeo.setAttribute('color', new THREE.BufferAttribute(mbColors, 3))
     mbGeo.setAttribute('size', new THREE.BufferAttribute(mbSizes, 1))
 
-    const sqMat = new THREE.PointsMaterial({
-      size: 0.8, vertexColors: true, transparent: true,
-      opacity: 0.5, sizeAttenuation: true,
-    })
-
     const textureLoader = new THREE.TextureLoader()
     const microbeTexture = textureLoader.load('/Microbe_Icon.svg')
     microbeTexture.minFilter = THREE.LinearFilter
 
     const mbMat = new THREE.PointsMaterial({
-      size: 4.8,
+      size: 4.2, // Delicate floating microbes
       map: microbeTexture,
       vertexColors: true,
       transparent: true,
@@ -112,9 +78,6 @@ export default function HeroSection() {
       depthWrite: false,
       blending: THREE.AdditiveBlending
     })
-
-    const particles = new THREE.Points(sqGeo, sqMat)
-    scene.add(particles)
 
     const microbeParticles = new THREE.Points(mbGeo, mbMat)
     scene.add(microbeParticles)
@@ -154,13 +117,9 @@ export default function HeroSection() {
       const t = clock.getElapsedTime()
       const scrollFrac = Math.min(scrollY / window.innerHeight, 1)
 
-      particles.rotation.y = t * 0.03 + mx * 0.1
-      particles.rotation.x = t * 0.015 + my * 0.05
-      sqMat.opacity = 0.45 - scrollFrac * 0.35
-
       microbeParticles.rotation.y = t * 0.03 + mx * 0.1
       microbeParticles.rotation.x = t * 0.015 + my * 0.05
-      mbMat.opacity = 0.55 - scrollFrac * 0.45
+      mbMat.opacity = 0.85 - scrollFrac * 0.65
 
       sphere.rotation.y = t * 0.1
       sphere.rotation.x = t * 0.07
@@ -203,8 +162,6 @@ export default function HeroSection() {
       if (container && canvas.parentNode === container) {
         container.removeChild(canvas)
       }
-      sqGeo.dispose()
-      sqMat.dispose()
       mbGeo.dispose()
       mbMat.dispose()
       sphereGeo.dispose()
