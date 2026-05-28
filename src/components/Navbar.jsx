@@ -102,7 +102,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-4 lg:py-5 flex items-center justify-between transition-all duration-500 bg-surface/80 backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.03)]`}
+        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-0 lg:py-0 flex items-center justify-between transition-all duration-500 bg-surface/80 backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.03)]`}
       >
         {/* Logo */}
         <Link
@@ -113,7 +113,7 @@ export default function Navbar() {
           <img
             src={isDark ? '/Logo_Nameonly_White_Text_Transparent.png' : '/Logo_Nameonly_Black_Text_Transparent.png'}
             alt="Microbeworks"
-            className="h-8 md:h-10 w-auto object-contain"
+            className="h-16 md:h-24 w-auto object-contain py-1"
           />
         </Link>
 

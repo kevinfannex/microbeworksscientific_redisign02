@@ -14,7 +14,7 @@ const items = [
 // Fix for react-fast-marquee import in some environments
 const MarqueeComponent = Marquee.default || Marquee;
 
-export default function SupportAwards() { 
+export default function SupportAwards() {
     const sectionRef = useScrollReveal()
 
     return (
@@ -24,7 +24,7 @@ export default function SupportAwards() {
             className="relative py-8 md:py-12 bg-bg2 dark:bg-bg overflow-hidden transition-colors duration-500"
         >
             <div className="max-w-[1200px] mx-auto px-4 text-center mb-6 md:mb-8">
-                <h2 className="font-mono text-[0.7rem] md:text-[0.8rem] uppercase tracking-[0.6em] text-accent">
+                <h2 className="font-display font-bold text-[0.9rem] md:text-[1rem] uppercase tracking-[0.6em] text-accent">
                     Proudly Supported By
                 </h2>
             </div>
@@ -41,7 +41,7 @@ export default function SupportAwards() {
                         <div
                             key={i}
                             className="flex items-center justify-center px-10 md:px-20 group"
-                        >  
+                        >
                             <img
                                 src={item.img}
                                 alt={item.name}

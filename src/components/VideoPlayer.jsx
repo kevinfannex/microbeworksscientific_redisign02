@@ -14,8 +14,9 @@ import {
 import React, { useState } from "react";
 import { cn } from "../lib/utils";
 
-export const VideoPlayer = ({ style, ...props }) => (
+export const VideoPlayer = ({ style, className, ...props }) => (
   <MediaController
+    className={cn("bg-transparent", className)}
     style={{
       ...style,
     }}
@@ -90,90 +91,32 @@ export const VideoPlayerContent = ({
 );
 
 export const MicrobVideoSection = ({ videoSrc, thumbnailSrc }) => {
-  const [showVideoPopOver, setShowVideoPopOver] = useState(false);
-
-  const SPRING = {
-    mass: 0.1,
-  };
-
-  const x = useSpring(0, SPRING);
-  const y = useSpring(0, SPRING);
-  const opacity = useSpring(0, SPRING);
-
-  const handlePointerMove = (e) => {
-    opacity.set(1);
-    const bounds = e.currentTarget.getBoundingClientRect();
-    x.set(e.clientX - bounds.left);
-    y.set(e.clientY - bounds.top);
-  };
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-bg dark:bg-black aspect-video group">
-      <AnimatePresence>
-        {showVideoPopOver && (
-          <VideoPopOver videoSrc={videoSrc} thumbnailSrc={thumbnailSrc} setShowVideoPopOver={setShowVideoPopOver} />
-        )}
-      </AnimatePresence>
-      <div
-        onClick={() => setShowVideoPopOver(true)}
-        className="w-full h-full cursor-pointer relative flex items-center justify-center"
-      >
-        <img 
-          src={thumbnailSrc} 
-          alt="Video thumbnail" 
-          className="absolute inset-0 w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-700" 
-        />
-        <div className="relative z-10 w-20 h-20 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-accent/80 transition-all duration-300">
-          <Play className="w-8 h-8 text-white ml-1" />
+    <div className="relative w-full rounded-[24px] md:rounded-[40px] overflow-hidden bg-white dark:bg-black aspect-video group">
+      {!isPlaying ? (
+        <div
+          onClick={() => setIsPlaying(true)}
+          className="w-full h-full cursor-pointer relative flex items-center justify-center"
+        >
+          <img
+            src={thumbnailSrc}
+            alt="Video thumbnail"
+            className="absolute inset-0 w-full h-full object-cover dark:object-contain scale-[1.15] dark:scale-100 opacity-90 group-hover:opacity-100 transition-all duration-700"
+          />
+          <div className="relative z-10 w-20 h-20 rounded-full bg-[#4fa9e2]/90 flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-[#4fa9e2] transition-all duration-300 shadow-[0_0_20px_rgba(79,169,226,0.3)]">
+            <Play className="w-8 h-8 text-white ml-1" />
+          </div>
         </div>
-      </div>
-    </div>
-  );
-};
-
-const VideoPopOver = ({
-  videoSrc,
-  thumbnailSrc,
-  setShowVideoPopOver,
-}) => {
-  return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-10">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        className="absolute inset-0 bg-black/95 backdrop-blur-2xl"
-        onClick={() => setShowVideoPopOver(false)}
-      ></motion.div>
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{
-          duration: 0.5,
-          type: "spring",
-          stiffness: 100,
-          damping: 20,
-        }}
-        className="relative aspect-video w-full max-w-6xl z-10 rounded-[20px] md:rounded-[30px] overflow-hidden shadow-2xl border border-white/10"
-      >
-        <VideoPlayer style={{ width: "100%", height: "100%" }}>
+      ) : (
+        <VideoPlayer className="bg-transparent" style={{ width: "100%", height: "100%" }}>
           <VideoPlayerContent
             src={videoSrc}
             autoPlay
-            poster={thumbnailSrc}
             slot="media"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover bg-transparent"
           />
-
-          <button
-            onClick={() => setShowVideoPopOver(false)}
-            className="absolute right-4 top-4 z-20 cursor-pointer rounded-full bg-white/10 hover:bg-white/20 p-2 backdrop-blur-md border border-white/20 transition-all hover:scale-110 active:scale-95"
-          >
-            <Plus className="size-6 rotate-45 text-white" />
-          </button>
-          
           <VideoPlayerControlBar className="absolute bottom-0 left-0 right-0 flex w-full items-center justify-between px-6 py-4 bg-gradient-to-t from-black/80 to-transparent">
             <div className="flex items-center gap-4 flex-1">
               <VideoPlayerPlayButton className="h-6 w-6 bg-transparent text-white hover:text-accent transition-colors" />
@@ -184,7 +127,7 @@ const VideoPopOver = ({
             </div>
           </VideoPlayerControlBar>
         </VideoPlayer>
-      </motion.div>
+      )}
     </div>
   );
 };

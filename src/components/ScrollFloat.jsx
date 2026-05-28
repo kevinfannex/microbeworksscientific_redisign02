@@ -85,9 +85,9 @@ const ScrollFloat = ({
   }, [scrollContainerRef, animationDuration, ease, scrollStart, scrollEnd, stagger]);
 
   return (
-    <h2 ref={containerRef} className={`scroll-float ${containerClassName}`} style={{ fontSize }}>
-      <span className={`scroll-float-text ${textClassName}`} style={{ fontSize: 'inherit' }}>{splitText}</span>
-    </h2>
+    <h4 ref={containerRef} className={`scroll-float ${containerClassName}`} style={{ fontSize }}>
+      <span className={`scroll-float-text ${textClassName}`}>{splitText}</span>
+    </h4>
   );
 };
 

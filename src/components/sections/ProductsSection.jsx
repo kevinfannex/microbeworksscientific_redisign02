@@ -4,24 +4,19 @@ import useScrollReveal from '../../hooks/useScrollReveal'
 
 const bulletPoints = [
   {
-    title: 'Biodegradable and non-toxic',
-    desc: 'Decomposes naturally without leaving harmful petrochemical residues or chemical trace.',
+    title: 'Biodegradable and non-toxic'
+    },
+  {
+    title: 'Fast on yarns, fabrics and garments'
+    },
+  {
+    title: 'Drop-in solution for industry'
   },
   {
-    title: 'Fast on yarns, fabrics and garments',
-    desc: 'Demonstrates excellent color-fastness, durability, and resistance to washing and light.',
+    title: 'Makes several shades on fabrics'
   },
   {
-    title: 'Drop-in solution for industry',
-    desc: 'Requires zero changes to existing textile manufacturing or dyeing infrastructure.',
-  },
-  {
-    title: 'Makes several shades on fabrics',
-    desc: 'Versatile formulation capable of producing a wide spectrum of blue hues and gradients.',
-  },
-  {
-    title: 'Scalable through fermentation',
-    desc: 'Harnesses high-yield precision bio-manufacturing to meet global industrial demands.',
+    title: 'Scalable through fermentation'
   }
 ]
 
@@ -50,47 +45,31 @@ export default function ProductsSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative px-6 md:px-12 lg:px-24 py-24 md:py-32 bg-bg text-text-primary overflow-hidden border-b border-border-default/30"
+      className="relative px-6 md:px-12 lg:px-24 py-12 md:py-32 bg-bg text-text-primary overflow-hidden border-b border-border-default/30"
     >
       {/* Premium background effects */}
       <div className="absolute top-1/3 -left-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-1/3 -right-20 w-[400px] h-[400px] bg-accent2/5 blur-[120px] rounded-full pointer-events-none z-0" />
 
       <div className="max-w-[1200px] mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+        {/* Intro text on top */}
+        <div className="mb-10 max-w-[600px] ">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed "
+          >
+            we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is:
+          </motion.p>
+        </div>
+
+        {/* Grid matching the height of bullet points and image */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
           
-          {/* Left Column: Title & Interactive Bullet Points */}
-          <div className="lg:col-span-7 flex flex-col items-start">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent font-mono uppercase mb-4"
-            >
-              Flagship Innovation
-            </motion.div>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-[2.2rem] md:text-[3.2rem] font-display font-medium tracking-tight mb-6 leading-tight text-accent"
-            >
-              MicroBlue
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed mb-10 max-w-[600px]"
-            >
-              For this we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is:
-            </motion.p>
-
+          {/* Left Column: Interactive Bullet Points */}
+          <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Bullet Points Stack */}
             <div className="space-y-4 w-full">
               {bulletPoints.map((bp, index) => {
@@ -139,18 +118,18 @@ export default function ProductsSection() {
           </div>
 
           {/* Right Column: Premium Auto-Cycling Slideshow */}
-          <div className="lg:col-span-5 flex justify-center items-center">
+          <div className="lg:col-span-7 flex items-stretch">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative w-full aspect-square max-w-[420px] lg:max-w-none rounded-[36px] md:rounded-[48px] overflow-hidden border border-border-default/80 shadow-2xl p-3 bg-surface/20 backdrop-blur-md"
+              className="relative w-full h-full min-h-[420px] rounded-[36px] md:rounded-[48px] overflow-hidden border border-border-default/80 shadow-2xl p-3 bg-surface/20 backdrop-blur-md flex flex-col"
             >
               {/* Outer soft ambient glow */}
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent/20 to-accent2/20 blur-xl opacity-40 rounded-[36px] md:rounded-[48px]" />
 
-              <div className="relative w-full h-full rounded-[28px] md:rounded-[38px] overflow-hidden bg-black/40">
+              <div className="relative w-full h-full rounded-[28px] md:rounded-[38px] overflow-hidden bg-black/40 flex-1">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeIndex}
@@ -160,7 +139,7 @@ export default function ProductsSection() {
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95, x: -20 }}
                     transition={{ duration: 0.6, ease: 'easeInOut' }}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </AnimatePresence>
               </div>

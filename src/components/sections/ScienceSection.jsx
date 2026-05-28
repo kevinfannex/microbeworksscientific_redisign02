@@ -75,32 +75,32 @@ export default function ScienceSection() {
           ]}
         </ScrollFloat>
         <p className="text-base md:text-lg text-white/60 font-light max-w-[600px] mx-auto">
-        Harnessing microbial cell factories to produce safe, sustainable colors       </p>
+          Harnessing microbial cell factories to produce safe, sustainable colors       </p>
       </div>
 
       {/* Science Content Wrapper */}
       <div className="relative z-10">
         {/* Problem Section */}
-        <section ref={problemRef} className="bg-black text-white overflow-hidden min-h-screen flex items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full">
+        <section ref={problemRef} className="bg-black text-white overflow-hidden py-12 md:py-0 md:min-h-screen flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full items-center">
             <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-0 order-2 md:order-1">
               <ScrollFloat
                 animationDuration={0.5}
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left"
-                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent3 font-mono uppercase"
+                containerClassName="mb-8 text-left text-[1.25rem] md:text-[1.8rem]"
+                textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase"
               >
                 CURRENT STATE
               </ScrollFloat>
-              <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8] mb-6">
-                Textile dyeing is the 2nd largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
+              <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
+                Textile dyeing is the 2<sup>nd</sup> largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
               </p>
-              <p className="text-[1.075rem] md:text-lg text-white/90 font-light leading-[1.8] mb-6">
+              <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
                 While natural colors exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
-              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold">
+              <p className="text-[1.35rem] md:text-2xl font-medium leading-[1.8] text-gold text-justify">
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
@@ -111,13 +111,17 @@ export default function ScienceSection() {
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent"></div>
+              <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 text-right">
+                <p className="font-display font-bold text-white text-sm md:text-base leading-tight">Probal Rashid</p>
+                <p className="font-body text-white/70 text-[0.65rem] md:text-xs leading-tight mt-0.5">Getty Images</p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Solution Section */}
-        <section ref={solutionRef} className="bg-bg text-text-primary overflow-hidden min-h-screen flex items-center">
-          <div className="grid grid-cols-1 md:grid-cols-2 w-full">
+        <section ref={solutionRef} className="bg-bg text-text-primary overflow-hidden md:min-h-screen flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 w-full items-center">
             <div className="img-block relative order-1 md:order-1 h-[50vh] md:h-screen min-h-[400px]">
               <img
                 src="/Our Vision.png"
@@ -132,18 +136,18 @@ export default function ScienceSection() {
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left"
-                textClassName="text-[0.8rem] md:text-[0.9rem] font-bold tracking-[0.2em] text-accent3 font-mono uppercase font-semibold"
+                containerClassName="mb-8 text-left text-[1.25rem] md:text-[1.8rem]"
+                textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase font-semibold"
               >
-                 Our Vision
+                Our Vision
               </ScrollFloat>
-              <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8] mb-6">
+              <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] mb-6 text-justify">
                 We grow microbes in controlled conditions to produce colors that are biodegradable and non-toxic. They are consistent, replicable and use fewer resources for production and dyeing.
               </p>
-              <p className="text-[1.075rem] md:text-lg text-text-muted font-light leading-[1.8]">
+              <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] text-justify">
                 Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
-              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6'>
+              <p className='text-[1.35rem] md:text-2xl font-medium leading-[1.8] text-gold mt-6 text-justify'>
                 We envision a world in which the colors we wear are in harmony with the planet and people.
               </p>
             </div>

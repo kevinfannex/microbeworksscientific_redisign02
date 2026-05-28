@@ -17,15 +17,11 @@ export default function ShowcaseVideo() {
       gsap.fromTo(videoWrapperRef.current,
         {
           scale: 0.82,
-          y: 100,
-          opacity: 0.2,
-          filter: 'blur(8px)'
+          y: 100
         },
         {
           scale: 1,
           y: 0,
-          opacity: 1,
-          filter: 'blur(0px)',
           ease: 'power2.out',
           scrollTrigger: {
             trigger: containerRef.current,
@@ -62,10 +58,10 @@ export default function ShowcaseVideo() {
           </div> */}
 
           {/* Animated Video Container */}
-          <div className="relative w-full rounded-[32px] md:rounded-[60px] overflow-hidden border border-border-default shadow-2xl bg-black aspect-video">
+          <div className="relative w-full max-w-[1000px] mx-auto rounded-[32px] md:rounded-[60px] overflow-hidden border border-border-default shadow-2xl bg-white dark:bg-black aspect-video">
             <MicrobVideoSection
               videoSrc="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/pitch_video.mp4?updatedAt=1778316180059"
-              thumbnailSrc="/Image 1_ Dark Background.png"
+              thumbnailSrc={isDark ? "/Image 1_ Dark Background.png" : "/thumbnail for the video.png"}
             />
           </div>
         </div>

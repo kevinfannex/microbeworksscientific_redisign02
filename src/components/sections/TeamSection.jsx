@@ -15,8 +15,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const team = [
   { name: 'Suchitha Raghunathan', role: 'Co-Founder & Chief Executive Officer', linkedin: 'http://www.linkedin.com/in/suchitha-raghunathan', image: SuchithaImg },
-  { name: 'Sakshi Gore', role: 'Chief Commercial Officer', linkedin: 'https://www.linkedin.com/in/sakshi-gore-6903b399', image: SakshiImg },
-  { name: 'Anjana Badrinarayanan', role: 'Co-Founder & Scientific Advisor', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264', image: AnjanaImg },
+  { name: 'Sakshi Gore', role: 'Chief Business Officer', linkedin: 'https://www.linkedin.com/in/sakshi-gore-6903b399', image: SakshiImg },
+  { name: 'Dr. Anjana Badrinarayanan', role: 'Co-Founder & Scientific Advisor', linkedin: 'https://www.linkedin.com/in/anjana-badrinarayanan-40b08264', image: AnjanaImg },
   { name: 'Swetha Sampathgiri', role: 'Scale-up Advisor', linkedin: 'https://www.linkedin.com/in/swethasg', image: SwethaImg, style: { objectPosition: 'top' } },
 ]
 
@@ -95,19 +95,19 @@ export default function TeamSection() {
   }, [isDark])
 
   return (
-    <section id="team" ref={sectionRef} className="relative px-4 md:px-8 lg:px-12 py-24 md:pt-12 md:pb-32 lg:pt-16 lg:pb-40 bg-bg overflow-hidden">
+    <section id="team" ref={sectionRef} className="relative flex flex-col justify-center min-h-[60vh] px-4 md:px-8 lg:px-12 py-2 md:py-12 bg-bg overflow-hidden">
       {/* Decorative Parallax Background Elements */}
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none bg-parallax-1" />
       <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-accent2/5 rounded-full blur-[80px] pointer-events-none bg-parallax-2" />
 
       <div className="max-w-[1200px] mx-auto relative z-10" ref={containerRef}>
-        <SectionLabel className="reveal">The Team</SectionLabel>
+        <SectionLabel className="reveal mb-6">The Team</SectionLabel>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10 md:mt-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-12 mt-1 md:mt-6">
           {team.map((m, i) => (
             <div key={m.name} className={`reveal reveal-delay-${i} team-card-parallax flex flex-col items-center text-center group`}>
               {/* Image Circle Placeholder */}
-              <div className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden mb-6 border-4 border-accent/20 transition-transform duration-500 group-hover:scale-105 bg-accent/5 flex items-center justify-center">
+              <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-accent/20 transition-transform duration-500 group-hover:scale-105 bg-accent/5 flex items-center justify-center">
                 {m.image ? (
                   <img src={m.image} alt={m.name} className="w-full h-full object-cover" style={m.style} />
                 ) : (
@@ -116,8 +116,8 @@ export default function TeamSection() {
               </div>
 
               {/* Name & LinkedIn Icon */}
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <h3 className="text-xl md:text-2xl font-bold text-text-primary hover:text-accent transition-colors duration-300 cursor-pointer">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <h3 className="text-lg md:text-xl font-bold text-text-primary hover:text-accent transition-colors duration-300 cursor-pointer">
                   {m.name}
                 </h3>
                 <a
@@ -136,7 +136,7 @@ export default function TeamSection() {
               </div>
 
               {/* Role */}
-              <div className="text-sm md:text-base text-text-primary/80 font-medium">
+              <div className="text-xs md:text-sm text-text-primary/80 font-medium">
                 {m.role}
               </div>
             </div>
