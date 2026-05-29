@@ -103,7 +103,7 @@ export const MicrobVideoSection = ({ videoSrc, thumbnailSrc }) => {
           <img
             src={thumbnailSrc}
             alt="Video thumbnail"
-            className="absolute inset-0 w-full h-full object-cover dark:object-contain scale-[1.15] dark:scale-100 opacity-90 group-hover:opacity-100 transition-all duration-700"
+            className="absolute inset-0 w-full h-full object-cover dark:object-contain scale-100 opacity-100"
           />
           <div className="relative z-10 w-20 h-20 rounded-full bg-[#4fa9e2]/90 flex items-center justify-center border border-white/20 group-hover:scale-110 group-hover:bg-[#4fa9e2] transition-all duration-300 shadow-[0_0_20px_rgba(79,169,226,0.3)]">
             <Play className="w-8 h-8 text-white ml-1" />

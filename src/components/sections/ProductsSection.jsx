@@ -61,7 +61,7 @@ export default function ProductsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed "
           >
-            we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is:
+            we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is : ( here the MicroBlue is larger and in blue colour)
           </motion.p>
         </div>
 

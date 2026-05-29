@@ -27,22 +27,16 @@ export default function HeroSection() {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.z = 80
 
-    // Particles geometries: 80% Squares, 20% Microbes
-    const COUNT = 700
-    const SQ_COUNT = Math.floor(COUNT * 0.8) // 80% Squares
-    const MB_COUNT = COUNT - SQ_COUNT        // 20% Microbes
+    // Particles geometries: Squares only
+    const COUNT = 600
+    const SQ_COUNT = COUNT
 
     // Arrays for Squares
     const sqPositions = new Float32Array(SQ_COUNT * 3)
     const sqColors = new Float32Array(SQ_COUNT * 3)
     const sqSizes = new Float32Array(SQ_COUNT)
 
-    // Arrays for Microbes
-    const mbPositions = new Float32Array(MB_COUNT * 3)
-    const mbColors = new Float32Array(MB_COUNT * 3)
-    const mbSizes = new Float32Array(MB_COUNT)
-
-    // Generate positions & attributes
+    // Generate positions & attributes for Squares
     const populateParticles = (positions, colors, sizes, count) => {
       for (let i = 0; i < count; i++) {
         const r = 60 + Math.random() * 40
@@ -50,7 +44,7 @@ export default function HeroSection() {
         const phi = Math.acos(2 * Math.random() - 1)
         const x = r * Math.sin(phi) * Math.cos(theta)
         const y = r * Math.sin(phi) * Math.sin(theta) * 0.6
-        const z = r * Math.cos(phi) * 0.45 // Compress Z to keep particles safely in the background (max Z is ~45, camera is at 80+)
+        const z = r * Math.cos(phi) * 0.45 // Compress Z to keep particles safely in the background
 
         const t = Math.random()
         // Dynamic gradient between Accent Green (#C4FA34) and Primary Blue (#5CC1FF)
@@ -72,18 +66,12 @@ export default function HeroSection() {
     }
 
     populateParticles(sqPositions, sqColors, sqSizes, SQ_COUNT)
-    populateParticles(mbPositions, mbColors, mbSizes, MB_COUNT)
 
     // Build geometries
     const sqGeo = new THREE.BufferGeometry()
     sqGeo.setAttribute('position', new THREE.BufferAttribute(sqPositions, 3))
     sqGeo.setAttribute('color', new THREE.BufferAttribute(sqColors, 3))
     sqGeo.setAttribute('size', new THREE.BufferAttribute(sqSizes, 1))
-
-    const mbGeo = new THREE.BufferGeometry()
-    mbGeo.setAttribute('position', new THREE.BufferAttribute(mbPositions, 3))
-    mbGeo.setAttribute('color', new THREE.BufferAttribute(mbColors, 3))
-    mbGeo.setAttribute('size', new THREE.BufferAttribute(mbSizes, 1))
 
     // Textures & Materials
     const textureLoader = new THREE.TextureLoader()
@@ -101,23 +89,68 @@ export default function HeroSection() {
       blending: THREE.AdditiveBlending
     })
 
-    const mbMat = new THREE.PointsMaterial({
-      size: 2.8, // Reduced size for delicate floating microbes
-      map: microbeTexture,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.9,
-      sizeAttenuation: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    })
-
     // Particle systems
     const squareParticles = new THREE.Points(sqGeo, sqMat)
-    const microbeParticles = new THREE.Points(mbGeo, mbMat)
-
     scene.add(squareParticles)
-    scene.add(microbeParticles)
+
+    // Create exactly two prominent microbes (largest and 2nd largest)
+    // Create 14 microbes (the 2 prominent largest + 12 additional ones)
+    const microbes = []
+    const MB_COUNT = 14
+
+    for (let i = 0; i < MB_COUNT; i++) {
+      const isLargest = i === 0
+      const isSecondLargest = i === 1
+
+      // Size calculation: largest is 15, 2nd largest is 9, others vary between 2.5 and 5.5
+      const size = isLargest ? 15 : (isSecondLargest ? 9 : (2.5 + Math.random() * 3.0))
+      const t = Math.random()
+
+      // Gradient color interpolation between Accent Green (#C4FA34) and Primary Blue (#5CC1FF)
+      const color = new THREE.Color().lerpColors(
+        new THREE.Color(0xc4fa34),
+        new THREE.Color(0x5cc1ff),
+        t
+      )
+
+      const mbMat = new THREE.SpriteMaterial({
+        map: microbeTexture,
+        color: color,
+        transparent: true,
+        opacity: isLargest ? 0.9 : (isSecondLargest ? 0.85 : (0.4 + Math.random() * 0.3)),
+        blending: THREE.AdditiveBlending
+      })
+
+      const sprite = new THREE.Sprite(mbMat)
+      sprite.scale.set(size, size, 1)
+
+      // Distribute initial positions nicely in space
+      const r = 25 + Math.random() * 35
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(2 * Math.random() - 1)
+      const x = r * Math.sin(phi) * Math.cos(theta)
+      const y = r * Math.sin(phi) * Math.sin(theta) * 0.6
+      const z = 10 + Math.random() * 25
+
+      sprite.position.set(x, y, z)
+
+      // Assign random, independent direction and velocity
+      const velocity = new THREE.Vector3(
+        (Math.random() - 0.5) * 0.03,
+        (Math.random() - 0.5) * 0.03,
+        (Math.random() - 0.5) * 0.015
+      )
+
+      microbes.push({
+        sprite,
+        material: mbMat,
+        velocity,
+        spinSpeed: (Math.random() - 0.5) * 0.06,
+        baseOpacity: mbMat.opacity
+      })
+
+      scene.add(sprite)
+    }
 
     // Central glow sphere
     const sphereGeo = new THREE.SphereGeometry(8, 32, 32)
@@ -146,16 +179,28 @@ export default function HeroSection() {
       const t = clock.getElapsedTime()
       const scrollFrac = Math.min(scrollY / window.innerHeight, 1)
 
-      // Rotate without cursor following
+      // Rotate squares
       squareParticles.rotation.y = -t * 0.02
       squareParticles.rotation.x = t * 0.01
 
-      microbeParticles.rotation.y = t * 0.03
-      microbeParticles.rotation.x = t * 0.015
+      // Move individual microbes independently in random directions
+      microbes.forEach((mb) => {
+        mb.sprite.position.add(mb.velocity)
+        mb.material.rotation += mb.spinSpeed * 0.1
 
-      // Fading opacity on scroll
-      sqMat.opacity = 0.7 - scrollFrac * 0.5
-      mbMat.opacity = 0.85 - scrollFrac * 0.65
+        // Bounce off invisible boundaries to stay in view
+        const xBound = 45
+        const yBound = 25
+        const zBoundMin = 10
+        const zBoundMax = 35
+
+        if (Math.abs(mb.sprite.position.x) > xBound) mb.velocity.x *= -1
+        if (Math.abs(mb.sprite.position.y) > yBound) mb.velocity.y *= -1
+        if (mb.sprite.position.z < zBoundMin || mb.sprite.position.z > zBoundMax) mb.velocity.z *= -1
+
+        // Fade opacity on scroll
+        mb.material.opacity = mb.baseOpacity - scrollFrac * (mb.baseOpacity * 0.75)
+      })
 
       sphere.rotation.y = t * 0.1
       sphere.rotation.x = t * 0.07
@@ -199,8 +244,9 @@ export default function HeroSection() {
       }
       sqGeo.dispose()
       sqMat.dispose()
-      mbGeo.dispose()
-      mbMat.dispose()
+      microbes.forEach((mb) => {
+        mb.material.dispose()
+      })
       sphereGeo.dispose()
       sphereMat.dispose()
       coreGeo.dispose()

@@ -89,7 +89,7 @@ export default function ScienceSection() {
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left text-[1.25rem] md:text-[1.8rem]"
+                containerClassName="mb-8 text-left text-[1.38rem] md:text-[1.95rem]"
                 textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase"
               >
                 CURRENT STATE
@@ -100,7 +100,7 @@ export default function ScienceSection() {
               <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
                 While natural colors exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
-              <p className="text-[1.35rem] md:text-2xl font-medium leading-[1.8] text-gold text-justify">
+              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold text-justify">
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
@@ -136,7 +136,7 @@ export default function ScienceSection() {
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left text-[1.25rem] md:text-[1.8rem]"
+                containerClassName="mb-8 text-left text-[1.38rem] md:text-[1.95rem]"
                 textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase font-semibold"
               >
                 Our Vision
@@ -147,7 +147,7 @@ export default function ScienceSection() {
               <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] text-justify">
                 Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
-              <p className='text-[1.35rem] md:text-2xl font-medium leading-[1.8] text-gold mt-6 text-justify'>
+              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6 text-justify'>
                 We envision a world in which the colors we wear are in harmony with the planet and people.
               </p>
             </div>

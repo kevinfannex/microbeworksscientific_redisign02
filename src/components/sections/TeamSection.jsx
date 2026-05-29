@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SectionLabel from '../SectionLabel'
+import ScrollFloat from '../ScrollFloat'
 import useScrollReveal from '../../hooks/useScrollReveal'
 import { useTheme } from '../../context/ThemeContext'
 
@@ -41,20 +41,6 @@ export default function TeamSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax for cards
-      gsap.fromTo(".team-card-parallax",
-        { y: 50 },
-        {
-          y: -50,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1
-          }
-        }
-      )
-
       // Background decorative parallax
       gsap.to(".bg-parallax-1", {
         yPercent: -20,
@@ -101,11 +87,22 @@ export default function TeamSection() {
       <div className="absolute bottom-1/4 -left-20 w-80 h-80 bg-accent2/5 rounded-full blur-[80px] pointer-events-none bg-parallax-2" />
 
       <div className="max-w-[1200px] mx-auto relative z-10" ref={containerRef}>
-        <SectionLabel className="reveal mb-6">The Team</SectionLabel>
+        <div className="flex justify-center mb-6">
+          <ScrollFloat
+            animationDuration={0.5}
+            ease='power4.out'
+            scrollStart='top bottom-=10%'
+            scrollEnd='bottom center'
+            containerClassName="text-center text-[1.38rem] md:text-[1.95rem]"
+            textClassName="font-semibold tracking-[0.25em] text-accent2 font-mono uppercase"
+          >
+            THE TEAM
+          </ScrollFloat>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-12 mt-1 md:mt-6">
           {team.map((m, i) => (
-            <div key={m.name} className={`reveal reveal-delay-${i} team-card-parallax flex flex-col items-center text-center group`}>
+            <div key={m.name} className={`reveal reveal-delay-${i} flex flex-col items-center text-center group`}>
               {/* Image Circle Placeholder */}
               <div className="w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden mb-4 border-4 border-accent/20 transition-transform duration-500 group-hover:scale-105 bg-accent/5 flex items-center justify-center">
                 {m.image ? (
@@ -117,7 +114,7 @@ export default function TeamSection() {
 
               {/* Name & LinkedIn Icon */}
               <div className="flex items-center justify-center gap-2 mb-1">
-                <h3 className="text-lg md:text-xl font-bold text-text-primary hover:text-accent transition-colors duration-300 cursor-pointer">
+                <h3 className="text-lg md:text-xl font-bold text-text-primary cursor-pointer">
                   {m.name}
                 </h3>
                 <a
