@@ -24,7 +24,7 @@ export default function ContactPage() {
     >
       <div className="max-w-[1100px] w-full">
         {/* Title - Reduced size and accent color */}
-        <h1 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.2rem] font-display font-medium tracking-tight mb-8 md:mb-10 contact-reveal text-accent">
+        <h1 className="text-[2.5rem] md:text-[3.5rem] lg:text-[4.2rem] text-center font-display font-medium tracking-tight mb-8 md:mb-10 contact-reveal text-accent">
           Contact
         </h1>
 
