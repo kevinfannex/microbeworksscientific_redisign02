@@ -21,7 +21,7 @@ export default function SupportAwards() {
         <section
             id="recognition"
             ref={sectionRef}
-            className="relative py-8 md:py-12 bg-bg2 dark:bg-bg overflow-hidden transition-colors duration-500"
+            className="relative pt-8 md:pt-12 pb-2 md:pb-4 bg-bg2 dark:bg-bg overflow-hidden transition-colors duration-500"
         >
             <div className="max-w-[1200px] mx-auto px-4 text-center mb-6 md:mb-8">
                 <h2 className="font-display font-bold text-[0.9rem] md:text-xl uppercase tracking-[0.6em] text-accent">

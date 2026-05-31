@@ -25,7 +25,7 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={containerRef}
-      className="py-16 md:py-24 px-4 md:px-8 bg-bg flex flex-col items-center justify-start transition-colors duration-500 relative overflow-hidden"
+      className="pt-8 md:pt-12 pb-16 md:pb-24 px-4 md:px-8 bg-bg flex flex-col items-center justify-start transition-colors duration-500 relative overflow-hidden"
     >
       <div className="w-full max-w-[640px] relative z-10">
         {/* Title */}
