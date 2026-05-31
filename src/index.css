@@ -296,3 +296,40 @@ body::before {
 .hamburger-open .hamburger-line:nth-child(3) {
   transform: rotate(-45deg) translate(7px, -6px);
 }
+
+/* Contact light-card custom overrides */
+.light-card-override {
+  background-color: #181818;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+.card-text-override,
+.card-link-override,
+.card-location-override {
+  color: #ffffff;
+}
+.card-label-override,
+.card-sublabel-override {
+  color: rgba(255, 255, 255, 0.6);
+}
+.card-border-override {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html:not(.dark) .light-card-override {
+  background-color: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+html:not(.dark) .card-text-override,
+html:not(.dark) .card-link-override,
+html:not(.dark) .card-location-override {
+  color: #0a0a0a;
+}
+html:not(.dark) .card-label-override,
+html:not(.dark) .card-sublabel-override {
+  color: rgba(10, 10, 10, 0.55);
+}
+html:not(.dark) .card-border-override {
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+

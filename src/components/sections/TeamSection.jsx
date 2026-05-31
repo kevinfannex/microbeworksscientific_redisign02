@@ -114,7 +114,7 @@ export default function TeamSection() {
 
               {/* Name & LinkedIn Icon */}
               <div className="flex items-center justify-center gap-2 mb-1">
-                <h3 className="text-lg md:text-xl font-bold text-text-primary cursor-pointer">
+                <h3 className="text-base md:text-lg font-bold text-text-primary cursor-pointer">
                   {m.name}
                 </h3>
                 <a
@@ -133,7 +133,7 @@ export default function TeamSection() {
               </div>
 
               {/* Role */}
-              <div className="text-xs md:text-sm text-text-primary/80 font-medium">
+              <div className="text-[0.65rem] md:text-xs text-text-primary/80 font-medium">
                 {m.role}
               </div>
             </div>

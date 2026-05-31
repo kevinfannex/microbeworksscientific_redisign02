@@ -75,7 +75,7 @@ export default function ScienceSection() {
           ]}
         </ScrollFloat>
         <p className="text-base md:text-lg text-white/60 font-light max-w-[600px] mx-auto">
-          Harnessing microbial cell factories to produce safe, sustainable colors       </p>
+          Harnessing microbial cell factories to produce safe, sustainable colours       </p>
       </div>
 
       {/* Science Content Wrapper */}
@@ -98,7 +98,7 @@ export default function ScienceSection() {
                 Textile dyeing is the 2<sup>nd</sup> largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
               </p>
               <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
-                While natural colors exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
+                While natural colours exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
               <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold text-justify">
                 There is a steep cost to our vibrant colours.
@@ -142,13 +142,13 @@ export default function ScienceSection() {
                 Our Vision
               </ScrollFloat>
               <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] mb-6 text-justify">
-                We grow microbes in controlled conditions to produce colors that are biodegradable and non-toxic. They are consistent, replicable and use fewer resources for production and dyeing.
+                We grow microbes in controlled conditions to produce colours that are biodegradable and non-toxic. They are consistent, replicable and use fewer resources for production and dyeing.
               </p>
               <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] text-justify">
                 Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
               <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6 text-justify'>
-                We envision a world in which the colors we wear are in harmony with the planet and people.
+                We envision a world in which the colours we wear are in harmony with the planet and people.
               </p>
             </div>
           </div>

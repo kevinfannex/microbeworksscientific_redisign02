@@ -14,6 +14,7 @@ export default function Navbar() {
     { to: 'science', label: 'About' },
     { to: 'products', label: 'Products' },
     { to: 'team', label: 'Team' },
+    { to: 'contact', label: 'Contact' },
   ]
 
   useEffect(() => {
@@ -136,15 +137,9 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Theme Toggle & Desktop CTA */}
+        {/* Theme Toggle */}
         <div className="hidden lg:flex items-center gap-4">
           <ThemeToggle />
-          <Link
-            to="/contact"
-            className="bg-transparent border border-accent/40 text-accent text-[0.8rem] tracking-[0.12em] uppercase px-5 py-2.5 font-display font-bold transition-all duration-300 hover:bg-accent/10 hover:border-accent hover:shadow-[0_0_20px_rgba(92,193,255,0.25)]"
-          >
-            Contact
-          </Link>
         </div>
 
         {/* Mobile Hamburger */}
@@ -181,13 +176,6 @@ export default function Navbar() {
             {link.label}
           </a>
         ))}
-        <Link
-          to="/contact"
-          className="mt-4 border border-accent/40 text-accent text-sm tracking-[0.12em] uppercase px-6 py-3 font-display font-bold transition-all duration-300 hover:bg-accent/10 hover:border-accent no-underline"
-          onClick={() => setMenuOpen(false)}
-        >
-          Contact
-        </Link>
         <div className="mt-2">
           <ThemeToggle />
         </div>

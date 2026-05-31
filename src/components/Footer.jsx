@@ -44,6 +44,12 @@ export default function Footer() {
         >
           Team
         </a>
+        <a
+          href="/#contact"
+          className="font-display font-bold text-[0.75rem] text-text-primary no-underline tracking-[0.1em] uppercase transition-colors duration-300 hover:text-accent"
+        >
+          Contact
+        </a>
       </div>
 
       <div className="text-[0.75rem] text-text-primary font-mono">

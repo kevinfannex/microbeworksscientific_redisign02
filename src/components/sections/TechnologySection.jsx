@@ -11,7 +11,7 @@ const specs = [
   { label: 'Strain Library', val: '200+ VARIANTS' },
   { label: 'Pigment Yield', val: '4–8% DW' },
   { label: 'Production Cycle', val: '72 HOURS' },
-  { label: 'Color Gamut', val: '12 UNIQUE HUES' },
+  { label: 'Colour Gamut', val: '12 UNIQUE HUES' },
   { label: 'Patent Portfolio', val: '14 GRANTED' },
 ]
 
@@ -109,7 +109,7 @@ export default function TechnologySection() {
         </h2>
 
         <p className="reveal reveal-delay-2 text-text-muted text-[clamp(1.05rem,1.8vw,1.3rem)] leading-relaxed font-light mb-16 max-w-[640px] mx-auto">
-          Our proprietary strain library contains 200+ engineered variants across 8 chassis organisms. Each strain is optimized for yield, stability, and color gamut.
+          Our proprietary strain library contains 200+ engineered variants across 8 chassis organisms. Each strain is optimized for yield, stability, and colour gamut.
         </p>
 
         {/* Specs Grid */}
@@ -130,7 +130,7 @@ export default function TechnologySection() {
             </svg>
           </div>
           <p className="font-display italic text-[1.25rem] md:text-[1.65rem] text-text-primary leading-[1.4] mb-8 mt-2 max-w-[600px] mx-auto">
-            "We didn't just find a greener dye — we reprogrammed 3.8 billion years of evolution to grow the exact color we want."
+            "We didn't just find a greener dye — we reprogrammed 3.8 billion years of evolution to grow the exact colour we want."
           </p>
           <cite className="font-mono not-italic block uppercase flex flex-col items-center gap-1.5">
             <span className="text-text-primary font-bold tracking-widest text-[0.75rem] md:text-[0.8rem]">Dr. Priya Mehta</span>

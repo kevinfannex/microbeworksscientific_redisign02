@@ -8,6 +8,7 @@ import ShowcaseVideo from '../components/sections/ShowcaseVideo'
 import TeamSection from '../components/sections/TeamSection'
 import MissionVision from '../components/sections/MissionVision'
 import SupportAwards from '../components/sections/SupportAwards'
+import ContactSection from '../components/sections/ContactSection'
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
       <MissionVision />
       <WhatWeDoSection />
       <SupportAwards />
+      <ContactSection />
     </>
   )
 }

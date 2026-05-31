@@ -102,7 +102,7 @@ export default function ImpactSection() {
               After — Bio-Dyeing
             </div>
             <div className="relative z-[1] font-display text-xl md:text-[1.8rem] leading-[1.2] text-text-primary">
-              Living microbes.<br />Clean effluent. Vivid color.
+              Living microbes.<br />Clean effluent. Vivid colour.
             </div>
           </div>
         </div>

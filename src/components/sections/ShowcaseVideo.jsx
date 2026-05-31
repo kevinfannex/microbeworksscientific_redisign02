@@ -53,7 +53,7 @@ export default function ShowcaseVideo() {
               Experience the Innovation
             </h2>
             <p className="text-text-muted text-[1rem] md:text-[1.2rem] font-light leading-relaxed max-w-[600px]">
-              Watch how we are redefining the colors of the world through the precision of biology.
+              Watch how we are redefining the colours of the world through the precision of biology.
             </p>
           </div> */}
 
@@ -61,7 +61,7 @@ export default function ShowcaseVideo() {
           <div className="relative w-full max-w-[1000px] mx-auto rounded-[32px] md:rounded-[60px] overflow-hidden border border-border-default shadow-2xl bg-white dark:bg-black aspect-video">
             <MicrobVideoSection
               videoSrc="https://ik.imagekit.io/g4lukt2ll/Microb_Redisign/pitch_video.mp4?updatedAt=1778316180059"
-              thumbnailSrc={isDark ? "/Image 1_ Dark Background.png" : "/thumbnail for the video.png"}
+              thumbnailSrc={isDark ? "/Image 1_ Dark Background.jpg" : "/thumbnail for the video.jpg"}
             />
           </div>
         </div>
