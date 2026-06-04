@@ -36,7 +36,7 @@ export default function ContactSection() {
         {/* Single Unified Card */}
         <div className="w-full bg-[#181818] border border-white/5 rounded-2xl p-6 md:p-8 text-left shadow-2xl contact-reveal transition-colors duration-500 light-card-override">
           {/* Tagline */}
-          <p className="text-white text-[1.1rem] md:text-[1.3rem] font-medium leading-relaxed mb-8 card-text-override">
+          <p className="text-white text-[1.03rem] md:text-[1.3rem] font-medium leading-relaxed mb-8 card-text-override">
             Have a question, comment, or request?<br />
             We'd love to hear from you.
           </p>
