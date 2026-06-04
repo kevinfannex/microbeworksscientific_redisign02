@@ -42,7 +42,7 @@ export default function ShowcaseVideo() {
     <section
       id="experience"
       ref={containerRef}
-      className="relative pt-0 md:pt-0 pb-10 md:pb-24 bg-bg overflow-hidden transition-colors duration-500 z-10"
+      className="relative pt-10 md:pt-0 pb-10 md:pb-24 bg-bg overflow-hidden transition-colors duration-500 z-10"
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 lg:px-12">
         <div ref={videoWrapperRef}>
