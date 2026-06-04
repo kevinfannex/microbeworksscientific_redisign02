@@ -103,7 +103,8 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-0 lg:py-0 flex items-center justify-between transition-all duration-500 bg-surface/80 backdrop-blur-[20px] border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.03)]`}
+        style={{backgroundColor: isDark ? 'rgba(0, 0, 0)' : 'rgba(255, 255, 255)'}}
+        className={`fixed top-0 left-0 right-0 z-[100] px-6 lg:px-12 py-0 lg:py-0 flex items-center justify-between transition-all duration-500  border-b border-border-default shadow-[0_1px_0_rgba(0,0,0,0.03)]`}
       >
         {/* Logo */}
         <Link

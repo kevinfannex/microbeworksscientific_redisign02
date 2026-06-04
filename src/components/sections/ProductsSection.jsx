@@ -5,10 +5,10 @@ import useScrollReveal from '../../hooks/useScrollReveal'
 const bulletPoints = [
   {
     title: 'Biodegradable and non-toxic'
-    },
+  },
   {
     title: 'Fast on yarns, fabrics and garments'
-    },
+  },
   {
     title: 'Drop-in solution for industry'
   },
@@ -36,7 +36,7 @@ export default function ProductsSection() {
   useEffect(() => {
     if (isHovered) return // Pause auto-cycle when user is actively interacting/hovering
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % slideshowImages.length)
+      setActiveIndex((prev) => (prev + 1) % bulletPoints.length)
     }, 3500)
     return () => clearInterval(interval)
   }, [isHovered])
@@ -45,7 +45,7 @@ export default function ProductsSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative px-6 md:px-12 lg:px-24 py-12 md:py-32 bg-bg text-text-primary overflow-hidden border-b border-border-default/30"
+      className="relative px-6 md:px-12 lg:px-24 py-12 md:py-32 bg-black lg:bg-bg text-white lg:text-text-primary overflow-hidden border-b border-white/10 lg:border-border-default/30"
     >
       {/* Premium background effects */}
       <div className="absolute top-1/3 -left-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none z-0" />
@@ -59,20 +59,21 @@ export default function ProductsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-[1.1rem] md:text-[1.3rem] text-text-muted font-light leading-relaxed "
+            className="text-[1.1rem] md:text-[1.3rem] text-white/70 lg:text-text-muted font-light leading-relaxed "
           >
-            we have developed <strong className="text-text-primary font-medium">MicroBlue</strong>, a powdered Blue Dye that is : ( here the MicroBlue is larger and in blue colour)
+            We have developed <strong className="text-white lg:text-text-primary font-medium hover:text-accent">MicroBlue</strong>, a powdered Blue Dye that is :
           </motion.p>
         </div>
 
         {/* Grid matching the height of bullet points and image */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-stretch">
-          
+
           {/* Left Column: Interactive Bullet Points */}
           <div className="lg:col-span-5 flex flex-col justify-center">
             {/* Bullet Points Stack */}
             <div className="space-y-4 w-full">
               {bulletPoints.map((bp, index) => {
+                const isActive = activeIndex === index
                 return (
                   <motion.div
                     key={bp.title}
@@ -82,32 +83,57 @@ export default function ProductsSection() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     onMouseEnter={() => {
                       setIsHovered(true)
-                      setActiveIndex(index % slideshowImages.length)
+                      setActiveIndex(index)
                     }}
                     onMouseLeave={() => {
                       setIsHovered(false)
                     }}
-                    className="group relative flex items-start gap-4 p-5 rounded-2xl border border-border-default/40 bg-surface/30 backdrop-blur-sm cursor-pointer transition-all duration-300 hover:border-accent/40 hover:bg-surface/60 shadow-sm hover:shadow-md"
+                    onClick={() => {
+                      setActiveIndex(index)
+                    }}
+                    className={`group relative flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md ${
+                      isActive
+                        ? 'border-white/10 lg:border-accent/40 bg-white/5 lg:bg-surface/60'
+                        : 'border-white/10 lg:border-border-default/40 bg-white/5 lg:bg-surface/30'
+                    } hover:border-accent/40 hover:bg-white/10 lg:hover:bg-surface/60`}
                   >
                     {/* Glowing highlight indicator */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl transition-opacity duration-300 pointer-events-none ${
+                        isActive ? 'opacity-0 lg:opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}
+                    />
 
                     {/* Interactive Bullet Point Icon */}
                     <div className="mt-1 flex-shrink-0">
                       <div className="relative w-6 h-6 flex items-center justify-center">
                         {/* Static dot */}
-                        <span className="w-2.5 h-2.5 rounded-full bg-border-bright group-hover:bg-accent transition-colors duration-300" />
+                        <span
+                          className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
+                            isActive ? 'bg-white/60 lg:bg-accent' : 'bg-white/60 lg:bg-border-bright group-hover:bg-accent'
+                          }`}
+                        />
                         {/* Hover pulse circle */}
-                        <span className="absolute inset-0 rounded-full border border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300" />
+                        <span
+                          className={`absolute inset-0 rounded-full border transition-all duration-300 ${
+                            isActive
+                              ? 'border-accent/0 scale-50 opacity-0 lg:border-accent/40 lg:scale-100 lg:opacity-100'
+                              : 'border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100'
+                          }`}
+                        />
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1">
-                      <h4 className="text-[1.05rem] md:text-[1.2rem] font-display font-medium text-text-primary group-hover:text-accent transition-colors duration-300">
+                      <h4
+                        className={`text-[1.05rem] md:text-[1.2rem] font-display font-medium transition-colors duration-300 ${
+                          isActive ? 'text-accent' : 'text-white lg:text-text-primary group-hover:text-accent'
+                        }`}
+                      >
                         {bp.title}
                       </h4>
-                      <p className="text-[0.9rem] md:text-[0.95rem] text-text-muted font-light leading-relaxed mt-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-500 ease-in-out">
+                      <p className="text-[0.9rem] md:text-[0.95rem] text-white/50 lg:text-text-muted font-light leading-relaxed mt-1 opacity-0 h-0 overflow-hidden group-hover:opacity-100 group-hover:h-auto transition-all duration-500 ease-in-out">
                         {bp.desc}
                       </p>
                     </div>
@@ -124,7 +150,7 @@ export default function ProductsSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative w-full h-full min-h-[420px] rounded-[36px] md:rounded-[48px] overflow-hidden border border-border-default/80 shadow-2xl p-3 bg-surface/20 backdrop-blur-md flex flex-col"
+              className="relative w-full h-full min-h-[420px] rounded-[36px] md:rounded-[48px] overflow-hidden border border-white/10 lg:border-border-default/80 shadow-2xl p-3 bg-white/5 lg:bg-surface/20 backdrop-blur-md flex flex-col"
             >
               {/* Outer soft ambient glow */}
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent/20 to-accent2/20 blur-xl opacity-40 rounded-[36px] md:rounded-[48px]" />
@@ -133,8 +159,8 @@ export default function ProductsSection() {
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={activeIndex}
-                    src={slideshowImages[activeIndex]}
-                    alt={`MicroBlue showcase ${activeIndex + 1}`}
+                    src={slideshowImages[activeIndex % slideshowImages.length]}
+                    alt={`MicroBlue showcase ${(activeIndex % slideshowImages.length) + 1}`}
                     initial={{ opacity: 0, scale: 1.05, x: 20 }}
                     animate={{ opacity: 1, scale: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95, x: -20 }}
@@ -151,7 +177,7 @@ export default function ProductsSection() {
                     key={i}
                     onClick={() => setActiveIndex(i)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      activeIndex === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
+                      (activeIndex % slideshowImages.length) === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
                     }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />

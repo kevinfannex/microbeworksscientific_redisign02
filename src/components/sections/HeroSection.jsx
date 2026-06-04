@@ -27,76 +27,19 @@ export default function HeroSection() {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
     camera.position.z = 80
 
-    // Particles geometries: Squares only
-    const COUNT = 600
-    const SQ_COUNT = COUNT
 
-    // Arrays for Squares
-    const sqPositions = new Float32Array(SQ_COUNT * 3)
-    const sqColors = new Float32Array(SQ_COUNT * 3)
-    const sqSizes = new Float32Array(SQ_COUNT)
-
-    // Generate positions & attributes for Squares
-    const populateParticles = (positions, colors, sizes, count) => {
-      for (let i = 0; i < count; i++) {
-        const r = 60 + Math.random() * 40
-        const theta = Math.random() * Math.PI * 2
-        const phi = Math.acos(2 * Math.random() - 1)
-        const x = r * Math.sin(phi) * Math.cos(theta)
-        const y = r * Math.sin(phi) * Math.sin(theta) * 0.6
-        const z = r * Math.cos(phi) * 0.45 // Compress Z to keep particles safely in the background
-
-        const t = Math.random()
-        // Dynamic gradient between Accent Green (#C4FA34) and Primary Blue (#5CC1FF)
-        const r_val = t * 0.77 + (1 - t) * 0.36
-        const g_val = t * 0.98 + (1 - t) * 0.76
-        const b_val = t * 0.20 + (1 - t) * 1.00
-
-        const size = 0.5 + Math.random() * 1.0 // Reduced variance in size attribute
-
-        const i3 = i * 3
-        positions[i3] = x
-        positions[i3 + 1] = y
-        positions[i3 + 2] = z
-        colors[i3] = r_val
-        colors[i3 + 1] = g_val
-        colors[i3 + 2] = b_val
-        sizes[i] = size
-      }
-    }
-
-    populateParticles(sqPositions, sqColors, sqSizes, SQ_COUNT)
-
-    // Build geometries
-    const sqGeo = new THREE.BufferGeometry()
-    sqGeo.setAttribute('position', new THREE.BufferAttribute(sqPositions, 3))
-    sqGeo.setAttribute('color', new THREE.BufferAttribute(sqColors, 3))
-    sqGeo.setAttribute('size', new THREE.BufferAttribute(sqSizes, 1))
 
     // Textures & Materials
     const textureLoader = new THREE.TextureLoader()
     const microbeTexture = textureLoader.load('/Microbe_Icon.svg')
     microbeTexture.minFilter = THREE.LinearFilter
 
-    // Materials
-    const sqMat = new THREE.PointsMaterial({
-      size: 1.1, // Reduced size for crisp, premium, micro-squares
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.7,
-      sizeAttenuation: true,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending
-    })
 
-    // Particle systems
-    const squareParticles = new THREE.Points(sqGeo, sqMat)
-    scene.add(squareParticles)
 
     // Create exactly two prominent microbes (largest and 2nd largest)
-    // Create 14 microbes (the 2 prominent largest + 12 additional ones)
+    // Create 12 microbes for more negative space
     const microbes = []
-    const MB_COUNT = 14
+    const MB_COUNT = 18
 
     for (let i = 0; i < MB_COUNT; i++) {
       const isLargest = i === 0
@@ -124,13 +67,12 @@ export default function HeroSection() {
       const sprite = new THREE.Sprite(mbMat)
       sprite.scale.set(size, size, 1)
 
-      // Distribute initial positions nicely in space
-      const r = 25 + Math.random() * 35
-      const theta = Math.random() * Math.PI * 2
-      const phi = Math.acos(2 * Math.random() - 1)
-      const x = r * Math.sin(phi) * Math.cos(theta)
-      const y = r * Math.sin(phi) * Math.sin(theta) * 0.6
-      const z = 10 + Math.random() * 25
+      // Spread them evenly across the entire screen
+      const spreadX = 160; 
+      const spreadY = 90; 
+      const x = (Math.random() - 0.5) * spreadX;
+      const y = (Math.random() - 0.5) * spreadY;
+      const z = 10 + Math.random() * 25;
 
       sprite.position.set(x, y, z)
 
@@ -179,9 +121,7 @@ export default function HeroSection() {
       const t = clock.getElapsedTime()
       const scrollFrac = Math.min(scrollY / window.innerHeight, 1)
 
-      // Rotate squares
-      squareParticles.rotation.y = -t * 0.02
-      squareParticles.rotation.x = t * 0.01
+
 
       // Move individual microbes independently in random directions
       microbes.forEach((mb) => {
@@ -189,8 +129,8 @@ export default function HeroSection() {
         mb.material.rotation += mb.spinSpeed * 0.1
 
         // Bounce off invisible boundaries to stay in view
-        const xBound = 45
-        const yBound = 25
+        const xBound = 80
+        const yBound = 45
         const zBoundMin = 10
         const zBoundMax = 35
 
@@ -242,8 +182,7 @@ export default function HeroSection() {
       if (container && canvas.parentNode === container) {
         container.removeChild(canvas)
       }
-      sqGeo.dispose()
-      sqMat.dispose()
+
       microbes.forEach((mb) => {
         mb.material.dispose()
       })

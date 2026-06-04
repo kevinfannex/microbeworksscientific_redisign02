@@ -94,13 +94,13 @@ export default function ScienceSection() {
               >
                 CURRENT STATE
               </ScrollFloat>
-              <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
+              <p className="text-[1.15rem] md:text-xl text-white/50 font-light leading-[1.8] mb-6 text-justify">
                 Textile dyeing is the 2<sup>nd</sup> largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
               </p>
-              <p className="text-[1.15rem] md:text-xl text-white/90 font-light leading-[1.8] mb-6 text-justify">
+              <p className="text-[1.15rem] md:text-xl text-white/50 font-light leading-[1.8] text-justify">
                 While natural colours exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
-              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold text-justify">
+              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6 text-justify">
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
@@ -112,8 +112,8 @@ export default function ScienceSection() {
               />
               <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent"></div>
               <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 text-right">
-                <p className="font-display font-bold text-white text-sm md:text-base leading-tight">Probal Rashid</p>
-                <p className="font-body text-white/70 text-[0.65rem] md:text-xs leading-tight mt-0.5">Getty Images</p>
+                <p className="font-display font-bold text-white text-[12px] md:text-base leading-tight">Probal Rashid</p>
+                <p className="font-body text-white/70 text-[9px] md:text-xs leading-tight mt-0.5">Getty Images</p>
               </div>
             </div>
           </div>
