@@ -81,9 +81,9 @@ export default function ScienceSection() {
       {/* Science Content Wrapper */}
       <div className="relative z-10">
         {/* Problem Section */}
-        <section ref={problemRef} className="bg-black text-white overflow-hidden py-12 md:py-0 md:min-h-screen flex items-center">
+        <section ref={problemRef} className="bg-black text-white overflow-hidden flex items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 w-full items-center">
-            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-0 order-2 md:order-1">
+            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-8 md:py-4 order-2 md:order-1">
               <ScrollFloat
                 animationDuration={0.5}
                 ease='power4.out'
@@ -104,26 +104,26 @@ export default function ScienceSection() {
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
-            <div className="img-block relative order-1 md:order-2 h-[50vh] md:h-screen min-h-[400px]">
+            <div className="img-block relative order-1 md:order-2 h-[50vh] md:min-h-[550px]">
               <img
-                  src="/Current State.png"
-                  alt="Current State of Industrial pollution"
-                  className="absolute inset-0 w-full h-full object-cover"
-                  style={{ filter: 'brightness(1.3)' }}
-                />
+                src="/Current State.png"
+                alt="Current State of Industrial pollution"
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{ filter: 'brightness(1.3)' }}
+              />
               <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent"></div>
               <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 text-right">
-                <p className="font-display font-bold text-white text-[12px] md:text-base leading-tight">Probal Rashid</p>
-                <p className="font-body text-white/70 text-[9px] md:text-xs leading-tight mt-0.5">Getty Images</p>
+                <p className="font-display font-bold text-white text-[8px] md:text-[14px] leading-tight">Probal Rashid</p>
+                <p className="font-body text-white/70 text-[5px] md:text-[10px] leading-tight mt-0.5">Getty Images</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Solution Section */}
-        <section ref={solutionRef} className="bg-bg text-text-primary overflow-hidden md:min-h-screen flex items-center">
+        <section ref={solutionRef} className="bg-bg text-text-primary overflow-hidden flex items-center">
           <div className="grid grid-cols-1 md:grid-cols-2 w-full items-center">
-            <div className="img-block relative order-1 md:order-1 h-[50vh] md:h-screen min-h-[400px]">
+            <div className="img-block relative order-1 md:order-1 h-[50vh] md:h-[500px]">
               <img
                 src="/Our Vision.png"
                 alt="Microbial solution"
@@ -131,7 +131,7 @@ export default function ScienceSection() {
               />
               <div className="hidden md:block absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-bg to-transparent"></div>
             </div>
-            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-20 md:py-0 order-2 md:order-2">
+            <div className="text-block flex flex-col justify-center px-8 md:px-16 lg:px-24 py-8 md:py-4 order-2 md:order-2">
               <ScrollFloat
                 animationDuration={0.5}
                 ease='power4.out'

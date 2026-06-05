@@ -45,7 +45,7 @@ export default function ProductsSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative px-6 md:px-12 lg:px-24 py-12 md:py-32 bg-black lg:bg-bg text-white lg:text-text-primary overflow-hidden border-b border-white/10 lg:border-border-default/30"
+      className="relative px-6 md:px-12 lg:px-24 pb-10 md:pb-32 pt-4 md:pt-[60px] bg-black lg:bg-bg text-white lg:text-text-primary overflow-hidden border-b border-white/10 lg:border-border-default/30"
     >
       {/* Premium background effects */}
       <div className="absolute top-1/3 -left-20 w-[400px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none z-0" />

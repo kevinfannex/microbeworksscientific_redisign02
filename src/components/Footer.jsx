@@ -53,7 +53,7 @@ export default function Footer() {
       </div>
 
       <div className="text-[0.75rem] text-text-primary font-mono">
-        © 2025Microbeworks Scientific Pvt Ltd · All rights reserved.
+        © 2025 Microbeworks Scientific Pvt Ltd · All rights reserved.
       </div>
     </footer>
   )

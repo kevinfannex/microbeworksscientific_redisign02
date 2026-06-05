@@ -51,11 +51,11 @@ export default function HowItWorksSection() {
   // Refs for the animated line fills & orbs
   const mobileTrackRef = useRef(null)
   const mobileFillRef = useRef(null)
-  const mobileOrbRef  = useRef(null)
-  
+  const mobileOrbRef = useRef(null)
+
   const desktopTrackRef = useRef(null)
   const desktopFillRef = useRef(null)
-  const desktopOrbRef  = useRef(null)
+  const desktopOrbRef = useRef(null)
 
   /* ── Scroll-reveal for timeline items ── */
   useEffect(() => {
@@ -336,9 +336,8 @@ export default function HowItWorksSection() {
           return (
             <div
               key={step.num}
-              className={`timeline-item relative flex items-center mb-24 last:mb-0 ${
-                isLeft ? 'flex-row' : 'flex-row-reverse'
-              }`}
+              className={`timeline-item relative flex items-center mb-24 last:mb-0 ${isLeft ? 'flex-row' : 'flex-row-reverse'
+                }`}
               style={{
                 opacity: 0,
                 transform: isLeft ? 'translateX(-40px)' : 'translateX(40px)',
@@ -347,9 +346,8 @@ export default function HowItWorksSection() {
             >
               {/* Content */}
               <div
-                className={`w-[calc(50%-5rem)] flex flex-col ${
-                  isLeft ? 'pr-12 text-right items-end' : 'pl-12 text-left items-start'
-                }`}
+                className={`w-[calc(50%-5rem)] flex flex-col ${isLeft ? 'pr-12 text-right items-end' : 'pl-12 text-left items-start'
+                  }`}
               >
                 <span className="font-mono text-[0.78rem] tracking-[0.22em] text-accent2 uppercase mb-3 block">
                   Step {step.num}
@@ -396,7 +394,7 @@ export default function HowItWorksSection() {
         })}
 
         {/* End cap */}
-        <div 
+        <div
           className="absolute left-1/2 bottom-0 w-3 h-3 rounded-full bg-accent/60 shadow-[0_0_10px_rgba(92,193,255,0.6)]"
           style={{ transform: 'translate(-50%, 50%)' }}
         />
