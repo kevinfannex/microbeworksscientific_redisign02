@@ -106,10 +106,11 @@ export default function ScienceSection() {
             </div>
             <div className="img-block relative order-1 md:order-2 h-[50vh] md:h-screen min-h-[400px]">
               <img
-                src="/Current State.png"
-                alt="Current State of Industrial pollution"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
+                  src="/Current State.png"
+                  alt="Current State of Industrial pollution"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  style={{ filter: 'brightness(1.3)' }}
+                />
               <div className="hidden md:block absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black to-transparent"></div>
               <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 z-10 text-right">
                 <p className="font-display font-bold text-white text-[12px] md:text-base leading-tight">Probal Rashid</p>

@@ -24,7 +24,7 @@ const slideshowImages = [
   '/Image 1.png',
   '/Image 2.jpeg',
   '/Image 3.png',
-  '/Image 4.jpg'
+  '/Image 4.png'
 ]
 
 export default function ProductsSection() {
@@ -91,17 +91,15 @@ export default function ProductsSection() {
                     onClick={() => {
                       setActiveIndex(index)
                     }}
-                    className={`group relative flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md ${
-                      isActive
+                    className={`group relative flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md ${isActive
                         ? 'border-white/10 lg:border-accent/40 bg-white/5 lg:bg-surface/60'
                         : 'border-white/10 lg:border-border-default/40 bg-white/5 lg:bg-surface/30'
-                    } hover:border-accent/40 hover:bg-white/10 lg:hover:bg-surface/60`}
+                      } hover:border-accent/40 hover:bg-white/10 lg:hover:bg-surface/60`}
                   >
                     {/* Glowing highlight indicator */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl transition-opacity duration-300 pointer-events-none ${
-                        isActive ? 'opacity-0 lg:opacity-100' : 'opacity-0 group-hover:opacity-100'
-                      }`}
+                      className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl transition-opacity duration-300 pointer-events-none ${isActive ? 'opacity-0 lg:opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}
                     />
 
                     {/* Interactive Bullet Point Icon */}
@@ -109,17 +107,15 @@ export default function ProductsSection() {
                       <div className="relative w-6 h-6 flex items-center justify-center">
                         {/* Static dot */}
                         <span
-                          className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
-                            isActive ? 'bg-white/60 lg:bg-accent' : 'bg-white/60 lg:bg-border-bright group-hover:bg-accent'
-                          }`}
+                          className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${isActive ? 'bg-white/60 lg:bg-accent' : 'bg-white/60 lg:bg-border-bright group-hover:bg-accent'
+                            }`}
                         />
                         {/* Hover pulse circle */}
                         <span
-                          className={`absolute inset-0 rounded-full border transition-all duration-300 ${
-                            isActive
+                          className={`absolute inset-0 rounded-full border transition-all duration-300 ${isActive
                               ? 'border-accent/0 scale-50 opacity-0 lg:border-accent/40 lg:scale-100 lg:opacity-100'
                               : 'border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100'
-                          }`}
+                            }`}
                         />
                       </div>
                     </div>
@@ -127,9 +123,8 @@ export default function ProductsSection() {
                     {/* Content */}
                     <div className="flex-1">
                       <h4
-                        className={`text-[1.05rem] md:text-[1.2rem] font-display font-medium transition-colors duration-300 ${
-                          isActive ? 'text-accent' : 'text-white lg:text-text-primary group-hover:text-accent'
-                        }`}
+                        className={`text-[1.05rem] md:text-[1.2rem] font-display font-medium transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white lg:text-text-primary group-hover:text-accent'
+                          }`}
                       >
                         {bp.title}
                       </h4>
@@ -176,9 +171,8 @@ export default function ProductsSection() {
                   <button
                     key={i}
                     onClick={() => setActiveIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      (activeIndex % slideshowImages.length) === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${(activeIndex % slideshowImages.length) === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
+                      }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
                 ))}

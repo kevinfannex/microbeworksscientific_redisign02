@@ -39,7 +39,7 @@ export default function HeroSection() {
     // Create exactly two prominent microbes (largest and 2nd largest)
     // Create 12 microbes for more negative space
     const microbes = []
-    const MB_COUNT = 18
+    const MB_COUNT = 25
 
     for (let i = 0; i < MB_COUNT; i++) {
       const isLargest = i === 0
