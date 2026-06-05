@@ -29,14 +29,14 @@ const slideshowImages = [
 
 export default function ProductsSection() {
   const sectionRef = useScrollReveal()
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
 
   // Automatic slideshow cycle
   useEffect(() => {
     if (isHovered) return // Pause auto-cycle when user is actively interacting/hovering
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % bulletPoints.length)
+      setActiveImageIndex((prev) => (prev + 1) % slideshowImages.length)
     }, 3500)
     return () => clearInterval(interval)
   }, [isHovered])
@@ -73,7 +73,6 @@ export default function ProductsSection() {
             {/* Bullet Points Stack */}
             <div className="space-y-4 w-full">
               {bulletPoints.map((bp, index) => {
-                const isActive = activeIndex === index
                 return (
                   <motion.div
                     key={bp.title}
@@ -81,25 +80,11 @@ export default function ProductsSection() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    onMouseEnter={() => {
-                      setIsHovered(true)
-                      setActiveIndex(index)
-                    }}
-                    onMouseLeave={() => {
-                      setIsHovered(false)
-                    }}
-                    onClick={() => {
-                      setActiveIndex(index)
-                    }}
-                    className={`group relative flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm cursor-pointer transition-all duration-300 shadow-sm hover:shadow-md ${isActive
-                        ? 'border-white/10 lg:border-accent/40 bg-white/5 lg:bg-surface/60'
-                        : 'border-white/10 lg:border-border-default/40 bg-white/5 lg:bg-surface/30'
-                      } hover:border-accent/40 hover:bg-white/10 lg:hover:bg-surface/60`}
+                    className={`group relative flex items-start gap-4 p-5 rounded-2xl border backdrop-blur-sm transition-all duration-300 shadow-sm hover:shadow-md border-white/10 lg:border-border-default/40 bg-white/5 lg:bg-surface/30 hover:border-accent/40 hover:bg-white/10 lg:hover:bg-surface/60`}
                   >
                     {/* Glowing highlight indicator */}
                     <div
-                      className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl transition-opacity duration-300 pointer-events-none ${isActive ? 'opacity-0 lg:opacity-100' : 'opacity-0 group-hover:opacity-100'
-                        }`}
+                      className={`absolute inset-0 bg-gradient-to-r from-accent/5 to-transparent rounded-2xl transition-opacity duration-300 pointer-events-none opacity-0 group-hover:opacity-100`}
                     />
 
                     {/* Interactive Bullet Point Icon */}
@@ -107,15 +92,11 @@ export default function ProductsSection() {
                       <div className="relative w-6 h-6 flex items-center justify-center">
                         {/* Static dot */}
                         <span
-                          className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${isActive ? 'bg-white/60 lg:bg-accent' : 'bg-white/60 lg:bg-border-bright group-hover:bg-accent'
-                            }`}
+                          className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 bg-white/60 lg:bg-border-bright group-hover:bg-accent`}
                         />
                         {/* Hover pulse circle */}
                         <span
-                          className={`absolute inset-0 rounded-full border transition-all duration-300 ${isActive
-                              ? 'border-accent/0 scale-50 opacity-0 lg:border-accent/40 lg:scale-100 lg:opacity-100'
-                              : 'border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100'
-                            }`}
+                          className={`absolute inset-0 rounded-full border transition-all duration-300 border-accent/0 scale-50 opacity-0 group-hover:border-accent/40 group-hover:scale-100 group-hover:opacity-100`}
                         />
                       </div>
                     </div>
@@ -123,8 +104,7 @@ export default function ProductsSection() {
                     {/* Content */}
                     <div className="flex-1">
                       <h4
-                        className={`text-[1.05rem] md:text-[1.2rem] font-display font-medium transition-colors duration-300 ${isActive ? 'text-accent' : 'text-white lg:text-text-primary group-hover:text-accent'
-                          }`}
+                        className={`text-[1.05rem] md:text-[1.2rem] font-display font-medium transition-colors duration-300 text-white lg:text-text-primary group-hover:text-accent`}
                       >
                         {bp.title}
                       </h4>
@@ -145,21 +125,21 @@ export default function ProductsSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative w-full h-full min-h-[420px] rounded-[36px] md:rounded-[48px] overflow-hidden border border-white/10 lg:border-border-default/80 shadow-2xl p-3 bg-white/5 lg:bg-surface/20 backdrop-blur-md flex flex-col"
+              className="relative w-full h-full aspect-[4/3] md:aspect-auto min-h-[300px] md:min-h-[420px] rounded-[36px] md:rounded-[48px] overflow-hidden border border-white/10 lg:border-border-default/80 shadow-2xl p-3 bg-white/5 lg:bg-surface/20 backdrop-blur-md flex flex-col"
             >
               {/* Outer soft ambient glow */}
               <div className="absolute -inset-1 bg-gradient-to-tr from-accent/20 to-accent2/20 blur-xl opacity-40 rounded-[36px] md:rounded-[48px]" />
 
               <div className="relative w-full h-full rounded-[28px] md:rounded-[38px] overflow-hidden bg-black/40 flex-1">
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                   <motion.img
-                    key={activeIndex}
-                    src={slideshowImages[activeIndex % slideshowImages.length]}
-                    alt={`MicroBlue showcase ${(activeIndex % slideshowImages.length) + 1}`}
-                    initial={{ opacity: 0, scale: 1.05, x: 20 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, x: -20 }}
-                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    key={activeImageIndex}
+                    src={slideshowImages[activeImageIndex]}
+                    alt={`MicroBlue showcase ${activeImageIndex + 1}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.8, ease: 'easeInOut' }}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 </AnimatePresence>
@@ -170,8 +150,8 @@ export default function ProductsSection() {
                 {slideshowImages.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => setActiveIndex(i)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${(activeIndex % slideshowImages.length) === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
+                    onClick={() => setActiveImageIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${activeImageIndex === i ? 'bg-accent w-4' : 'bg-white/40 hover:bg-white/60'
                       }`}
                     aria-label={`Go to slide ${i + 1}`}
                   />
