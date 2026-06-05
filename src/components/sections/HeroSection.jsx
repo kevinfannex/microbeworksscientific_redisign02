@@ -46,7 +46,7 @@ export default function HeroSection() {
       const isSecondLargest = i === 1
 
       // Size calculation: largest is 15, 2nd largest is 9, others vary between 2.5 and 5.5
-      const size = isLargest ? 15 : (isSecondLargest ? 9 : (2.5 + Math.random() * 3.0))
+      const size = isLargest ? 15 : (isSecondLargest ? 9 : (4 + Math.random() * 3.0))
       const t = Math.random()
 
       // Gradient color interpolation between Accent Green (#C4FA34) and Primary Blue (#5CC1FF)
@@ -67,12 +67,20 @@ export default function HeroSection() {
       const sprite = new THREE.Sprite(mbMat)
       sprite.scale.set(size, size, 1)
 
-      // Spread them evenly across the entire screen
-      const spreadX = 160; 
-      const spreadY = 90; 
-      const x = (Math.random() - 0.5) * spreadX;
-      const y = (Math.random() - 0.5) * spreadY;
-      const z = 10 + Math.random() * 25;
+      // Spread them evenly across the entire screen based on the screen's aspect ratio
+      const aspect = window.innerWidth / window.innerHeight
+      const z = 10 + Math.random() * 25
+      const distance = 80 - z
+      const vFovRad = (camera.fov * Math.PI) / 180
+      const visibleHeight = 2 * Math.tan(vFovRad / 2) * distance
+      const visibleWidth = visibleHeight * aspect
+
+      // Spread them inside the camera's visible frustum (85% of visible width/height)
+      const spreadX = visibleWidth * 0.85
+      const spreadY = visibleHeight * 0.85
+
+      const x = (Math.random() - 0.5) * spreadX
+      const y = (Math.random() - 0.5) * spreadY
 
       sprite.position.set(x, y, z)
 
@@ -121,22 +129,36 @@ export default function HeroSection() {
       const t = clock.getElapsedTime()
       const scrollFrac = Math.min(scrollY / window.innerHeight, 1)
 
-
+      const aspect = window.innerWidth / window.innerHeight
+      const vFovRad = (camera.fov * Math.PI) / 180
+      const tanHalfFov = Math.tan(vFovRad / 2)
 
       // Move individual microbes independently in random directions
       microbes.forEach((mb) => {
         mb.sprite.position.add(mb.velocity)
         mb.material.rotation += mb.spinSpeed * 0.1
 
-        // Bounce off invisible boundaries to stay in view
-        const xBound = 80
-        const yBound = 45
+        // Bounce off invisible boundaries to stay in view based on dynamic aspect ratio
+        const distance = 80 - mb.sprite.position.z
+        const visibleHeight = 2 * tanHalfFov * distance
+        const visibleWidth = visibleHeight * aspect
+
+        const xBound = (visibleWidth / 2) * 1.1
+        const yBound = (visibleHeight / 2) * 1.1
         const zBoundMin = 10
         const zBoundMax = 35
 
-        if (Math.abs(mb.sprite.position.x) > xBound) mb.velocity.x *= -1
-        if (Math.abs(mb.sprite.position.y) > yBound) mb.velocity.y *= -1
-        if (mb.sprite.position.z < zBoundMin || mb.sprite.position.z > zBoundMax) mb.velocity.z *= -1
+        if (Math.abs(mb.sprite.position.x) > xBound) {
+          mb.velocity.x *= -1
+          mb.sprite.position.x = Math.sign(mb.sprite.position.x) * xBound
+        }
+        if (Math.abs(mb.sprite.position.y) > yBound) {
+          mb.velocity.y *= -1
+          mb.sprite.position.y = Math.sign(mb.sprite.position.y) * yBound
+        }
+        if (mb.sprite.position.z < zBoundMin || mb.sprite.position.z > zBoundMax) {
+          mb.velocity.z *= -1
+        }
 
         // Fade opacity on scroll
         mb.material.opacity = mb.baseOpacity - scrollFrac * (mb.baseOpacity * 0.75)
