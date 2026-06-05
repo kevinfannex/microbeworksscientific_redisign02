@@ -54,44 +54,103 @@
 
 /* Keyframes */
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
 }
 
 @keyframes scrollDown {
-  0% { transform: scaleY(0); transform-origin: top; }
-  50% { transform: scaleY(1); transform-origin: top; }
-  51% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+
+  51% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
 }
 
 @keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes ringPulse {
-  0%, 100% { transform: scale(1); opacity: 0.2; }
-  50% { transform: scale(1.15); opacity: 0.05; }
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.05;
+  }
 }
 
 @keyframes drawPath {
-  to { stroke-dashoffset: 0; }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes bounceSubtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
 }
 
 /* Base styles */
@@ -138,10 +197,21 @@ body::before {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* Microbe SVG animation */
 .microbe-path {
@@ -250,8 +320,8 @@ body::before {
 /* Fabric texture overlay */
 .fabric-texture-bg {
   background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.025) 4px, rgba(0,0,0,0.025) 5px),
-    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.025) 4px, rgba(0,0,0,0.025) 5px);
+    repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0, 0, 0, 0.025) 4px, rgba(0, 0, 0, 0.025) 5px),
+    repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.025) 4px, rgba(0, 0, 0, 0.025) 5px);
 }
 
 /* Color swatch custom properties */
@@ -276,9 +346,17 @@ body::before {
 .hide-scrollbar {
   scrollbar-width: none;
 }
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Adjust image heights for zoom-125 */
+html.zoom-125 .current-state .img-block,
+html.zoom-125 .our-vision .img-block {
+  height: 550px !important;
+}
+
 
 /* Mobile hamburger animation */
 .hamburger-line {
@@ -302,15 +380,18 @@ body::before {
   background-color: #181818;
   border-color: rgba(255, 255, 255, 0.05);
 }
+
 .card-text-override,
 .card-link-override,
 .card-location-override {
   color: #ffffff;
 }
+
 .card-label-override,
 .card-sublabel-override {
   color: rgba(255, 255, 255, 0.6);
 }
+
 .card-border-override {
   border-color: rgba(255, 255, 255, 0.1);
 }
@@ -319,17 +400,18 @@ html:not(.dark) .light-card-override {
   background-color: #ffffff;
   border-color: rgba(0, 0, 0, 0.08);
 }
+
 html:not(.dark) .card-text-override,
 html:not(.dark) .card-link-override,
 html:not(.dark) .card-location-override {
   color: #0a0a0a;
 }
+
 html:not(.dark) .card-label-override,
 html:not(.dark) .card-sublabel-override {
   color: rgba(10, 10, 10, 0.55);
 }
+
 html:not(.dark) .card-border-override {
   border-color: rgba(0, 0, 0, 0.08);
 }
-
-
