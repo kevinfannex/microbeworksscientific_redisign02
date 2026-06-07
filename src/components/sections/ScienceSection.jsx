@@ -89,18 +89,19 @@ export default function ScienceSection() {
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left text-[1.38rem] md:text-[1.95rem]"
+                containerClassName="mb-8 text-left"
+                fontSize="clamp(1.25rem, 1.8vw, 1.95rem)"
                 textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase"
               >
                 CURRENT STATE
               </ScrollFloat>
-              <p className="text-[1.15rem] md:text-xl text-white/50 font-light leading-[1.8] mb-6 text-justify">
+              <p className="text-white/50 font-light leading-[1.8] mb-6 text-justify" style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 Textile dyeing is the 2<sup>nd</sup> largest source of water pollution, due to it's reliance on synthetic and petrochemical derived dyes. These dyes use large amounts of water, contributing to scarcity, and release toxic chemicals into water bodies, harming ecosystems.
               </p>
-              <p className="text-[1.15rem] md:text-xl text-white/50 font-light leading-[1.8] text-justify">
+              <p className="text-white/50 font-light leading-[1.8] text-justify" style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 While natural colours exist, they are difficult to scale and are inconsistent across batches, making adoption difficult. This means workers in industries and nearby communities are still exposed to hazardous substances, resulting in chronic health issues.
               </p>
-              <p className="text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6 text-justify">
+              <p className="font-medium leading-[1.8] text-gold mt-6 text-justify" style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 There is a steep cost to our vibrant colours.
               </p>
             </div>
@@ -137,18 +138,19 @@ export default function ScienceSection() {
                 ease='power4.out'
                 scrollStart='top bottom-=10%'
                 scrollEnd='bottom center'
-                containerClassName="mb-8 text-left text-[1.38rem] md:text-[1.95rem]"
+                containerClassName="mb-8 text-left"
+                fontSize="clamp(1.25rem, 1.8vw, 1.95rem)"
                 textClassName="font-bold tracking-[0.25em] text-accent3 font-mono uppercase font-semibold"
               >
                 Our Vision
               </ScrollFloat>
-              <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] mb-6 text-justify">
+              <p className="text-text-muted font-light leading-[1.8] mb-6 text-justify" style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 We grow microbes in controlled conditions to produce colours that are biodegradable and non-toxic. They are consistent, replicable and use fewer resources for production and dyeing.
               </p>
-              <p className="text-[1.15rem] md:text-xl text-text-muted font-light leading-[1.8] text-justify">
+              <p className="text-text-muted font-light leading-[1.8] text-justify" style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 Microbial dyes combine the ecological safety of plant dyes with the scalability of synthetics making them a sustainable solution.
               </p>
-              <p className='text-[1.15rem] md:text-xl font-medium leading-[1.8] text-gold mt-6 text-justify'>
+              <p className='font-medium leading-[1.8] text-gold mt-6 text-justify' style={{ fontSize: 'clamp(0.95rem, 1.35vw, 1.25rem)' }}>
                 We envision a world in which the colours we wear are in harmony with the planet and people.
               </p>
             </div>
